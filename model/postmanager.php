@@ -1,22 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of PostsManager
- *
- * @author Programmation
- */
-require('Manager.php');
-
-class PostsManager extends DBfactory {
+class PostsManager{
         
     public function GetPost($postid){
-        $db = PostsManager::Getinstance();
+        $db = DBfactory::Getinstance();
         $req = $db->prepare('SELECT * FROM posts WHERE postid = :postid');
         $req->execute(array(
             'postid' => $postid
@@ -25,7 +12,7 @@ class PostsManager extends DBfactory {
         return $post;
     }
     static public function GetPosts(){
-        $db = PostsManager::Getinstance();
+        $db = DBfactory::Getinstance();
         $req = $db->query('SELECT * from posts');
         while($donnees=$req->fetch()){
             $posts[]=$donnees;
@@ -42,3 +29,4 @@ class PostsManager extends DBfactory {
         
     }
 }
+
