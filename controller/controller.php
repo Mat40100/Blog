@@ -1,8 +1,20 @@
 <?php
-    require(__DIR__.'/class/PostsManager.php');
-    
-    $var = new PostsManager();
-    $posts = $var->GetPosts();
-    print_r($posts);
-    echo $twig->render('home.twig', ['post'=>$posts]);
 
+require './model/postmanager.php';
+
+
+class Controller{
+    private $twig;
+    
+    public function __construct() {
+        $this->twig = $twig = PostsManager::twig();
+    }
+    public function liste(){
+        $posts = PostsManager::GetPosts();
+        echo $this->twig->render('listposts.twig', ['posts'=>$posts]);
+    }
+    public function post($id){
+        $post = PostsManager::GetPost($id);
+        echo $this->twig->render('post.twig', ['post'=>$post]);
+    }
+}

@@ -13,19 +13,19 @@
  */
 require('Manager.php');
 
-class PostsManager extends Manager {
-    
-    
-    public function GetPost($postid){
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT * from posts WHERE postid=:postid');
-        $req->execute(array('postid' => $postid));
-        $post = $req->fetch(PDO::FETCH_ASSOC);
+class PostsManager extends DBfactory {
         
+    public function GetPost($postid){
+        $db = PostsManager::Getinstance();
+        $req = $db->prepare('SELECT * FROM posts WHERE postid = :postid');
+        $req->execute(array(
+            'postid' => $postid
+                ));
+        $post = $req->fetch();
         return $post;
     }
-    public function GetPosts(){
-        $db = $this->dbConnect();
+    static public function GetPosts(){
+        $db = PostsManager::Getinstance();
         $req = $db->query('SELECT * from posts');
         while($donnees=$req->fetch()){
             $posts[]=$donnees;

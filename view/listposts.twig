@@ -1,0 +1,15 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    <h1>Liste des postes</h1>
+    {% endblock %}
+
+
+{% block listposts %}
+    {% for post in posts %}
+        <p>{{ post.title }}</p>        
+        {% endfor %}
+    {% endblock %}
+
+{% block post %}
+    {% endblock %}
