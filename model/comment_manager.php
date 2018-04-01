@@ -17,6 +17,9 @@ class comment_manager {
     }
     
     static public function add_comment(array $comment){
+        if(empty($_POST['comment']) or empty($_POST['email']) or empty($_POST['first_name']) or empty($_POST['last_name']) or empty($_GET['post'])){
+            return false;
+        }
         $db = DBfactory::Getinstance();
         $req = $db->prepare('INSERT INTO comments(postid, last_name, first_name, email, last_mod, comment) VALUES(:postid, :last_name, :first_name, :email, :last_mod, :comment)');
         $req->execute(array(

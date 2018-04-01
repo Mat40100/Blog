@@ -4,35 +4,77 @@
 
     <div class="container-fluid p-0">
         <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="education">
-            <div class="container-fluid row justify-content-md-center">
-                <h2 class="col-mx-auto">{{ post.title}}</h2>
-                <p class="col my-auto text-md-left">by {{post.author_nickname}} </p>
+            <div class="row">
+                <h2 class="col text-md-right">{{ post.title}}</h2>
+                <p class="col text-md-left my-auto">by {{post.author_nickname}} le {{ post.last_mod }} </p>
+                <div class="w-100"></div>
+                <p class="col lead text-center font-italic border-top border-bottom">{{ post.chapo }}</p>
             </div>
 
-            <div class="row-fluid text-capitalized text-justify">
+
+            <div class="row-fluid mx-auto my-4 text-capitalized text-justify">
                 {% autoescape %}
                     {{post.content|raw}}
                 {% endautoescape %}
 
             </div>
-        {% block list_comment  %}
-        {% for comment in comments %}
-            <div class="row-fluid my-4 ml-5 border border-info">
-                <p>{{ comment.first_name }} {{comment.last_name}} <small>le {{comment.last_mod}}</small></p>
-                <div class="row-fluid ml-3 text-justify">{{comment.comment}}</div>
-            </div>
-        {% endfor %}
-        {% endblock %}
-        {% block input_comment  %}
 
-                <form method="post" action="index.php?p=add_comment&post=1">
-                    <input type="text" name="last_name" value="Nom de famille">
-                    <input type="text" name="first_name" value="Prénom">
-                    <input type="email" name="email" value="E-mail">
-                    <input type="textarea" name="comment" value="Votre commentaire">    
-                    <input type="submit" value="Valider">
-                </form>
+            {% block list_comment  %}
+                <div class="border-top my-2">
+                    <h4>Commentaires</h4>
+                    <div class="position-absolute">
+                        {% block input_comment  %}
+
+                            <form class="needs-validation d-flex flex-column" method="post" action="index.php?p=add_comment&post=1" novalidate>
+                                <div class="form-col">
+                                    <div class="">
+                                        <input type="text" name="last_name" class="form-control" id="validationCustom01" placeholder="Nom" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <input type="text" name="first_name" class="form-control" id="validationCustom02" placeholder="Prénom" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="">
+                                        <input type="email" name="email" class="form-control" id="validationCustom05" placeholder="E-mail" required>
+                                        <div class="invalid-feedback">
+                                            Donnez un mail valide.
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <input type="text" name="comment" class="form-control" id="validationCustom06" placeholder="Commentaire" required>
+                                        <div class="invalid-feedback">
+                                            Ne laissez pas le commentaire vide.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary" type="submit">Submit form</button>
+                            </form>
+                            <div class="validation alert alert-primary" style="display:none" role="alert">
+                                Votre commentaire sera soumis à validation.
+                            </div>
+
+                        {% endblock %}
+                    </div>
+                    {% for comment in comments %}
+                        <div class="row w-50 my-2 py-2 mx-auto flex-column border-bottom ">
+                            <div class="mx-auto border-bottom">{{ comment.first_name }} {{comment.last_name}} <small>le {{comment.last_mod}}</small></div>
+                            <div class="mx-auto">{{comment.comment}}</div>
+                        </div>
+                    {% endfor %}
+                </div>
             {% endblock %}
-    </section>
-</div> 
+
+
+        </section>
+    </div>
+
 {% endblock %}
+
