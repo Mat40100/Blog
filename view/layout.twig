@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html style="display:none" lang="en">
 
     <head>
 
@@ -27,13 +27,13 @@
 
     <body id="page-top">
 
-    {% block navbar %} 
-        
+        {% block navbar %} 
+
         {% endblock %}
 
-    
-    {% block content %}
-    
+
+        {% block content %}
+
         {% endblock %}
 
         <!-- Bootstrap core JavaScript -->
@@ -45,7 +45,14 @@
 
         <!-- Custom scripts for this template -->
         <script src="./theme/js/resume.min.js"></script>
-        <script src="./js/function.js"></script>   
+        <script src="./js/function.js"></script>
+        <script type="text/javascript">
+
+            window.onload = function () {
+                window.setInterval(function () {jQuery('html').fadeIn(500);},0);
+            };
+
+        </script>
     </body>
 
 </html>

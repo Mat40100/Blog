@@ -17,3 +17,7 @@
             }, false);                                
         })();
   
+  
+  function changement(){
+    jQuery('html').fadeOut(500); 
+  }
