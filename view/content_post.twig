@@ -1,1 +1,38 @@
-{# empty Twig template #}
+{%extends 'layout.twig' %}
+
+{% block content  %}
+
+    <div class="container-fluid p-0">
+        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="education">
+            <div class="container-fluid row justify-content-md-center">
+                <h2 class="col-mx-auto">{{ post.title}}</h2>
+                <p class="col my-auto text-md-left">by {{post.author_nickname}} </p>
+            </div>
+
+            <div class="row-fluid text-capitalized text-justify">
+                {% autoescape %}
+                    {{post.content|raw}}
+                {% endautoescape %}
+
+            </div>
+        {% block list_comment  %}
+        {% for comment in comments %}
+            <div class="row-fluid my-4 ml-5 border border-info">
+                <p>{{ comment.first_name }} {{comment.last_name}} <small>le {{comment.last_mod}}</small></p>
+                <div class="row-fluid ml-3 text-justify">{{comment.comment}}</div>
+            </div>
+        {% endfor %}
+        {% endblock %}
+        {% block input_comment  %}
+
+                <form method="post" action="index.php?p=add_comment&post=1">
+                    <input type="text" name="last_name" value="Nom de famille">
+                    <input type="text" name="first_name" value="Prénom">
+                    <input type="email" name="email" value="E-mail">
+                    <input type="textarea" name="comment" value="Votre commentaire">    
+                    <input type="submit" value="Valider">
+                </form>
+            {% endblock %}
+    </section>
+</div> 
+{% endblock %}

@@ -1,6 +1,6 @@
 <?php
 
-class Home{
+class acceuil{
     protected $infos;
     
     static function getInfos() {
