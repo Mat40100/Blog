@@ -9,10 +9,12 @@ class Router {
                 $Controller->home();
             }
             elseif($_GET['p'] == "blog"){
-                if(isset($_GET['post'])){
+                
+                if($_GET['d']=='post'){
                     $id = intval($_GET['post']);
                     $Controller->post($id);
-                }else{
+                }
+                elseif($_GET['d']=='list'){
                     $Controller->liste();
                 }
             }

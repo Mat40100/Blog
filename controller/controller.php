@@ -12,14 +12,15 @@ class Controller{
     }
     public function liste(){
         $posts = PostsManager::GetPosts();
-        echo $this->twig->render('layout_blog.twig', ['posts'=>$posts]);
+        echo $this->twig->render('content_list.twig', ['posts'=>$posts]);
     }
     public function post($id){
         $post = PostsManager::GetPost($id);
-        echo $this->twig->render('layout_blog.twig', ['post'=>$post]);
+        echo $this->twig->render('content_post.twig', ['post'=>$post]);
     }
     public function home(){
         $home = Home::getInfos();
-        echo $this->twig->render('layout_home.twig', ['infos' => $home]);
+        echo $this->twig->render('content_home.twig', ['infos' => $home]);
+        echo $this->twig->render('navbar.twig');
     }
 }
