@@ -26,6 +26,7 @@
                         {% block input_comment  %}
 
                             <form class="needs-validation d-flex flex-column" method="post" action="index.php?p=add_comment&post=1" novalidate>
+                                <input type="hidden" name="postid" value="{{post.postid}}">
                                 <div class="form-col">
                                     <div class="">
                                         <input type="text" name="last_name" class="form-control" id="validationCustom01" placeholder="Nom" required>

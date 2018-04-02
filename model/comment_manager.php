@@ -28,7 +28,7 @@ class comment_manager {
             'email' => $_POST['email'],
             'first_name' => $_POST['first_name'],
             'last_name' => $_POST['last_name'],
-            'postid' => $_GET['post']
+            'postid' => $_POST['postid']
             ));
     }
     

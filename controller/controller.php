@@ -32,8 +32,7 @@ class Controller{
     }
     public function add_comment(){
         comment_manager::add_comment($_POST);
-        echo "<script type='text/javascript'>document.location.replace('index.php?p=blog&d=post&id=".$_GET['post']."');</script>";
-
+        echo "<script type='text/javascript'>document.location.replace('index.php?p=blog&d=post&id=".$_POST['postid']."');</script>";
     }
     public function ERR(){
         
