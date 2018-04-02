@@ -25,10 +25,10 @@ class User {
                 $this->setNickname($infos['nickname']);
                 $this->setUserlvl($infos['userlvl']);
                 $this->setTicket();
-                header('location: ?p=home');
+                header('location: ?p=home#about');
             }else{
                 Users_manager::wrong_pass($_SERVER['REMOTE_ADDR']);
-                header('location: ?p=home');
+                header('location: ?p=home#login');
             }
         }else{
             session_destroy();
@@ -39,7 +39,7 @@ class User {
     public function getNickname() {
         return $this->nickname;
     }
-    function getUserlvl() {
+    public function getUserlvl() {
         return $this->userlvl;
     }
     private function setUserlvl($userlvl) {
@@ -52,7 +52,6 @@ class User {
         $this->ticket = hash('sha512', session_id().microtime().rand(0,9999999999));
         setcookie('ticket', $this->ticket,time()+(60*20));
     }
-
     private function test_ip() {
         $ip = $_SERVER['REMOTE_ADDR'];
         $count = Users_manager::getCount_Ip($ip);
@@ -62,7 +61,6 @@ class User {
             return true;
         }
     }
-    
     public function verif_ticket(){
         if($_COOKIE['ticket']==$this->ticket){
             $this->setTicket();
@@ -72,7 +70,6 @@ class User {
             header('location: ?p=home');
         }
     }
-    
     public function disconnect(){
         session_destroy();
         header('location : ?p=home');

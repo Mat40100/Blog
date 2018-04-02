@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once './model/factory.php';
 require './model/post_manager.php';
 require './model/acceuil.php';
@@ -7,17 +6,20 @@ require './model/users_manager.php';
 require './model/format_content.php';
 require './model/comment_manager.php';
 require './model/entity/User.php';
-
+session_start();
 
 class Controller{
     private $twig;
     
     public function __construct() {
-        $this->twig = $twig = DBfactory::twig();
+        $this->twig = DBfactory::twig();
+        $this->twig->addGlobal("session",$_SESSION['user']);
     }
     public function liste(){
         $posts = PostsManager::GetPosts();      
-        echo $this->twig->render('content_list.twig', ['posts'=>$posts]);
+        echo $this->twig->render('content_list.twig', [
+            'posts'=>$posts,
+                ]);
         echo $this->twig->render('navbar_blog.twig');
     }
     public function post($id){
@@ -36,13 +38,7 @@ class Controller{
         comment_manager::add_comment($_POST);
         echo "<script type='text/javascript'>document.location.replace('index.php?p=blog&d=post&id=".$_POST['postid']."');</script>";
     }
-    public function ERR(){
-        
-    }
-    public function test(){
-    $_SESSION['user'] = new User('mathieu.dolhen@gmail.com','Ecuelles');
-    echo $_SESSION['user']->getNickname();
-    echo $_SESSION['user']->getUserlvl();
-    var_dump($_SESSION['user']);
+    public function log(){
+        $_SESSION['user'] =  new User($_POST['email'],$_POST['pwd']);
     }
 }

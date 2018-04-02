@@ -1,32 +1,49 @@
 <?php
+
 require './controller/controller.php';
 
 class Router {
     public static function redirect(){
-        if(isset($_GET['p'])){
-            $Controller = new Controller($twig);
-            if($_GET['p'] == "home"){
-                $Controller->acceuil();
-            }
-            elseif($_GET['p'] == "blog"){
-                
-                if($_GET['d']=='post' && isset($_GET['id'])){
-                    $id = intval($_GET['id']);
-                    $Controller->post($id);
+        $Controller = new Controller();
+        switch($_GET['p']){
+            case 'home':
+                switch($_GET['d']){
+                    case '':
+                        $Controller->acceuil();
+                        break;
+                    
+                    case 'connect':
+                        $Controller->log();
+                        break;
+                    case 'disconnect':
+                        //$Controller->disconnect();
+                        break;
+                    default :
+                        $Controller->acceuil();
+                        break;
                 }
-                elseif($_GET['d']=='post' && !isset($_GET['id'])){
-                    $Controller->ERR();
+                break;
+            
+            case 'blog':
+                switch($_GET['d']){
+                    case 'post':
+                        if(!isset($_GET['id']) or $_GET['id']=='0'){$Controller->acceuil();}
+                        $id= intval($_GET['id']);
+                        $Controller->post($id);
+                        break;
+                        
+                    case 'list':
+                        $Controller->liste();
+                        break;
+                    
+                    default :
+                        $Controller->liste();
+                        break;
                 }
-                elseif($_GET['d']=='list'){
-                    $Controller->liste();
-                }
-            }
-            elseif($_GET['p'] == 'add_comment'){
-               $Controller->add_comment();
-            }elseif($_GET['p']== "test"){
-                $Controller->test();
-            }
+                break;            
         }
     }
 }
+session_start();
  Router::redirect();
+ 

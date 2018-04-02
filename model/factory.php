@@ -10,8 +10,10 @@ class DBfactory{
         require_once './vendor/autoload.php';
         $loader = new Twig_Loader_Filesystem('./view');
             self::$twig = new Twig_Environment($loader, array(
-                'cache' => False//__DIR__.'/tmp'
-        ));
+                'cache' => False,//__DIR__.'/tmp'
+                'debug' => true
+                ));
+            self::$twig->addExtension(new Twig_Extension_Debug());
         return self::$twig;
     }
     
