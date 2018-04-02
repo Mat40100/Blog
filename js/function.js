@@ -23,9 +23,7 @@ function changement() {
 }
 
 window.onload = function () {
-    window.setInterval(function () {
-        jQuery('html').fadeIn(500);
-    }, 0);
+    jQuery('html').fadeIn(500);
 };
 
 

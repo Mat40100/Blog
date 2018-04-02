@@ -1,90 +1,108 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-<div class="container-fluid p-0">
+    <div class="container-fluid p-0">
 
-            <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
-                <div class="my-auto">
-                    <h1 class="mb-0">{{infos.name}}
-                        <span class="text-primary">{{infos.surname}}</span>
-                    </h1>
-                    <div class="subheading mb-5">{{infos.adress}}
-                        <a href="mailto:{{infos.email}}">{{infos.email}}</a>
-                    </div>
-                    <p class="mb-5">{{infos.chapo}}</p>
-                    <ul class="list-inline list-social-icons mb-0">
-                        <li class="list-inline-item">
-                            <a href="{{infos.facebook}}">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="{{infos.twitter}}">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="{{infos.linkedin}}">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="{{infos.github}}">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
+        <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
+            <div class="my-auto">
+                <h1 class="mb-0">{{infos.name}}
+                    <span class="text-primary">{{infos.surname}}</span>
+                </h1>
+                <div class="subheading mb-5">{{infos.adress}}
+                    <a href="mailto:{{infos.email}}">{{infos.email}}</a>
                 </div>
-            </section>
+                <p class="mb-5">{{infos.chapo}}</p>
+                <ul class="list-inline list-social-icons mb-0">
+                    <li class="list-inline-item">
+                        <a href="{{infos.facebook}}">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{{infos.twitter}}">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{{infos.linkedin}}">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{{infos.github}}">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
-            <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="cv">
-                <div class="my-auto">
-                    <h2 class="mb-5">Education</h2>
+        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="cv">
+            <div class="my-auto">
+                <h2 class="mb-5">Education</h2>
 
-                    <div class="resume-item d-flex flex-column flex-md-row mb-5">
-                        <div class="resume-content mr-auto">
-                            <h3 class="mb-0">University of Colorado Boulder</h3>
-                            <div class="subheading mb-3">Bachelor of Science</div>
-                            <div>Computer Science - Web Development Track</div>
-                            <p>GPA: 3.23</p>
-                        </div>
-                        <div class="resume-date text-md-right">
-                            <span class="text-primary">August 2006 - May 2010</span>
-                        </div>
+                <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                    <div class="resume-content mr-auto">
+                        <h3 class="mb-0">University of Colorado Boulder</h3>
+                        <div class="subheading mb-3">Bachelor of Science</div>
+                        <div>Computer Science - Web Development Track</div>
+                        <p>GPA: 3.23</p>
                     </div>
-
-                    <div class="resume-item d-flex flex-column flex-md-row">
-                        <div class="resume-content mr-auto">
-                            <h3 class="mb-0">James Buchanan High School</h3>
-                            <div class="subheading mb-3">Technology Magnet Program</div>
-                            <p>GPA: 3.56</p>
-                        </div>
-                        <div class="resume-date text-md-right">
-                            <span class="text-primary">August 2002 - May 2006</span>
-                        </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">August 2006 - May 2010</span>
                     </div>
-
                 </div>
-            </section>
 
-            <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="login">
-                <div class="my-auto">
-                    <h2 class="mb-5">Se logguer</h2>
-                    
+                <div class="resume-item d-flex flex-column flex-md-row">
+                    <div class="resume-content mr-auto">
+                        <h3 class="mb-0">James Buchanan High School</h3>
+                        <div class="subheading mb-3">Technology Magnet Program</div>
+                        <p>GPA: 3.56</p>
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">August 2002 - May 2006</span>
+                    </div>
                 </div>
-            </section>
 
-        </div>
+            </div>
+        </section>
+
+        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="login">
+            <div class="d-flex flex-column w-100 my-auto">
+                <h2 class="mb-5 w-100 text-left">Se logguer</h2>
+                <form class="w-100" method="post" action="index.php?p=add_comment&post=1" novalidate>
+                    <div class="form-col w-25 mx-auto d-flex flex-column justify-content-center">
+                        <div class="">
+                            <input type="email" name="email" class="form-control text-center" id="validationCustom01" placeholder="Email" required>
+                            <div class="valid-feedback">
+                                :)
+                            </div><div class="invalid-feedback">
+                                Donnez un email valide.
+                            </div>
+                        </div>
+                        <div class="">
+                            <input type="password" name="pwd" class="form-control text-center" id="validationCustom02" placeholder="Mot de passe" required>
+                            <div class="invalid-feedback">
+                                Entrez un mot de passe.
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Submit form</button>
+                    </div>                    
+                </form>
+            </div>
+        </section>
+
+    </div>
 {% endblock %}
