@@ -19,11 +19,11 @@
 
 
 function changement() {
-    jQuery('html').fadeOut(500);
+    jQuery('html').fadeOut(250);
 }
 
 window.onload = function () {
-    jQuery('html').fadeIn(500);
+    jQuery('html').fadeIn(250);
 };
 
 

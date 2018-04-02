@@ -32,6 +32,11 @@
                         <a class="nav-link js-scroll-trigger" onclick="changement();" href="http://klaynetv-online.fr/?p=home#login">Se connecter</a>
                     </li>    
                 {% endif %}
+                {% if session.Userlvl <= 2 and session.Userlvl is defined %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="http://klaynetv-online.fr/?p=admin" onclick="changement();" >{{session.Userlvl}}Administration</a>
+                    </li>
+                    {% endif %}
             </ul>
         </div>
     </nav>

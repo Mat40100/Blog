@@ -16,7 +16,7 @@ class Router {
                         $Controller->log();
                         break;
                     case 'disconnect':
-                        //$Controller->disconnect();
+                        $Controller->disconnect();
                         break;
                     default :
                         $Controller->acceuil();
@@ -45,5 +45,9 @@ class Router {
     }
 }
 session_start();
+
+if(isset($_SESSION['user'])){
+   $_SESSION['user']->verif_ticket(); 
+}
  Router::redirect();
  

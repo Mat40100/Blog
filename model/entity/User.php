@@ -18,7 +18,7 @@ class User {
     public $nickname;
 
     public function __construct($email, $pwd) {
-        sleep(1);
+        sleep(0.5);
         if($this->test_ip()){
             if(Users_manager::testPwd($email,$pwd)){
                 $infos = Users_manager::getInfos($email);
@@ -62,7 +62,7 @@ class User {
         }
     }
     public function verif_ticket(){
-        if($_COOKIE['ticket']==$this->ticket){
+        if(isset($_COOKIE['ticket']) and ($this->ticket == $_COOKIE['ticket'])){
             $this->setTicket();
         }else{
             $_SESSION=array();

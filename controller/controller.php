@@ -14,7 +14,7 @@ class Controller{
     public function __construct() {
         $this->twig = DBfactory::twig();
         $this->twig->addGlobal("session",$_SESSION['user']);
-    }
+        }
     public function liste(){
         $posts = PostsManager::GetPosts();      
         echo $this->twig->render('content_list.twig', [
@@ -40,5 +40,11 @@ class Controller{
     }
     public function log(){
         $_SESSION['user'] =  new User($_POST['email'],$_POST['pwd']);
+    }
+    public function disconnect(){
+       $_SESSION=array();
+       session_destroy;
+       sleep(0.5);
+       header('location: ?p=home#about');
     }
 }
