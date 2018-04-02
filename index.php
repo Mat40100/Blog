@@ -23,6 +23,8 @@ class Router {
             }
             elseif($_GET['p'] == 'add_comment'){
                $Controller->add_comment();
+            }elseif($_GET['p']== "test"){
+                $Controller->test();
             }
         }
     }

@@ -1,10 +1,12 @@
 <?php
+session_start();
 require_once './model/factory.php';
 require './model/post_manager.php';
 require './model/acceuil.php';
 require './model/users_manager.php';
 require './model/format_content.php';
 require './model/comment_manager.php';
+require './model/entity/User.php';
 
 
 class Controller{
@@ -36,5 +38,11 @@ class Controller{
     }
     public function ERR(){
         
+    }
+    public function test(){
+    $_SESSION['user'] = new User('mathieu.dolhen@gmail.com','Ecuelles');
+    echo $_SESSION['user']->getNickname();
+    echo $_SESSION['user']->getUserlvl();
+    var_dump($_SESSION['user']);
     }
 }

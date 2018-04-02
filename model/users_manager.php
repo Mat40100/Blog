@@ -11,17 +11,41 @@
  *
  * @author Programmation
  */
-class users_manager {
-    
-    protected $nickname;
-    
-    public static function giveNickname($id) {
+class Users_manager {
+    public static function getNickname($id) {
         $db = DBfactory::Getinstance();
-        $req = $db->prepare('SELECT nickname FROM users WHERE userid = :id');
-        $req->execute(array(
-            'id' => $id
-                ));
+        $req = $db->prepare('SELECT nickname FROM users WHERE userid = ?');
+        $req->execute(array(strtolower($id)));
         $result = $req->fetch(PDO::FETCH_ASSOC);
         return $result['nickname'];
+    }
+    public static function getInfos($email){
+        $db = DBfactory::Getinstance();
+        $req = $db->prepare('SELECT nickname,userlvl FROM users WHERE email = ?');
+        $req->execute(array($email));
+        return $result=$req->fetch(PDO::FETCH_ASSOC);
+    }
+    public static function getCount_Ip($ip){
+        $db = DBfactory::Getinstance();
+        $recherche = $db->prepare('SELECT ip FROM connexion WHERE ip = ?');
+        $recherche->execute(array($ip));
+        return $count = $recherche->rowCount();
+    }
+    
+    public static function testPwd($email,$pwd){
+        $db = DBfactory::Getinstance();
+        $req = $db->prepare('SELECT pwd FROM users WHERE email = ?');
+        $req->execute(array(strtolower($email)));
+        $result = $req->fetch(PDO::FETCH_ASSOC);
+        if(password_verify($pwd, $result['pwd'])){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public static function wrong_pass($ip){
+        $db = DBfactory::Getinstance();
+        $req = $db->prepare('INSERT INTO connexion(ip) VALUES(?)');
+        $req->execute(array($ip));
     }
 }

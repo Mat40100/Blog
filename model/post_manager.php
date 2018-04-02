@@ -11,14 +11,14 @@ class PostsManager{
             'postid' => $postid
                 ));
         $post = $req->fetch(PDO::FETCH_ASSOC);
-        $post['author_nickname']= users_manager::giveNickname($post['authorid']);
+        $post['author_nickname']= users_manager::getNickname($post['authorid']);
         return $post;
     }
     static public function GetPosts(){
         $db = DBfactory::Getinstance();
         $req = $db->query('SELECT * from posts');
         while($donnees=$req->fetch(PDO::FETCH_ASSOC)){
-            $donnees['author_nickname']= users_manager::giveNickname($donnees['authorid']);
+            $donnees['author_nickname']= users_manager::getNickname($donnees['authorid']);
             $posts[]=$donnees;
         }
         return $posts;
