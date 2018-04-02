@@ -18,7 +18,7 @@ class Format_content {
     static public function format($content){
         
         $content = htmlspecialchars($content);
-        $content = preg_replace('`\[img\](.+)\[/img\]`isU', '<img src="$1">', $content);
+        $content = preg_replace('`\[img\](.+)\[/img\]`isU', '<img class="img-fluid" style="max-width: 100%;height:auto;" src="$1">', $content);
         //gras
         $content = preg_replace('`\[g\](.+)\[/g\]`isU', '<strong>$1</strong>', $content); 
         //italique

@@ -3,10 +3,10 @@
 {% block content  %}
 
     <div class="container-fluid p-0">
-        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="education">
-            <div class="row">
-                <h2 class="col text-md-right">{{ post.title}}</h2>
-                <p class="col text-md-left my-auto">by {{post.author_nickname}} le {{ post.last_mod }} </p>
+        <section class="resume-section container-fluid d-flex flex-column">
+            <div class="row d-flex flex-auto">
+                <h2 class="col-lg-5 text-center text-lg-right">{{ post.title}}</h2>
+                <p class="col-lg-5 text-center text-lg-left my-auto">by {{post.author_nickname}} le {{ post.last_mod }} </p>
                 <div class="w-100"></div>
                 <p class="col lead text-center font-italic border-top border-bottom">{{ post.chapo }}</p>
             </div>
@@ -20,11 +20,18 @@
             </div>
 
             {% block list_comment  %}
-                <div class="border-top my-2">
-                    <h4>Commentaires</h4>
-                    <div class="position-absolute">
+                <div class="d-flex flex-column flex-xl-row flex-lg-wrap my-4 text-capitalized text-justify">
+                    <h4 class="col-12 text-center ">Commentaires</h4>
+                    <div class="col-lg-8 mx-auto">
+                        {% for comment in comments %}
+                            <div class="d-flex flex-column border-bottom align-content-center py-2">
+                                <div class="mx-auto border-bottom">{{ comment.first_name }} {{comment.last_name}} <small>le {{comment.last_mod}}</small></div>
+                                <div class="mx-auto">{{comment.comment}}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-lg-4 mx-auto col-sm-4">
                         {% block input_comment  %}
-
                             <form class="needs-validation d-flex flex-column" method="post" action="index.php?p=add_comment" novalidate>
                                 <input type="hidden" name="postid" value="{{post.postid}}">
                                 <div class="form-col">
@@ -56,20 +63,16 @@
                                     </div>
                                 </div>
 
-                                <button class="btn btn-primary" type="submit">Submit form</button>
+                                <button class="btn btn-primary" type="submit">Envoyer le commentaire</button>
+                                <div class="validation alert alert-primary" role="alert">
+                                    Votre commentaire sera soumis à validation.
+                                </div>
+
                             </form>
-                            <div class="validation alert alert-primary" role="alert">
-                                Votre commentaire sera soumis à validation.
-                            </div>
 
                         {% endblock %}
                     </div>
-                    {% for comment in comments %}
-                        <div class="row w-50 my-2 py-2 mx-auto flex-column border-bottom ">
-                            <div class="mx-auto border-bottom">{{ comment.first_name }} {{comment.last_name}} <small>le {{comment.last_mod}}</small></div>
-                            <div class="mx-auto">{{comment.comment}}</div>
-                        </div>
-                    {% endfor %}
+
                 </div>
             {% endblock %}
 
