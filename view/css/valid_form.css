@@ -1,0 +1,6 @@
+valid_comment{
+    min-height: 100px;
+}
+unvalid_comments{
+    border: 2px #149bdf solid; 
+}

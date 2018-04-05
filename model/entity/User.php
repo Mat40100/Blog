@@ -18,16 +18,15 @@ class User {
     public $nickname;
 
     public function __construct($email, $pwd) {
-        sleep(0.5);
         if($this->test_ip()){
-            if(Users_manager::testPwd($email,$pwd)){
-                $infos = Users_manager::getInfos($email);
+            if(UsersManager::testPwd($email,$pwd)){
+                $infos = UsersManager::getInfos($email);
                 $this->setNickname($infos['nickname']);
                 $this->setUserlvl($infos['userlvl']);
                 $this->setTicket();
                 header('location: ?p=home#about');
             }else{
-                Users_manager::wrong_pass($_SERVER['REMOTE_ADDR']);
+                UsersManager::wrong_pass($_SERVER['REMOTE_ADDR']);
                 header('location: ?p=home#login');
             }
         }else{
@@ -45,7 +44,7 @@ class User {
     private function setUserlvl($userlvl) {
         $this->userlvl = $userlvl;
     }
-    private function setNickname($nickname) {
+    private function setNickname($nickname) { 
         $this->nickname = $nickname;
     }
     private function setTicket() {
@@ -54,7 +53,7 @@ class User {
     }
     private function test_ip() {
         $ip = $_SERVER['REMOTE_ADDR'];
-        $count = Users_manager::getCount_Ip($ip);
+        $count = UsersManager::getCount_Ip($ip);
         if($count>10){
             return false;
         }else{

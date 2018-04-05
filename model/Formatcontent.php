@@ -11,7 +11,7 @@
  *
  * @author Programmation
  */
-class Format_content {
+class Formatcontent {
     private function __construct() {
     }
     

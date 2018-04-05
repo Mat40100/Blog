@@ -11,7 +11,7 @@
  *
  * @author Programmation
  */
-class Comment_manager {
+class CommentManager {
     private function __construct() {
         ;
     }

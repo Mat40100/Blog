@@ -11,7 +11,7 @@
  *
  * @author Programmation
  */
-class Users_manager {
+class UsersManager {
     public static function getNickname($id) {
         $db = DBfactory::Getinstance();
         $req = $db->prepare('SELECT nickname FROM users WHERE userid = ?');
