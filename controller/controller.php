@@ -1,12 +1,9 @@
 <?php
 
-require_once './model/factory.php';
-require './model/post_manager.php';
-require './model/acceuil.php';
-require './model/users_manager.php';
-require './model/format_content.php';
-require './model/comment_manager.php';
+require './autoloader.php';
+Autoloader::register('model');
 require './model/entity/User.php';
+
 session_start();
 
 class Controller {
@@ -28,8 +25,8 @@ class Controller {
 
     public function post($id) {
         $post = PostsManager::GetPost($id);
-        $comments = Comment_manager::getComments($id);
-        $post['content'] = Format_content::format($post['content']);
+        $comments = CommentManager::getComments($id);
+        $post['content'] = Formatcontent::format($post['content']);
         echo $this->twig->render('content_post.twig', ['post' => $post, 'comments' => $comments]);
         echo $this->twig->render('navbar_blog.twig');
     }
@@ -43,7 +40,7 @@ class Controller {
     public function admin() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() <= 2) {
-                $unvalid_comments = comment_manager::getUnvalid_Comments();
+                $unvalid_comments = CommentManager::getUnvalid_Comments();
                 echo $this->twig->render('navbar_admin.twig');
                 echo $this->twig->render('content_admin.twig', ['unvalid_comments' => $unvalid_comments]);
             } else {
@@ -55,7 +52,7 @@ class Controller {
     }
 
     public function add_comment() {
-        if (Comment_manager::add_comment($_POST)) {
+        if (CommentManager::add_comment($_POST)) {
             header('location: index.php?p=blog&$d=post&id=' . $_POST['postid']);
         } else {
             //Probleme
@@ -66,7 +63,7 @@ class Controller {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() <= 2) {
                 foreach ($_POST as $commentid => $value) {
-                    Comment_manager::valid_comment($commentid);
+                    CommentManager::valid_comment($commentid);
                 }
                 header('location: ?p=admin');
             }

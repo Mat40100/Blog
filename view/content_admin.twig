@@ -8,20 +8,20 @@
             </section>
         {% endif %}#}
 
-        <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
+        <section class="resume-section p-3 p-lg-5 d-flex d-column Unvalid_comment" id="about">
             <div class="container">
-                <form method="post" action="?p=valid_comment">
+                <form class="row d-flex flex-column" method="post" action="?p=valid_comment">
                     {% for unvalid_comment in unvalid_comments %}
-                        <div class="row border border-gray my-3">
-                            <div class="col-2">{{unvalid_comment.last_mod}}</div>
-                            <div class="col-1">{{unvalid_comment.last_name}}</div>
-                            <div class="col-1">{{unvalid_comment.first_name}}</div>
-                            <div class="col-4">Titre de l'article : {{unvalid_comment.title}}</div>
-                            <div class="col-3">Valider : <input type="checkbox" name="{{unvalid_comment.comment_id}}"></div>
-                            <div class="col-12 border border-#{303E4B}">{{unvalid_comment.comment}}</div>
+                        <div class="row border border-gray my-3 d-flex flex-md-row flex-column">
+                            <div class="col-12 col-md-3 my-auto"><strong>Le : </strong>{{unvalid_comment.last_mod}}</div>
+                            <div class="col-12 col-md-3 my-auto"><strong>De : </strong>{{unvalid_comment.last_name}} {{unvalid_comment.first_name}}</div>
+                            <div class="col-12 col-md-3 my-auto"><strong>Article : </strong>{{unvalid_comment.title}}</div>
+                            <div class="mx-3 d-flex flex-row"><p>Valider</p><input class="col-12 col-md-5" type="checkbox" value="Valider" name="yes_{{unvalid_comment.comment_id}}"></div>
+                            <div class="mx-3"><p>Supprimer</p><input class="col-12 col-md-7" type="checkbox" value="Supprimer" name="no_{{unvalid_comment.comment_id}}"></div>
+                            <div class="col-12 border text-center py-3">{{unvalid_comment.comment}}</div>
                         </div>
                     {%endfor%}
-                    <input type="submit" value="valider">
+                    <input class="btn btn-primary mx-auto" type="submit" value="valider">
                 </form>
             </div>
         </section>
