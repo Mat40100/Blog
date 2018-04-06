@@ -61,15 +61,15 @@ class User {
                 $this->setNickname($infos['nickname']);
                 $this->setUserlvl($infos['userlvl']);
                 $this->setTicket();
-                header('location: ?p=home#about');
+                return true;
             }else{
                 $this->Uman->wrong_pass($_SERVER['REMOTE_ADDR']);
-                header('location: ?p=home#login');
+                return false;
             }
         }else{
             session_destroy();
             echo "<script>alert('Trop de tentatives, réessayez demain.')</script>";
-            header('location: ?p=home');
+            return false;
         }
     }
     public function disconnect(){

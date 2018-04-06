@@ -84,7 +84,11 @@ class Controller {
 
     public function log() {
         $_SESSION['user'] = new User();
-        $_SESSION['user']->connect($_POST['email'], $_POST['pwd']);
+        if($_SESSION['user']->connect($_POST['email'], $_POST['pwd'])){
+           header('location: ?p=admin');
+        }else{
+           header('location: ?p=home#login');
+        }        
     }
 
     public function disconnect() {
