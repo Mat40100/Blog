@@ -83,7 +83,8 @@ class Controller {
     }
 
     public function log() {
-        $_SESSION['user'] = new User($_POST['email'], $_POST['pwd']);
+        $_SESSION['user'] = new User();
+        $_SESSION['user']->connect($_POST['email'], $_POST['pwd']);
     }
 
     public function disconnect() {

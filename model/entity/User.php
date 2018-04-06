@@ -17,24 +17,8 @@ class User {
     protected $userlvl;
     public $nickname;
 
-    public function __construct($email, $pwd) {
+    public function __construct() {
         $this->Uman= new UsersManager();
-        if($this->test_ip()){
-            if($this->Uman->testPwd($email,$pwd)){
-                $infos = UsersManager::getInfos($email);
-                $this->setNickname($infos['nickname']);
-                $this->setUserlvl($infos['userlvl']);
-                $this->setTicket();
-                header('location: ?p=home#about');
-            }else{
-                $this->Uman->wrong_pass($_SERVER['REMOTE_ADDR']);
-                header('location: ?p=home#login');
-            }
-        }else{
-            session_destroy();
-            echo "<script>alert('Trop de tentatives, réessayez demain.')</script>";
-            header('location: ?p=home');
-        }
     }
     public function getNickname() {
         return $this->nickname;
@@ -67,6 +51,24 @@ class User {
         }else{
             $_SESSION=array();
             session_destroy();
+            header('location: ?p=home');
+        }
+    }
+    public function connect($email,$pwd){
+        if($this->test_ip()){
+            if($this->Uman->testPwd($email,$pwd)){
+                $infos = UsersManager::getInfos($email);
+                $this->setNickname($infos['nickname']);
+                $this->setUserlvl($infos['userlvl']);
+                $this->setTicket();
+                header('location: ?p=home#about');
+            }else{
+                $this->Uman->wrong_pass($_SERVER['REMOTE_ADDR']);
+                header('location: ?p=home#login');
+            }
+        }else{
+            session_destroy();
+            echo "<script>alert('Trop de tentatives, réessayez demain.')</script>";
             header('location: ?p=home');
         }
     }
