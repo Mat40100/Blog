@@ -12,21 +12,22 @@
  * @author Programmation
  */
 class User {
-
+    protected $Uman;
     protected $ticket;
     protected $userlvl;
     public $nickname;
 
     public function __construct($email, $pwd) {
+        $this->Uman= new UsersManager();
         if($this->test_ip()){
-            if(UsersManager::testPwd($email,$pwd)){
+            if($this->Uman->testPwd($email,$pwd)){
                 $infos = UsersManager::getInfos($email);
                 $this->setNickname($infos['nickname']);
                 $this->setUserlvl($infos['userlvl']);
                 $this->setTicket();
                 header('location: ?p=home#about');
             }else{
-                UsersManager::wrong_pass($_SERVER['REMOTE_ADDR']);
+                $this->Uman->wrong_pass($_SERVER['REMOTE_ADDR']);
                 header('location: ?p=home#login');
             }
         }else{
@@ -53,7 +54,7 @@ class User {
     }
     private function test_ip() {
         $ip = $_SERVER['REMOTE_ADDR'];
-        $count = UsersManager::getCount_Ip($ip);
+        $count = $this->Uman->getCount_Ip($ip);
         if($count>10){
             return false;
         }else{

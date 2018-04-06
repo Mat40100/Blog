@@ -12,10 +12,14 @@
  * @author Programmation
  */
 class CommentManager {
-    private function __construct() {
-        ;
+    
+    protected $Pman;
+    
+    public function __construct() {
+        $this->Pman = new PostsManager;
     }
-    static public function add_comment(array $comment){
+    
+    public function add_comment(array $comment){
         if(empty($_POST['comment']) or empty($_POST['email']) or empty($_POST['first_name']) or empty($_POST['last_name']) or empty($_POST['postid'])){
             return false;
         }
@@ -32,7 +36,7 @@ class CommentManager {
         return true;
     }
     
-    static public function getComments($postid){
+     public function getComments($postid){
         $db = DBfactory::Getinstance();
         $req = $db->prepare('SELECT * FROM comments WHERE postid=:postid AND valid=1');
         $req->execute(array(
@@ -44,13 +48,13 @@ class CommentManager {
         return $result;
     }
     
-     static public function getUnvalid_Comments(){
+      public function getUnvalid_Comments(){
         $db = DBfactory::Getinstance();
         $req = $db->prepare('SELECT * FROM comments WHERE valid=0');
         $req->execute();
         $i = 0;
         while($data=$req->fetch(PDO::FETCH_ASSOC)){
-            $post = PostsManager::GetPost($data['postid']);
+            $post = $this->Pman->GetPost($data['postid']);
             $result[] = $data;
             $result[$i][title]=$post['title'];
             $i++;
@@ -58,7 +62,7 @@ class CommentManager {
         return $result;
      }
         
-     static public function valid_comment($comment_id){
+      public function valid_comment($comment_id){
          $db = DBfactory::Getinstance();
          $req=$db->prepare('UPDATE comments SET valid=1 WHERE comment_id= ?');
          $req->execute(array($comment_id));
