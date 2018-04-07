@@ -46,16 +46,28 @@ class Router {
                 break;
 
             case 'admin':
-                $Controller->admin();
+                switch ($_GET['d']) {
+                    case 'valid_comment':
+                        $Controller->valid_comments();
+                        break;
+                    case 'add_post':
+                        $Controller->add_post();
+                        break;
+                    case 'modifier':
+                        $Controller->mod_post();
+                        break;
+                    case 'supprimer':
+                        $Controller->del_post();
+                        break;
+
+                    default:
+                        $Controller->admin();
+                        break;
+                }
+
                 break;
             case 'add_comment':
                 $Controller->add_comment();
-                break;
-            case 'valid_comment':
-                $Controller->valid_comments();
-                break;
-            case 'add_post':
-                $Controller->add_post();
                 break;
             default :
                 $Controller->acceuil();

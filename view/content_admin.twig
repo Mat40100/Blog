@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container-fluid p-0">
         <section class="resume-section p-3 p-lg-5 d-flex d-column row" id="about">
-        {% if session.Userlvl == 1 %}
+            {% if session.Userlvl == 1 %}
                 <div class="container col-12">
                     <h2 class="mb-5">Creer un nouveau post</h2>
                     <form class="needs-validation row" method="post" action="?p=add_post">
@@ -26,8 +26,30 @@
                         </div>
                     </form>
                 </div>
+            {% endif %}
 
-        {% endif %}
+            {% if session.Userlvl == 1 %}
+                <div class="container col-12">
+                    <h2 class="mb-5">Liste des posts</h2>
+                    <div class="row mb-3">
+                        <div class="col text-center">Titre</div>
+                        <div class="col text-center">Auteur</div>
+                        <div class="col text-center">Dernière modification</div>
+                        <div class="col text-center">Action</div>
+                    </div>
+                    {% for post in liste %}
+                        <div class="row border-bottom">
+                            <div class="col text-center">{{post.title}}</div>
+                            <div class="col text-center">{{post.authorname}}</div>
+                            <div class="col text-center">{{post.last_mod}}</div>
+                            <div class="col text-center">
+                                <a href="?p=admin&d=modifier&id={{post.postid}}">Modifier</a>
+                                <a href="?p=admin&d=supprimer&id={{post.postid}}">Supprimer</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
             <div class="container col-12">
                 <h2 class="mb-5">Commentaires non validés</h2>

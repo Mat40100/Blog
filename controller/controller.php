@@ -54,12 +54,22 @@ class Controller {
         echo $this->twig->render('navbar_main.twig');
     }
 
+    public function add_comment() {
+        if ($this->Cman->add_comment($_POST)) {
+            header('location: index.php?p=blog&$d=post&id=' . $_POST['postid']);
+        } else {
+            //Probleme
+        }
+    }
+    
     public function admin() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() <= 2) {
                 $unvalid_comments = $this->Cman->getUnvalid_Comments();
+                $posts = $this->Pman->GetPosts();
                 echo $this->twig->render('navbar_admin.twig');
                 echo $this->twig->render('content_admin.twig', [
+                    'liste' => $posts,
                     'unvalid_comments' => $unvalid_comments
                     ]);
             } else {
@@ -67,14 +77,6 @@ class Controller {
             }
         } else {
             header('location: ?p=home#about');
-        }
-    }
-
-    public function add_comment() {
-        if ($this->Cman->add_comment($_POST)) {
-            header('location: index.php?p=blog&$d=post&id=' . $_POST['postid']);
-        } else {
-            //Probleme
         }
     }
 
@@ -96,6 +98,14 @@ class Controller {
               header('location: ?p=admin');  
             }
         }
+    }
+    
+    public function mod_post(){
+        
+    }
+    
+    public function del_post(){
+        
     }
 
     public function log() {
