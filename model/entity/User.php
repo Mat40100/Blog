@@ -30,7 +30,9 @@ class User {
     function getUserid() {
         return $this->userid;
     }
-
+    private function setUserid($userid){
+        $this->userid = $userid;
+    }
     private function setUserlvl($userlvl) {
         $this->userlvl = $userlvl;
     }
@@ -65,7 +67,7 @@ class User {
                 $infos = $this->Uman->getInfos($email);
                 $this->setNickname($infos['nickname']);
                 $this->setUserlvl($infos['userlvl']);
-                $this->getUserid($infos['userid']);
+                $this->setUserid($infos['userid']);
                 $this->setTicket();
                 return true;
             }else{

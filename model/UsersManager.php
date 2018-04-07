@@ -21,7 +21,7 @@ class UsersManager {
     }
     public function getInfos($email){
         $db = DBfactory::Getinstance();
-        $req = $db->prepare('SELECT nickname,userlvl FROM users WHERE email = ?');
+        $req = $db->prepare('SELECT nickname,userlvl,userid FROM users WHERE email = ?');
         $req->execute(array($email));
         return $result=$req->fetch(PDO::FETCH_ASSOC);
     }
