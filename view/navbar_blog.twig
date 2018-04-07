@@ -36,7 +36,10 @@
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="http://klaynetv-online.fr/?p=admin" onclick="changement();" >Administration</a>
                     </li>
-                    {% endif %}
+                {% endif %}
+                {% if session.Userlvl is defined %}
+                    <p class="font-light font-weight-light text-light bg-secondary rounded">{{ session.Nickname }}</p>
+                {% endif %}
             </ul>
         </div>
     </nav>
