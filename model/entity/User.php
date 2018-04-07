@@ -14,8 +14,9 @@
 class User {
     protected $Uman;
     protected $ticket;
-    protected $userlvl;
+    public $userlvl;
     public $nickname;
+    public $userid;
 
     public function __construct() {
         $this->Uman= new UsersManager();
@@ -26,6 +27,10 @@ class User {
     public function getUserlvl() {
         return $this->userlvl;
     }
+    function getUserid() {
+        return $this->userid;
+    }
+
     private function setUserlvl($userlvl) {
         $this->userlvl = $userlvl;
     }
@@ -57,13 +62,14 @@ class User {
     public function connect($email,$pwd){
         if($this->test_ip()){
             if($this->Uman->testPwd($email,$pwd)){
-                $infos = UsersManager::getInfos($email);
+                $infos = $this->Uman->getInfos($email);
                 $this->setNickname($infos['nickname']);
                 $this->setUserlvl($infos['userlvl']);
+                $this->getUserid($infos['userid']);
                 $this->setTicket();
                 return true;
             }else{
-                $this->Uman->wrong_pass($_SERVER['REMOTE_ADDR']);
+                $this->Uman->wrong_pass($_SERVER['REMOTE_ADDR'],$email);
                 return false;
             }
         }else{
