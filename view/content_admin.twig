@@ -2,26 +2,61 @@
 
 {% block content %}
     <div class="container-fluid p-0">
-        {#{% if session.Userlvl < 2 %}
-            <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
-                // block admin suprem
-            </section>
-        {% endif %}#}
+        <section class="resume-section p-3 p-lg-5 d-flex d-column row" id="about">
+        {% if session.Userlvl < 2 %}
+                <div class="container col-12">
+                    <h2 class="mb-5">Creer un nouveau post</h2>
+                    <form class="needs-validation row" method="post" action="?p=admin&d=add_post">
+                        <div class="col-12 col-md-6 mb-2 mx-auto">
+                            <input type="text" name="title" class="form-control" id="validationCustom01" placeholder="Titre" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <input type="text" name="chapo" class="form-control" id="validationCustom01" placeholder="Châpo" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <textarea type="text" rows="5" name="content" class="form-control" id="validationCustom01" placeholder="Post" required></textarea>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="col-12 row">
+                            <input class=" col-4 col-md-1 btn btn-primary mx-auto" type="submit" value="valider">
+                        </div>
+                    </form>
+                </div>
 
-        <section class="resume-section p-3 p-lg-5 d-flex d-column Unvalid_comment" id="about">
-            <div class="container">
+        {% endif %}
+
+            <div class="container col-12">
+                <h2 class="mb-5">Commentaires non validés</h2>
                 <form class="row d-flex flex-column" method="post" action="?p=valid_comment">
                     {% for unvalid_comment in unvalid_comments %}
                         <div class="row border border-gray my-3 d-flex flex-md-row flex-column">
                             <div class="col-12 col-md-3 my-auto"><strong>Le : </strong>{{unvalid_comment.last_mod}}</div>
                             <div class="col-12 col-md-3 my-auto"><strong>De : </strong>{{unvalid_comment.last_name}} {{unvalid_comment.first_name}}</div>
                             <div class="col-12 col-md-3 my-auto"><strong>Article : </strong>{{unvalid_comment.title}}</div>
-                            <div class="mx-3 d-flex flex-row"><p>Valider</p><input class="col-12 col-md-5" type="checkbox" value="Valider" name="yes_{{unvalid_comment.comment_id}}"></div>
-                            <div class="mx-3"><p>Supprimer</p><input class="col-12 col-md-7" type="checkbox" value="Supprimer" name="no_{{unvalid_comment.comment_id}}"></div>
+                            <div class="col-12 col-md-3 row">
+                                <div class="col-12 col-md-6 mx-auto my-2 d-flex flex-row flex-md-column align-items-center">
+                                    <p class="mb-0" >Valider</p>
+                                    <input class="mx-auto" type="radio" value="Valider" name="{{unvalid_comment.comment_id}}">
+                                </div>
+                                <div class="col-12 col-md-6 mx-auto my-2 d-flex flex-row flex-md-column align-items-center">
+                                    <p class="mb-0" >Supprimer</p>
+                                    <input class="mx-auto" type="radio" value="Supprimer" name="{{unvalid_comment.comment_id}}">
+                                </div>
+                            </div>
                             <div class="col-12 border text-center py-3">{{unvalid_comment.comment}}</div>
                         </div>
                     {%endfor%}
-                    <input class="btn btn-primary mx-auto" type="submit" value="valider">
+                    {% if unvalid_comments is not null %}
+                        <input class="btn btn-primary mx-auto" type="submit" value="valider">
+                    {% else %}
+                        <div class="row ">
+                            <p class="col-12 col-md-6 text-center">Pas de commentaires à valider </p>
+                        </div>
+                    {% endif %}
                 </form>
             </div>
         </section>
