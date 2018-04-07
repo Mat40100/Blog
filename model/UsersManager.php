@@ -43,9 +43,13 @@ class UsersManager {
             return false;
         }
     }
-    public function wrong_pass($ip){
+    public function wrong_pass($ip,$email){
         $db = DBfactory::Getinstance();
-        $req = $db->prepare('INSERT INTO connexion(ip) VALUES(?)');
-        $req->execute(array($ip));
+        $req = $db->prepare('INSERT INTO connexion_failed(ip,email,time) VALUES(:ip, :email, :time)');
+        $req->execute(array(
+            'ip' => $ip,
+            'email' => $email,
+            'time' => date("Y-m-d H:i:s")
+                ));
     }
 }
