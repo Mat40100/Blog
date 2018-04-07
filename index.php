@@ -52,7 +52,10 @@ class Router {
                 $Controller->add_comment();
                 break;
             case 'valid_comment':
-                $Controller->valid_comment();
+                $Controller->valid_comments();
+                break;
+            case 'add_post':
+                $Controller->add_post();
                 break;
             default :
                 $Controller->acceuil();

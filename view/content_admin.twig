@@ -3,10 +3,10 @@
 {% block content %}
     <div class="container-fluid p-0">
         <section class="resume-section p-3 p-lg-5 d-flex d-column row" id="about">
-        {% if session.Userlvl < 2 %}
+        {% if session.Userlvl == 1 %}
                 <div class="container col-12">
                     <h2 class="mb-5">Creer un nouveau post</h2>
-                    <form class="needs-validation row" method="post" action="?p=admin&d=add_post">
+                    <form class="needs-validation row" method="post" action="?p=add_post">
                         <div class="col-12 col-md-6 mb-2 mx-auto">
                             <input type="text" name="title" class="form-control" id="validationCustom01" placeholder="Titre" required>
                             <div class="valid-feedback">
