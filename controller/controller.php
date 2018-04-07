@@ -7,6 +7,7 @@ require './model/CommentManager.php';
 require './model/UsersManager.php';
 require './model/Acceuil.php';
 require './model/entity/User.php';
+require './model/entity/Post.php';
 
 session_start();
 
@@ -38,14 +39,18 @@ class Controller {
     public function post($id) {
         $post = $this->Pman->GetPost($id);
         $comments = $this->Cman->getComments($id);
-        $post['content'] = Formatcontent::format($post['content']);
-        echo $this->twig->render('content_post.twig', ['post' => $post, 'comments' => $comments]);
+        echo $this->twig->render('content_post.twig', [
+            'post' => $post,
+            'comments' => $comments]
+                );
         echo $this->twig->render('navbar_blog.twig');
     }
 
     public function acceuil() {
         $home = $this->Acc->getInfos();
-        echo $this->twig->render('content_home.twig', ['infos' => $home]);
+        echo $this->twig->render('content_home.twig', [
+            'infos' => $home
+                ]);
         echo $this->twig->render('navbar_main.twig');
     }
 
@@ -54,7 +59,9 @@ class Controller {
             if ($_SESSION['user']->getUserlvl() <= 2) {
                 $unvalid_comments = $this->Cman->getUnvalid_Comments();
                 echo $this->twig->render('navbar_admin.twig');
-                echo $this->twig->render('content_admin.twig', ['unvalid_comments' => $unvalid_comments]);
+                echo $this->twig->render('content_admin.twig', [
+                    'unvalid_comments' => $unvalid_comments
+                    ]);
             } else {
                 header('location: ?p=home#about');
             }
@@ -71,13 +78,22 @@ class Controller {
         }
     }
 
-    public function valid_comment() {
+    public function valid_comments() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() <= 2) {
-                foreach ($_POST as $commentid => $value) {
-                    $this->Cman->valid_comment($commentid);
-                }
+                $this->Cman->valid_comment($_POST);
                 header('location: ?p=admin');
+            }
+        }
+    }
+    
+    public function add_post(){
+        if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']->getUserlvl() == 1) {
+                $this->Pman->PostPost($_POST);
+                header('location: ?p=admin'); 
+            }else{
+              header('location: ?p=admin');  
             }
         }
     }
@@ -94,7 +110,6 @@ class Controller {
     public function disconnect() {
         $_SESSION = array();
         session_destroy;
-        sleep(0.5);
         header('location: ?p=home#about');
     }
 
