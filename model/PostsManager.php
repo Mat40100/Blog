@@ -15,11 +15,8 @@ class PostsManager {
             'postid' => $postid
         ));
         $data = $req->fetch(PDO::FETCH_ASSOC);
-
-        $post = new Post(
-                $data['postid'], $data['authorid'], $this->Uman->getNickname($data['authorid']), $data['title'], $data['chapo'], $data['content'], $data['last_mod']
-        );
-        return $post;
+        $data['authorname'] = $this->Uman->getNickname($data['authorid']);
+        return $data;
     }
 
     public function GetPosts() {
@@ -27,7 +24,7 @@ class PostsManager {
         $req = $db->query('SELECT * from posts');
         while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $posts[] = new Post(
-                    $data['postid'], $data['authorid'], $this->Uman->getNickname($data['authorid']), $data['title'], $data['chapo'], $data['content'], $data['last_mod']
+                    $data['postid']
             );
         }
         return $posts;

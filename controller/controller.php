@@ -37,7 +37,7 @@ class Controller {
     }
 
     public function post($id) {
-        $post = $this->Pman->GetPost($id);
+        $post = new Post($id);
         $comments = $this->Cman->getComments($id);
         echo $this->twig->render('content_post.twig', [
             'post' => $post,
