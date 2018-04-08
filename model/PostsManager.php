@@ -24,7 +24,7 @@ class PostsManager {
         $req = $db->query('SELECT * from posts');
         while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $posts[] = new Post(
-                    $data['postid']
+                    $data['postid'], "form"
             );
         }
         return $posts;
@@ -46,8 +46,16 @@ class PostsManager {
         
     }
 
-    public function ModPost() {
-        
+    public function ModPost($post) {
+        $db = DBfactory::Getinstance();
+        $req = $db->prepare('UPDATE posts SET title=?,chapo=?,content=?,last_mod=? WHERE postid=?');
+        $req->execute(array(
+            $post['title'],
+            $post['chapo'],
+            $post['content'],
+            date("Y-m-d H:i:s"),
+            $post['postid']
+        ));
     }
 
 }
