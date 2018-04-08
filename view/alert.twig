@@ -1,0 +1,12 @@
+{% extends 'content_home.twig' %}
+
+{% block alert %}
+    <div class="" style="position:absolute;top:40%;left:20%;" >
+        <div class="alert alert-warning alert-dismissible fade show p-5 position-fixed" style="z-index:1070;" role="alert">
+            <strong>{{alert}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+{% endblock %}

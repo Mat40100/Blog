@@ -69,8 +69,12 @@ class Router {
                 }
 
                 break;
+
             case 'add_comment':
                 $Controller->add_comment();
+                break;
+            case 'alert':
+                $Controller->alert();
                 break;
             default :
                 $Controller->acceuil();
@@ -83,6 +87,17 @@ class Router {
 session_start();
 
 if (isset($_SESSION['user'])) {
-    $_SESSION['user']->verif_ticket();
+    switch ($_SESSION['user']->verif_ticket()) {
+        case 'ok':
+            break;
+        case 'timed_out':
+            session_destroy();
+            header('location: ?p=alert&alert=Deconnection : Séssion expirée');
+            break;
+        case 'wrong_ticket':
+            session_destroy();
+            header('location: ?p=alert&alert=Deconnection : Disparité des jetons');
+            break;
+    }
 }
 Router::redirect();

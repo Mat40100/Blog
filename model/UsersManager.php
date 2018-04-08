@@ -27,9 +27,10 @@ class UsersManager {
     }
     public function getCount_Ip($ip){
         $db = DBfactory::Getinstance();
-        $recherche = $db->prepare('SELECT ip FROM connexion WHERE ip = ?');
-        $recherche->execute(array($ip));
-        return $count = $recherche->rowCount();
+        $req = $db->prepare('SELECT ip FROM connexion_failed WHERE ip = ?');
+        $req->execute(array($ip));
+        $data=$req->rowCount();
+        return $data;
     }
     
     public function testPwd($email,$pwd){

@@ -20,6 +20,7 @@ class User {
 
     public function __construct() {
         $this->Uman= new UsersManager();
+        $this->setUserlvl("4");
     }
     public function getNickname() {
         return $this->nickname;
@@ -55,33 +56,37 @@ class User {
     public function verif_ticket(){
         if(isset($_COOKIE['ticket']) and ($this->ticket == $_COOKIE['ticket'])){
             $this->setTicket();
+            return 'ok';
+        }elseif(!isset($_COOKIE['ticket'])){
+            return 'timed_out';
         }else{
-            $_SESSION=array();
-            session_destroy();
-            header('location: ?p=home');
+            setcookie('ticket', '', time() - 3600, '/');
+            return 'wrong_ticket';
         }
     }
     public function connect($email,$pwd){
         if($this->test_ip()){
-            if($this->Uman->testPwd($email,$pwd)){
+           if($this->Uman->testPwd($email,$pwd)){
                 $infos = $this->Uman->getInfos($email);
                 $this->setNickname($infos['nickname']);
                 $this->setUserlvl($infos['userlvl']);
                 $this->setUserid($infos['userid']);
                 $this->setTicket();
-                return true;
+                return 'ok';                
             }else{
+                session_destroy();
                 $this->Uman->wrong_pass($_SERVER['REMOTE_ADDR'],$email);
-                return false;
+                return 'false_mdp';
             }
         }else{
             session_destroy();
-            echo "<script>alert('Trop de tentatives, réessayez demain.')</script>";
-            return false;
+            return 'false_ip';
         }
     }
     public function disconnect(){
         session_destroy();
         header('location : ?p=home');
+    }
+    function __destruct() {
     }
 }
