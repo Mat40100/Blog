@@ -12,6 +12,7 @@ require './model/entity/Post.php';
 session_start();
 
 class Controller {
+
     protected $Uman;
     protected $Pman;
     protected $Cman;
@@ -21,7 +22,7 @@ class Controller {
     public function __construct() {
         $this->twig = DBfactory::twig();
         $this->twig->addGlobal("session", $_SESSION['user']);
-        
+
         $this->Uman = new UsersManager();
         $this->Pman = new PostsManager();
         $this->Cman = new CommentManager();
@@ -37,12 +38,12 @@ class Controller {
     }
 
     public function post($id) {
-        $post = new Post($id);
+        $post = new Post($id,"form");
         $comments = $this->Cman->getComments($id);
         echo $this->twig->render('content_post.twig', [
             'post' => $post,
             'comments' => $comments]
-                );
+        );
         echo $this->twig->render('navbar_blog.twig');
     }
 
@@ -50,7 +51,7 @@ class Controller {
         $home = $this->Acc->getInfos();
         echo $this->twig->render('content_home.twig', [
             'infos' => $home
-                ]);
+        ]);
         echo $this->twig->render('navbar_main.twig');
     }
 
@@ -61,7 +62,7 @@ class Controller {
             //Probleme
         }
     }
-    
+
     public function admin() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() <= 2) {
@@ -71,7 +72,7 @@ class Controller {
                 echo $this->twig->render('content_admin.twig', [
                     'liste' => $posts,
                     'unvalid_comments' => $unvalid_comments
-                    ]);
+                ]);
             } else {
                 header('location: ?p=home#about');
             }
@@ -86,35 +87,66 @@ class Controller {
                 $this->Cman->valid_comment($_POST);
                 header('location: ?p=admin');
             }
+        } else {
+            header('location: ?p=home');
         }
     }
-    
-    public function add_post(){
+
+    public function add_post() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
                 $this->Pman->PostPost($_POST);
-                header('location: ?p=admin'); 
-            }else{
-              header('location: ?p=admin');  
+                header('location: ?p=admin');
+            } else {
+                header('location: ?p=admin');
             }
+        } else {
+            header('location: ?p=home');
+        }
+    }
+
+    public function mod_post() {
+        if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']->getUserlvl() == 1) {
+                $post = new Post($_GET['id'],"no_form");
+                echo $this->twig->render('modif_post.twig', [
+                    'post' => $post
+                ]);
+                echo $this->twig->render('navbar_admin.twig');
+            }
+        } else {
+            header('location: ?p=home');
         }
     }
     
-    public function mod_post(){
-        
+    public function valid_mod(){
+        if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']->getUserlvl() == 1) {
+                $this->Pman->ModPost($_POST);
+                header('location: ?p=blog&d=post&id='.$_POST['postid']);
+            }
+        } else {
+            header('location: ?p=home');
+        }
     }
-    
-    public function del_post(){
-        
+
+    public function del_post() {
+        if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']->getUserlvl() == 1) {
+                
+            }
+        } else {
+            header('location: ?p=home');
+        }
     }
 
     public function log() {
         $_SESSION['user'] = new User();
-        if($_SESSION['user']->connect($_POST['email'], $_POST['pwd'])){
-           header('location: ?p=admin');
-        }else{
-           header('location: ?p=home#login');
-        }        
+        if ($_SESSION['user']->connect($_POST['email'], $_POST['pwd'])) {
+            header('location: ?p=admin');
+        } else {
+            header('location: ?p=home#login');
+        }
     }
 
     public function disconnect() {
