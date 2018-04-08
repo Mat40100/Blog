@@ -13,23 +13,24 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="?p=home">Acceuil</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="?p=blog">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" onclick="changement();" href="?p=admin">Administration</a>
-                </li> 
+                {% if hide_admin == false %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" onclick="changement();" href="?p=admin">Administration</a>
+                    </li>
+                {% endif %}
+                {% if hide_mod == false %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#list_posts">Liste des posts</a>
+                    </li>                   
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#unvalid_comments">Commentaires à valider</a>
+                    </li>
+                {% endif %}
                 {% if session.userlvl == 1 %}
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#new_post">Nouveau post</a>
                     </li>
-                {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#list_posts">Liste des posts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#unvalid_comments">Commentaires à valider</a>
-                </li>
+                {% endif %} 
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" onclick="changement();" href="?p=home&d=disconnect">Se deconnecter</a>
                 </li>  

@@ -3,34 +3,6 @@
 {% block content %}
     <div class="container-fluid p-0">
 
-        {% if session.Userlvl == 1 %}
-            <section class="resume-section p-3 p-lg-5 d-flex d-column row" id="new_post">
-                <div class="container col-12">
-                    <h2 class="mb-5">Creer un nouveau post</h2>
-                    <form class="needs-validation row" method="post" action="?p=add_post">
-                        <div class="col-12 col-md-6 mb-2 mx-auto">
-                            <input type="text" name="title" class="form-control" id="validationCustom01" placeholder="Titre" required>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
-                            <input type="text" name="chapo" class="form-control" id="validationCustom01" placeholder="Châpo" required>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
-                            <textarea type="text" rows="5" name="content" class="form-control" id="validationCustom01" placeholder="Post" required></textarea>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
-                        </div>
-                        <div class="col-12 row">
-                            <input class=" col-4 col-md-1 btn btn-primary mx-auto" type="submit" value="valider">
-                        </div>
-                    </form>
-                </div>
-            </section>
-        {% endif %}
-
-
         <section class="resume-section p-3 p-lg-5 d-flex d-column row" id="list_posts">
             <div class="container col-12">
                 <h2 class="mb-5">Liste des posts</h2>
@@ -92,4 +64,31 @@
             </div>
         </section>
     </div>
+
+    {% if session.Userlvl == 1 %}
+        <section class="resume-section p-3 p-lg-5 d-flex d-column row" id="new_post">
+            <div class="container col-12">
+                <h2 class="mb-5">Creer un nouveau post</h2>
+                <form class="needs-validation row" method="post" action="?p=admin&d=add_post">
+                    <div class="col-12 col-md-6 mb-2 mx-auto">
+                        <input type="text" name="title" class="form-control" id="validationCustom01" placeholder="Titre" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <input type="text" name="chapo" class="form-control" id="validationCustom01" placeholder="Châpo" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <textarea type="text" rows="5" name="content" class="form-control" id="validationCustom01" placeholder="Post" required></textarea>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-12 row">
+                        <input class=" col-4 col-md-1 btn btn-primary mx-auto" type="submit" value="valider">
+                    </div>
+                </form>
+            </div>
+        </section>
+    {% endif %}
 {% endblock %}

@@ -68,7 +68,9 @@ class Controller {
             if ($_SESSION['user']->getUserlvl() <= 2) {
                 $unvalid_comments = $this->Cman->getUnvalid_Comments();
                 $posts = $this->Pman->GetPosts();
-                echo $this->twig->render('navbar_admin.twig');
+                echo $this->twig->render('navbar_admin.twig',[
+                    'hide_admin'=> true
+                ]);
                 echo $this->twig->render('content_admin.twig', [
                     'liste' => $posts,
                     'unvalid_comments' => $unvalid_comments
@@ -112,7 +114,9 @@ class Controller {
                 echo $this->twig->render('modif_post.twig', [
                     'post' => $post
                 ]);
-                echo $this->twig->render('navbar_admin.twig');
+            echo $this->twig->render('navbar_admin.twig',[
+                'hide_mod'=>true
+                ]);
             }
         } else {
             header('location: ?p=home');
