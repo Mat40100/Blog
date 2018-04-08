@@ -28,6 +28,8 @@ class Formatcontent {
         //paragraphe
         $content = preg_replace('`\[p\](.+)\[/p\]`isU', '<p>$1</p>', $content);
         
+        $content = preg_replace('`\[l\]`isU', '</br>', $content);
+        
       return $content;  
     }
 }
