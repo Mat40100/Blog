@@ -21,7 +21,7 @@ class Post {
     public $content;
     public $last_mod;
 
-    public function __construct($postid) {
+    public function __construct($postid,$form) {
         
         $this->Pman = new PostsManager();
         $infos = $this->Pman->GetPost($postid);
@@ -31,8 +31,13 @@ class Post {
         $this->setTitle($infos['title']);
         $this->setLast_mod($infos['last_mod']);
         $this->setChapo($infos['chapo']);
-        $this->setContent(Formatcontent::format($infos['content']));
         $this->setAuthorname($infos['authorname']);
+        
+        if($form== "form"){
+            $this->setContent(Formatcontent::format($infos['content']));
+        }elseif($form == "no_form"){
+            $this->setContent($infos['content']);
+        }
     }
 
     public function getAuthorname() {
