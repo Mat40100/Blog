@@ -11,19 +11,29 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="?p=home">Home</a>
+                    <a class="nav-link js-scroll-trigger" href="?p=home">Acceuil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="?p=blog">Blog</a>
                 </li>
-                {% if session.Userlvl is defined %}
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" onclick="changement();" href="?p=admin">Administration</a>
+                </li> 
+                {% if session.userlvl == 1 %}
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" onclick="changement();" href="?p=home&d=disconnect">Se deconnecter</a>
-                    </li>  
+                        <a class="nav-link js-scroll-trigger" href="#new_post">Nouveau post</a>
+                    </li>
                 {% endif %}
-                {% if session.Userlvl is defined %}
-                    <p class="font-light font-weight-light text-light bg-secondary rounded">{{ session.Nickname }}</p>
-                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#list_posts">Liste des posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#unvalid_comments">Commentaires à valider</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" onclick="changement();" href="?p=home&d=disconnect">Se deconnecter</a>
+                </li>  
+                <p class="font-light font-weight-light text-light bg-secondary rounded">{{ session.Nickname }}</p>
             </ul>
         </div>
     </nav>
