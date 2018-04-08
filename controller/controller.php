@@ -87,7 +87,7 @@ class Controller {
             } else {
                 header('location: ?p=alert&alert=Vous devez être modérateur pour effectuer cette action');
             }
-        }else{
+        } else {
             header('location: ?p=alert&alert=Vous devez être connecté pour effectuer cette action');
         }
     }
@@ -166,10 +166,14 @@ class Controller {
         $_SESSION['user'] = new User();
         switch ($_SESSION['user']->connect($_POST['email'], $_POST['pwd'])) {
             case 'ok':
-                header('location: ?p=admin');
+                if ($_SESSION['user']->getUserlvl() > 2) {
+                    header('location: ?p=home');
+                } elseif ($_SESSION['user']->getUserlvl() <= 2) {
+                    header('location: ?p=admin');
+                }
                 break;
             case 'false_mdp':
-                header('location: ?p=alert&alert=Mauvais log/mdp');
+                header('location: ?p=alert&alert=Mauvais Nom utilisateur ou mot de passe');
                 break;
             case 'false_ip':
                 header('location: ?p=alert&alert=Trop de tentatives, retentez plus tard.');
