@@ -7,7 +7,7 @@ class Generic {
     function getInfos() {
 
         $db = DBfactory::Getinstance();
-        $req = $db->query('SELECT last_name,first_name,chapo,email,adress,github,linkedin,twitter FROM users WHERE userlvl="1" ');
+        $req = $db->query('SELECT last_name,first_name,chapo,email,adress,github,linkedin,pdf FROM users WHERE userlvl="1" ');
         $result = $req->fetch(PDO::FETCH_ASSOC);
 
         return $result;

@@ -36,12 +36,12 @@ class Controller {
         ]);
         echo $this->twig->render('navbar_main.twig');
     }
-    
-    public function mail(){
-        if($this->Gen->mail_contact($_POST)){
+
+    public function mail() {
+        if ($this->Gen->mail_contact($_POST)) {
             header('location: ?p=alert&alert=Email envoyé!');
-        }else{
-             header('location: ?p=alert&alert=Problème avec l\'envoie, réessayez');
+        } else {
+            header('location: ?p=alert&alert=Problème avec l\'envoie, réessayez');
         }
     }
 
@@ -52,6 +52,15 @@ class Controller {
             'infos' => $home,
             'alert' => $_GET['alert']
         ]);
+    }
+
+    public function dl() {
+        if (isset($_GET['pdf'])) {
+            $pdf = $_GET['pdf'];
+            header("Content-type: application/pdf");
+            header("Content-Disposition: attachment; filename=$pdf");
+            readfile($pdf);
+        }
     }
 
     public function liste() {

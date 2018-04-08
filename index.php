@@ -79,8 +79,11 @@ class Router {
             case 'mail':
                 $Controller->mail();
                 break;
+            case 'dl':
+                $Controller->dl();
+                break;
             default :
-                $Controller->acceuil();
+                $Controller->generic();
                 break;
         }
     }
