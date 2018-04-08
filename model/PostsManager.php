@@ -42,8 +42,10 @@ class PostsManager {
         ));
     }
 
-    public function DeletePost() {
-        
+    public function DeletePost($postid) {
+        $db = DBfactory::Getinstance();
+        $req = $db->prepare('DELETE FROM posts WHERE postid=?');
+        $req->execute(array($postid));
     }
 
     public function ModPost($post) {

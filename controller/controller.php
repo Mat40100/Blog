@@ -133,7 +133,8 @@ class Controller {
     public function del_post() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
-                
+                $this->Pman->DeletePost($_GET['id']);
+                header('location: ?p=admin');
             }
         } else {
             header('location: ?p=home');
