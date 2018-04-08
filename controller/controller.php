@@ -5,7 +5,7 @@ require './model/Formatcontent.php';
 require './model/PostsManager.php';
 require './model/CommentManager.php';
 require './model/UsersManager.php';
-require './model/Acceuil.php';
+require './model/Generic.php';
 require './model/entity/User.php';
 require './model/entity/Post.php';
 
@@ -16,7 +16,7 @@ class Controller {
     protected $Uman;
     protected $Pman;
     protected $Cman;
-    protected $Acc;
+    protected $Gen;
     private $twig;
 
     public function __construct() {
@@ -26,19 +26,27 @@ class Controller {
         $this->Uman = new UsersManager();
         $this->Pman = new PostsManager();
         $this->Cman = new CommentManager();
-        $this->Acc = new Acceuil();
+        $this->Gen = new Generic();
     }
 
-    public function acceuil() {
-        $home = $this->Acc->getInfos();
+    public function generic() {
+        $home = $this->Gen->getInfos();
         echo $this->twig->render('content_home.twig', [
             'infos' => $home
         ]);
         echo $this->twig->render('navbar_main.twig');
     }
+    
+    public function mail(){
+        if($this->Gen->mail_contact($_POST)){
+            header('location: ?p=alert&alert=Email envoyé!');
+        }else{
+             header('location: ?p=alert&alert=Problème avec l\'envoie, réessayez');
+        }
+    }
 
     public function alert() {
-        $home = $this->Acc->getInfos();
+        $home = $this->Gen->getInfos();
         echo $this->twig->render('navbar_main.twig');
         echo $this->twig->render('alert.twig', [
             'infos' => $home,

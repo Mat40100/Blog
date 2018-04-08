@@ -10,7 +10,7 @@ class Router {
             case 'home':
                 switch ($_GET['d']) {
                     case '':
-                        $Controller->acceuil();
+                        $Controller->generic();
                         break;
 
                     case 'connect':
@@ -20,7 +20,7 @@ class Router {
                         $Controller->disconnect();
                         break;
                     default :
-                        $Controller->acceuil();
+                        $Controller->generic();
                         break;
                 }
                 break;
@@ -75,6 +75,9 @@ class Router {
                 break;
             case 'alert':
                 $Controller->alert();
+                break;
+            case 'mail':
+                $Controller->mail();
                 break;
             default :
                 $Controller->acceuil();
