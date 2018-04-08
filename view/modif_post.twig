@@ -1,0 +1,27 @@
+{% extends 'admin_layout.twig' %}
+
+
+
+{% block content %}
+    <div class="container-fluid p-0">
+        <section class="resume-section p-3 p-lg-5 d-flex d-column row" id="">
+            <div class="container col-12">
+                <h2 class="mb-5">Modifier le post</h2>
+                <form class=" row" method="post" action="?p=admin&d=valid_mod">
+                        <div class="col-12 col-md-6 mb-2 mx-auto">
+                            <input type="hidden" name="postid" value="{{post.postid}}">
+                            <input type="text" name="title" class="form-control" id="" placeholder="Titre" value="{{post.title}}">
+                            
+                            <input type="text" name="chapo" class="form-control" id="" placeholder="Châpo" value="{{post.chapo}}">
+                            
+                            <textarea type="text" rows="10" name="content" class="form-control" id="" placeholder="Contenu">{{post.content}}</textarea>
+                            
+                        </div>
+                        <div class="col-12 row">
+                            <input class=" col-4 col-md-1 btn btn-primary mx-auto" type="submit" value="valider">
+                        </div>
+                    </form>
+            </div>
+        </section>
+    </div>
+{% endblock %}
