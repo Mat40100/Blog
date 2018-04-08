@@ -2,8 +2,9 @@
 
 {% block content %}
     <div class="container-fluid p-0">
-        <section class="resume-section p-3 p-lg-5 d-flex d-column row" id="about">
-            {% if session.Userlvl == 1 %}
+
+        {% if session.Userlvl == 1 %}
+            <section class="resume-section p-3 p-lg-5 d-flex d-column row" id="new_post">
                 <div class="container col-12">
                     <h2 class="mb-5">Creer un nouveau post</h2>
                     <form class="needs-validation row" method="post" action="?p=add_post">
@@ -26,31 +27,40 @@
                         </div>
                     </form>
                 </div>
-            {% endif %}
+            </section>
+        {% endif %}
 
-            {% if session.Userlvl == 1 %}
-                <div class="container col-12">
-                    <h2 class="mb-5">Liste des posts</h2>
-                    <div class="row mb-3">
-                        <div class="col text-center">Titre</div>
-                        <div class="col text-center">Auteur</div>
-                        <div class="col text-center">Dernière modification</div>
+
+        <section class="resume-section p-3 p-lg-5 d-flex d-column row" id="list_posts">
+            <div class="container col-12">
+                <h2 class="mb-5">Liste des posts</h2>
+                <div class="row mb-3">
+                    <div class="col text-center">Titre</div>
+                    <div class="col text-center">Auteur</div>
+                    <div class="col text-center">Dernière modification</div>
+                    {% if session.Userlvl == 1 %}
                         <div class="col text-center">Action</div>
-                    </div>
-                    {% for post in liste %}
-                        <div class="row border-bottom">
-                            <div class="col text-center">{{post.title}}</div>
-                            <div class="col text-center">{{post.authorname}}</div>
-                            <div class="col text-center">{{post.last_mod}}</div>
+                    {% endif %}
+                </div>
+                {% for post in liste %}
+                    <div class="row border-bottom">
+                        <a href="?p=blog&d=post&id={{post.postid}}" class="col text-center">{{post.title}}</a>
+                        <div class="col text-center">{{post.authorname}}</div>
+                        <div class="col text-center">{{post.last_mod}}</div>
+                        {% if session.Userlvl == 1 %}
                             <div class="col text-center">
                                 <a href="?p=admin&d=modifier&id={{post.postid}}">Modifier</a>
                                 <a href="?p=admin&d=supprimer&id={{post.postid}}">Supprimer</a>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
 
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+
+        <section class="resume-section p-3 p-lg-5 d-flex d-column row" id="unvalid_comments">
             <div class="container col-12">
                 <h2 class="mb-5">Commentaires non validés</h2>
                 <form class="row d-flex flex-column" method="post" action="?p=valid_comment">
