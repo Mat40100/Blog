@@ -59,6 +59,9 @@ class Router {
                     case 'supprimer':
                         $Controller->del_post();
                         break;
+                    case 'valid_mod':
+                        $Controller->valid_mod();
+                        break;
 
                     default:
                         $Controller->admin();
