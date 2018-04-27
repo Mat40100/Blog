@@ -1,56 +1,53 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace model;
 
-/**
- * Description of users
- *
- * @author Programmation
- */
 class UsersManager {
+
+    protected $db;
+
+    public function __construct() {
+        $this->db = DBfactory::Getinstance();
+    }
+
     public function getNickname($id) {
-        $db = DBfactory::Getinstance();
-        $req = $db->prepare('SELECT nickname FROM users WHERE userid = ?');
+        $req = $this->db->prepare('SELECT nickname FROM users WHERE userid = ?');
         $req->execute(array(strtolower($id)));
-        $result = $req->fetch(PDO::FETCH_ASSOC);
+        $result = $req->fetch(\PDO::FETCH_ASSOC);
         return $result['nickname'];
     }
-    public function getInfos($email){
-        $db = DBfactory::Getinstance();
-        $req = $db->prepare('SELECT nickname,userlvl,userid FROM users WHERE email = ?');
+
+    public function getInfos($email) {
+        $req = $this->db->prepare('SELECT nickname,userlvl,userid FROM users WHERE email = ?');
         $req->execute(array($email));
-        return $result=$req->fetch(PDO::FETCH_ASSOC);
+        return $result = $req->fetch(\PDO::FETCH_ASSOC);
     }
-    public function getCount_Ip($ip){
-        $db = DBfactory::Getinstance();
-        $req = $db->prepare('SELECT ip FROM connexion_failed WHERE ip = ?');
+
+    public function getCount_Ip($ip) {
+        $req = $this->db->prepare('SELECT ip FROM connexion_failed WHERE ip = ?');
         $req->execute(array($ip));
-        $data=$req->rowCount();
+        $data = $req->rowCount();
         return $data;
     }
-    
-    public function testPwd($email,$pwd){
-        $db = DBfactory::Getinstance();
-        $req = $db->prepare('SELECT pwd FROM users WHERE email = ?');
+
+    public function testPwd($email, $pwd) {
+        $req = $this->db->prepare('SELECT pwd FROM users WHERE email = ?');
         $req->execute(array(strtolower($email)));
-        $result = $req->fetch(PDO::FETCH_ASSOC);
-        if(password_verify($pwd, $result['pwd'])){
+        $result = $req->fetch(\PDO::FETCH_ASSOC);
+        if (password_verify($pwd, $result['pwd'])) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    public function wrong_pass($ip,$email){
-        $db = DBfactory::Getinstance();
-        $req = $db->prepare('INSERT INTO connexion_failed(ip,email,time) VALUES(:ip, :email, :time)');
+
+    public function wrong_pass($ip, $email) {
+        $req = $this->db->prepare('INSERT INTO connexion_failed(ip,email,time) VALUES(:ip, :email, :time)');
         $req->execute(array(
             'ip' => $ip,
             'email' => $email,
             'time' => date("Y-m-d H:i:s")
-                ));
+        ));
     }
+
 }
