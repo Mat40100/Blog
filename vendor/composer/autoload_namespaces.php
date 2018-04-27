@@ -6,5 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'model\\Entity\\' => array($baseDir . '/model/entity'),
+    'model\\' => array($baseDir . '/model'),
+    'controller\\' => array($baseDir . '/controller'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
+    'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
 );
