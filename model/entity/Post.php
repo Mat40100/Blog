@@ -1,16 +1,7 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace model\entity;
 
-/**
- * Description of Post
- *
- * @author Programmation
- */
 class Post {
     private $Pman;
     public $postid;
@@ -23,7 +14,7 @@ class Post {
 
     public function __construct($postid,$form) {
         
-        $this->Pman = new PostsManager();
+        $this->Pman = new\model\PostsManager();
         $infos = $this->Pman->GetPost($postid);
         
         $this->setPostid($infos['postid']);
@@ -34,7 +25,7 @@ class Post {
         $this->setAuthorname($infos['authorname']);
         
         if($form== "form"){
-            $this->setContent(Formatcontent::format($infos['content']));
+            $this->setContent(\model\Formatcontent::format($infos['content']));
         }elseif($form == "no_form"){
             $this->setContent($infos['content']);
         }
