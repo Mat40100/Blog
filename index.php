@@ -1,11 +1,13 @@
 <?php
 
-require './controller/controller.php';
+require "vendor/autoload.php";
+
+$test = new model\entity\User();
 
 class Router {
 
     public static function redirect() {
-        $Controller = new Controller();
+        $Controller = new controller\Controller();
         switch ($_GET['p']) {
             case 'home':
                 switch ($_GET['d']) {
@@ -62,7 +64,6 @@ class Router {
                     case 'valid_mod':
                         $Controller->valid_mod();
                         break;
-
                     default:
                         $Controller->admin();
                         break;

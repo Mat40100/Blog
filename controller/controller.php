@@ -1,13 +1,6 @@
 <?php
 
-require './model/DBfactory.php';
-require './model/Formatcontent.php';
-require './model/PostsManager.php';
-require './model/CommentManager.php';
-require './model/UsersManager.php';
-require './model/Generic.php';
-require './model/entity/User.php';
-require './model/entity/Post.php';
+namespace controller;
 
 session_start();
 
@@ -18,15 +11,17 @@ class Controller {
     protected $Cman;
     protected $Gen;
     private $twig;
+    protected $db;
 
     public function __construct() {
-        $this->twig = DBfactory::twig();
+        $this->twig = \model\DBfactory::twig();
         $this->twig->addGlobal("session", $_SESSION['user']);
 
-        $this->Uman = new UsersManager();
-        $this->Pman = new PostsManager();
-        $this->Cman = new CommentManager();
-        $this->Gen = new Generic();
+        $this->Uman = new \model\UsersManager();
+        $this->Pman = new \model\PostsManager();
+        $this->Cman = new \model\CommentManager();
+        $this->Gen = new \model\Generic();
+        $this->db = \model\DBfactory::Getinstance();
     }
 
     public function generic() {
@@ -72,7 +67,7 @@ class Controller {
     }
 
     public function post($id) {
-        $post = new Post($id, "form");
+        $post = new \model\entity\Post($id, "form");
         $comments = $this->Cman->getComments($id);
         echo $this->twig->render('content_post.twig', [
             'post' => $post,
@@ -138,7 +133,7 @@ class Controller {
     public function mod_post() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
-                $post = new Post($_GET['id'], "no_form");
+                $post = new \model\entity\Post($_GET['id'], "no_form");
                 echo $this->twig->render('modif_post.twig', [
                     'post' => $post
                 ]);
@@ -180,7 +175,7 @@ class Controller {
     }
 
     public function log() {
-        $_SESSION['user'] = new User();
+        $_SESSION['user'] = new \model\entity\User();
         switch ($_SESSION['user']->connect($_POST['email'], $_POST['pwd'])) {
             case 'ok':
                 if ($_SESSION['user']->getUserlvl() > 2) {

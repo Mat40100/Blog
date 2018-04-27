@@ -1,19 +1,25 @@
 <?php
 
+namespace model;
+
 class Generic {
 
     protected $infos;
+    protected $db;
 
-    function getInfos() {
+    public function __construct() {
+        $this->db = \model\DBfactory::Getinstance();
+    }
 
-        $db = DBfactory::Getinstance();
-        $req = $db->query('SELECT last_name,first_name,chapo,email,adress,github,linkedin,pdf FROM users WHERE userlvl="1" ');
-        $result = $req->fetch(PDO::FETCH_ASSOC);
+    public function getInfos() {
+
+        $req = $this->db->query('SELECT last_name,first_name,chapo,email,adress,github,linkedin,pdf FROM users WHERE userlvl="1" ');
+        $result = $req->fetch(\PDO::FETCH_ASSOC);
 
         return $result;
     }
 
-    function mail_contact($datas) {
+    public function mail_contact($datas) {
 
         // Ma clé privée
         $secret = "6LdO11EUAAAAAPIIiMCzNZ4_Go_Mj3rbJYyiDGIG";
@@ -43,4 +49,5 @@ class Generic {
             return false;
         }
     }
+
 }

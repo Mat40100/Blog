@@ -1,16 +1,7 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace model\entity;
 
-/**
- * Description of User
- *
- * @author Programmation
- */
 class User {
     protected $Uman;
     protected $ticket;
@@ -19,7 +10,7 @@ class User {
     public $userid;
 
     public function __construct() {
-        $this->Uman= new UsersManager();
+        $this->Uman= new \model\UsersManager();
         $this->setUserlvl("4");
     }
     public function getNickname() {
