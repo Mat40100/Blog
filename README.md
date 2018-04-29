@@ -8,6 +8,6 @@ To instal the blog :
   - Update composer (no-dev) to Download the full Vendor
   
   Database : 
-  - Download the clean SQL structure
+  - Download the CleanDb.SQL structure
   - Import it on your DB
-  - Modify DBconfig to fit with your Database
+  - Modify Model/DBconfig.php to fit with your Database
