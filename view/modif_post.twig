@@ -10,6 +10,11 @@
                 <form class=" row" method="post" action="?p=admin&d=valid_mod">
                         <div class="col-12 col-md-6 mb-2 mx-auto">
                             <input type="hidden" name="postid" value="{{post.postid}}">
+                            <select type="text" name="authorid" class="form-control" id="" placeholder="Auteur" >
+                                {% for author in list %}
+                                    <option value="{{author.userid}}">{{author.nickname}}
+                                {% endfor %}
+                            </select>
                             <input type="text" name="title" class="form-control" id="" placeholder="Titre" value="{{post.title}}">
                             
                             <input type="text" name="chapo" class="form-control" id="" placeholder="Châpo" value="{{post.chapo}}">

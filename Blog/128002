@@ -1,0 +1,510 @@
+format 218
+"Blog" // Blog
+  revision 1
+  modified_by 2 "Mathieu"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  usecaseview 128130 "Visitor"
+    
+    usecasediagramsettings end
+    
+    sequencediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    classdiagramsettings member_max_width 0 end
+    
+    objectdiagramsettings end
+    
+    statediagramsettings
+     end
+    
+    activitydiagramsettings
+     end
+    usecasediagram 128130 "Visit and Add comment"
+      usecasediagramsettings end
+      size A4
+    end
+
+    class 128130 "Visitor"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    usecase 128002 "Consult landing page"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 128130 "Visit posts list"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 128258 "Visit post"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 128386 "Send comment"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 128514 "Give infos"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+  end
+
+  usecaseview 128258 "Administrator"
+    
+    usecasediagramsettings end
+    
+    sequencediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    classdiagramsettings member_max_width 0 end
+    
+    objectdiagramsettings end
+    
+    statediagramsettings
+     end
+    
+    activitydiagramsettings
+     end
+    usecasediagram 128258 "Admin"
+      usecasediagramsettings end
+      size A4
+    end
+
+    class 128258 "Visitor"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 128386 "Admin"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    usecase 128642 "Visit and add comment"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128002
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 129026 // Comment can be seen
+      end
+    end
+
+    usecase 128770 "Log in"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 128898 "Valid comment"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128130
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 129026 // Comment can be seen
+      end
+    end
+
+    usecase 129026 "Comment can be seen"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 129154 "Delete comment"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 129282 "Add post"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 129410 "Give title"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128258
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 129282 // Add post
+      end
+    end
+
+    usecase 129538 "Give chapo"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128386
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 129282 // Add post
+      end
+    end
+
+    usecase 129666 "Give content"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128514
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 129282 // Add post
+      end
+    end
+
+    usecase 129794 "Delete post"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 129922 "Comfirm Y/N"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128642
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 129794 // Delete post
+      end
+    end
+
+    usecase 130050 "Modify post"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128770
+	---|>
+	  on usecase_ref 129282 // Add post
+      end
+    end
+
+    usecase 130178 "Modify author"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      objectdiagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+  end
+
+  classview 128002 "Blog classes"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+  end
+end

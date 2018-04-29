@@ -48,8 +48,9 @@ class PostsManager {
     }
 
     public function ModPost($post) {
-        $req = $this->db->prepare('UPDATE posts SET title=?,chapo=?,content=?,last_mod=? WHERE postid=?');
+        $req = $this->db->prepare('UPDATE posts SET authorid=?,title=?,chapo=?,content=?,last_mod=? WHERE postid=?');
         $req->execute(array(
+            $post['authorid'],
             $post['title'],
             $post['chapo'],
             $post['content'],

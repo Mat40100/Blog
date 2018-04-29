@@ -1,0 +1,94 @@
+format 218
+
+packagecanvas 128002 
+  package_ref 128002 // Blog
+    xyzwh 204.2 71 2000 454 604
+end
+classcanvas 128130 class_ref 128386 // Admin
+  simpleclassdiagramsettings end
+  xyz 76.2 389.9 2000
+end
+classcanvas 128258 class_ref 128258 // Visitor
+  simpleclassdiagramsettings end
+  xyz 85.8 151.2 2005
+end
+usecasecanvas 129794 usecase_ref 128642 // Visit and add comment
+  xyzwh 258 152 3005 144 69 label_xy 272 179
+end
+usecasecanvas 130050 usecase_ref 128770 // Log in
+  xyzwh 227 400 3005 106 54 label_xy 265 419
+end
+usecasecanvas 130306 usecase_ref 128898 // Valid comment
+  xyzwh 266 292 3005 139 61 label_xy 301 313
+end
+usecasecanvas 130690 usecase_ref 129026 // Comment can be seen
+  xyzwh 483 190 3005 144 54 label_xy 501 209
+end
+usecasecanvas 131714 usecase_ref 129154 // Delete comment
+  xyzwh 471 320 3005 114 51 label_xy 488 336
+end
+usecasecanvas 132098 usecase_ref 129282 // Add post
+  xyzwh 230 486 3005 94 49 label_xy 253 503
+end
+usecasecanvas 132354 usecase_ref 129410 // Give title
+  xyzwh 211 579 3005 94 46 label_xy 235 595
+end
+usecasecanvas 132482 usecase_ref 129538 // Give chapo
+  xyzwh 309 568 3010 74 36 label_xy 317 578
+end
+usecasecanvas 132610 usecase_ref 129666 // Give content
+  xyzwh 392 447 3015 79 36 label_xy 401 456
+end
+usecasecanvas 133506 usecase_ref 129794 // Delete post
+  xyzwh 484 391 3005 91 51 label_xy 496 409
+end
+usecasecanvas 133762 usecase_ref 129922 // Comfirm Y/N
+  xyzwh 547 496 3005 91 49 label_xy 566 515
+end
+usecasecanvas 134018 usecase_ref 130050 // Modify post
+  xyzwh 404 520 3005 91 34 label_xy 422 531
+end
+usecasecanvas 134530 usecase_ref 130178 // Modify author
+  xyzwh 411 610 3005 99 39 label_xy 430 621
+end
+line 129922 ----
+  from ref 128258 z 3006 to ref 129794
+line 130178 ----
+  from ref 128130 z 3006 to ref 130050
+line 130562 ---- decenter_begin 446 decenter_end 448
+  from ref 130050 z 3006 to ref 130306
+simplerelationcanvas 130818 simplerelation_ref 128002
+  decenter_begin 490
+  decenter_end 512
+  from ref 129794 z 3006 stereotype "<<extend>>" xyz 409.5 179 3000 to ref 130690
+end
+simplerelationcanvas 130946 simplerelation_ref 128130
+  decenter_begin 504
+  decenter_end 537
+  from ref 130306 z 3006 stereotype "<<extend>>" xyz 399.5 258 3000 to ref 130690
+end
+line 131842 ---- decenter_begin 510 decenter_end 634
+  from ref 130050 z 3006 to ref 131714
+line 132226 ----
+  from ref 130050 z 3006 to ref 132098
+simplerelationcanvas 132738 simplerelation_ref 128258
+  from ref 132354 z 3006 stereotype "<<extend>>" xyz 207 544 3000 to ref 132098
+end
+simplerelationcanvas 132866 simplerelation_ref 128386
+  from ref 132482 z 3011 stereotype "<<extend>>" xyz 314 540 3000 to ref 132098
+end
+simplerelationcanvas 132994 simplerelation_ref 128514
+  from ref 132610 z 3016 stereotype "<<extend>>" xyz 322 466 3000 to ref 132098
+end
+line 133634 ----
+  from ref 130050 z 3006 to ref 133506
+simplerelationcanvas 133890 simplerelation_ref 128642
+  decenter_begin 465
+  from ref 133762 z 3006 stereotype "<<extend>>" xyz 538 468.5 3000 to ref 133506
+end
+simplerelationcanvas 134146 simplerelation_ref 128770
+  from ref 134018 z 3006 to ref 132098
+end
+line 134658 ----
+  from ref 134018 z 3006 to ref 134530
+end

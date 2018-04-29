@@ -133,9 +133,11 @@ class Controller {
     public function mod_post() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
+                $list = $this->Uman->getNameList();
                 $post = new \model\entity\Post($_GET['id'], "no_form");
                 echo $this->twig->render('modif_post.twig', [
-                    'post' => $post
+                    'post' => $post,
+                    'list' => $list
                 ]);
                 echo $this->twig->render('navbar_admin.twig', [
                     'hide_mod' => true

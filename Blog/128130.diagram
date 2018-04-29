@@ -1,0 +1,36 @@
+format 218
+
+packagecanvas 128002 
+  package_ref 128002 // Blog
+    xyzwh 215 67 2000 299 437
+end
+classcanvas 128258 class_ref 128130 // Visitor
+  simpleclassdiagramsettings end
+  xyz 50 234 2000
+end
+usecasecanvas 128386 usecase_ref 128002 // Consult landing page
+  xyzwh 234 232 3005 115 61 label_xy 240 255
+end
+usecasecanvas 128642 usecase_ref 128130 // Visit posts list
+  xyzwh 321 148 3005 79 53 label_xy 326 167
+end
+usecasecanvas 129282 usecase_ref 128258 // Visit post
+  xyzwh 398 252 3005 64 32 label_xy 406 258
+end
+usecasecanvas 129666 usecase_ref 128386 // Send comment
+  xyzwh 403 323 3005 87 43 label_xy 410 336
+end
+usecasecanvas 129922 usecase_ref 128514 // Give infos
+  xyzwh 330 424 3005 64 32 label_xy 336 432
+end
+line 128898 ----
+  from ref 128258 z 3006 to ref 128386
+line 129026 ----
+  from ref 128642 z 3006 to ref 128386
+line 129410 ----
+  from ref 128642 z 3006 to ref 129282
+line 129794 ----
+  from ref 129282 z 3006 to ref 129666
+line 130050 --->
+  from ref 129922 z 3006 to ref 129666
+end
