@@ -8,24 +8,26 @@
             <div class="container col-12">
                 <h2 class="mb-5">Modifier le post</h2>
                 <form class=" row" method="post" action="?p=admin&d=valid_mod">
-                        <div class="col-12 col-md-6 mb-2 mx-auto">
-                            <input type="hidden" name="postid" value="{{post.postid}}">
-                            <select type="text" name="authorid" class="form-control" id="" placeholder="Auteur" >
-                                {% for author in list %}
-                                    <option value="{{author.userid}}">{{author.nickname}}
+                    <div class="col-12 col-md-6 mb-2 mx-auto">
+                        <input type="hidden" name="postid" value="{{post.postid}}">
+                        <h3 class="mb-2"> Autheur </h3>
+                        <select type="text" name="authorid" class="form-control" id="" placeholder="Auteur" >
+                            {% for author in list %}
+                                <option value="{{author.userid}}">{{author.nickname}}
                                 {% endfor %}
-                            </select>
-                            <input type="text" name="title" class="form-control" id="" placeholder="Titre" value="{{post.title}}">
-                            
-                            <input type="text" name="chapo" class="form-control" id="" placeholder="Châpo" value="{{post.chapo}}">
-                            
-                            <textarea type="text" rows="10" name="content" class="form-control" id="" placeholder="Contenu">{{post.content}}</textarea>
-                            
-                        </div>
-                        <div class="col-12 row">
-                            <input class=" col-4 col-md-1 btn btn-primary mx-auto" type="submit" value="valider">
-                        </div>
-                    </form>
+                        </select>
+                        <h3 class="mb-1 mt-2"> Titre </h3>
+                        <input type="text" name="title" class="form-control" id="" placeholder="Titre" value="{{post.title}}">
+                        <h3 class="mb-1 mt-2"> Chapo </h3>
+                        <input type="text" name="chapo" class="form-control" id="" placeholder="Châpo" value="{{post.chapo}}">
+                        <h3 class="mb-1 mt-2"> Contenu du post </h3>
+                        <textarea type="text" rows="10" name="content" class="form-control" id="" placeholder="Contenu">{{post.content}}</textarea>
+
+                    </div>
+                    <div class="col-12 row">
+                        <input class=" col-4 col-md-1 btn btn-primary mx-auto" type="submit" value="valider">
+                    </div>
+                </form>
             </div>
         </section>
     </div>

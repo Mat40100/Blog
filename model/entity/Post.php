@@ -3,6 +3,7 @@
 namespace model\entity;
 
 class Post {
+
     private $Pman;
     public $postid;
     public $authorid;
@@ -12,21 +13,21 @@ class Post {
     public $content;
     public $last_mod;
 
-    public function __construct($postid,$form) {
-        
+    public function __construct($postid, $form) {
+
         $this->Pman = new\model\PostsManager();
         $infos = $this->Pman->GetPost($postid);
-        
+
         $this->setPostid($infos['postid']);
         $this->setAuthorid($infos['authorid']);
         $this->setTitle($infos['title']);
         $this->setLast_mod($infos['last_mod']);
         $this->setChapo($infos['chapo']);
         $this->setAuthorname($infos['authorname']);
-        
-        if($form== "form"){
+
+        if ($form == "form") {
             $this->setContent(\model\Formatcontent::format($infos['content']));
-        }elseif($form == "no_form"){
+        } elseif ($form == "no_form") {
             $this->setContent($infos['content']);
         }
     }

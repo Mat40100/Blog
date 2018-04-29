@@ -3,19 +3,20 @@
 namespace model;
 
 class UsersManager {
+
     public function __construct() {
         ;
     }
 
-    public function getNameList(){
+    public function getNameList() {
         $db = DBfactory::Getinstance();
         $req = $db->query('SELECT userid, nickname FROM users');
-        while($donnees = $req->fetch(\PDO::FETCH_ASSOC)){
-            $result[]=$donnees;
+        while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)) {
+            $result[] = $donnees;
         }
         return $result;
     }
-    
+
     public function getNickname($id) {
         $db = DBfactory::Getinstance();
         $req = $db->prepare('SELECT nickname FROM users WHERE userid = ?');
