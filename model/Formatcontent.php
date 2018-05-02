@@ -2,11 +2,14 @@
 
 namespace model;
 
-class Formatcontent {
-    private function __construct() {
+class Formatcontent
+{
+    private function __construct() 
+    {
     }
     
-    static public function format($content){
+    static public function format($content)
+    {
         
         $content = htmlspecialchars($content);
         $content = preg_replace('`\[img\](.+)\[/img\]`isU', '<img class="img-fluid" style="max-width: 100%;height:auto;" src="$1">', $content);
@@ -21,6 +24,6 @@ class Formatcontent {
         
         $content = preg_replace('`\[l\]`isU', '</br>', $content);
         
-      return $content;  
+        return $content;  
     }
 }

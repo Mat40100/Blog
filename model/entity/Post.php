@@ -2,9 +2,10 @@
 
 namespace model\entity;
 
-class Post {
+class Post
+{
 
-    private $Pman;
+    protected $Pman;
     public $postid;
     public $authorid;
     public $authorname;
@@ -13,78 +14,93 @@ class Post {
     public $content;
     public $last_mod;
 
-    public function __construct($postid, $form) {
+    public function __construct($postid, $form) 
+    {
 
         $this->Pman = new\model\PostsManager();
-        $infos = $this->Pman->GetPost($postid);
+        $infos = $this->Pman->getPost($postid);
 
-        $this->setPostid($infos['postid']);
-        $this->setAuthorid($infos['authorid']);
-        $this->setTitle($infos['title']);
-        $this->setLast_mod($infos['last_mod']);
-        $this->setChapo($infos['chapo']);
-        $this->setAuthorname($infos['authorname']);
+        $this->_setPostid($infos['postid']);
+        $this->_setAuthorid($infos['authorid']);
+        $this->_setTitle($infos['title']);
+        $this->_setLastMod($infos['last_mod']);
+        $this->_setChapo($infos['chapo']);
+        $this->_setAuthorname($infos['authorname']);
 
         if ($form == "form") {
-            $this->setContent(\model\Formatcontent::format($infos['content']));
+            $this->_setContent(\model\Formatcontent::format($infos['content']));
         } elseif ($form == "no_form") {
-            $this->setContent($infos['content']);
+            $this->_setContent($infos['content']);
         }
     }
 
-    public function getAuthorname() {
+    public function getAuthorname() 
+    {
         return $this->authorname;
     }
 
-    public function getPostid() {
+    public function getPostid() 
+    {
         return $this->postid;
     }
 
-    public function getAuthorid() {
+    public function getAuthorid() 
+    {
         return $this->authorid;
     }
 
-    public function getTitle() {
+    public function getTitle() 
+    {
         return $this->title;
     }
 
-    public function getChapo() {
+    public function getChapo() 
+    {
         return $this->chapo;
     }
 
-    public function getContent() {
+    public function getContent() 
+    {
         return $this->content;
     }
 
-    public function getLast_mod() {
+    public function getLastMod() 
+    {
         return $this->last_mod;
     }
 
-    private function setAuthorname($authorname) {
+    private function _setAuthorname($authorname) 
+    {
         $this->authorname = $authorname;
     }
 
-    private function setPostid($postid) {
+    private function _setPostid($postid) 
+    {
         $this->postid = $postid;
     }
 
-    private function setAuthorid($authorid) {
+    private function _setAuthorid($authorid) 
+    {
         $this->authorid = $authorid;
     }
 
-    private function setTitle($title) {
+    private function _setTitle($title) 
+    {
         $this->title = $title;
     }
 
-    private function setChapo($chapo) {
+    private function _setChapo($chapo) 
+    {
         $this->chapo = $chapo;
     }
 
-    private function setContent($content) {
+    private function _setContent($content) 
+    {
         $this->content = $content;
     }
 
-    private function setLast_mod($last_mod) {
+    private function _setLastMod($last_mod) 
+    {
         $this->last_mod = $last_mod;
     }
 
