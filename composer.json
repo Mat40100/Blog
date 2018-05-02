@@ -18,6 +18,9 @@
         "components/jquery": "3.3.1",
         "twbs/bootstrap": "v4.0.0",
         "phpunit/phpunit": "^7",
+        "fortawesome/font-awesome": "v4.7.0"
+    },
+    "require-dev":{
         "squizlabs/php_codesniffer": "3.2.3"
     },
     "autoload":{
