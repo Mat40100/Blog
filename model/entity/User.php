@@ -23,7 +23,7 @@ class User
     {
         return $this->userlvl;
     }
-    function getUserid() 
+    public function getUserid() 
     {
         return $this->userid;
     }
@@ -91,7 +91,7 @@ class User
         session_destroy();
         header('location : ?p=home');
     }
-    function __destruct() 
+    public function __destruct() 
     {
     }
 }

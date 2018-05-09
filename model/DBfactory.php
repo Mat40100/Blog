@@ -2,6 +2,7 @@
 
 namespace model;
 
+
 class DBfactory
 {
 
@@ -13,7 +14,7 @@ class DBfactory
         
     }
 
-    static function twig() 
+    public static function twig() 
     {
         $loader = new \Twig\Loader\FilesystemLoader('./view');
         self::$twig = new \Twig\Environment(
@@ -26,15 +27,11 @@ class DBfactory
         return self::$twig;
     }
 
-    static function getInstance() 
+    public static function getInstance() 
     {
         if (is_null(self::$instance)) {
-            try {
                 $db = include 'dbconfig.php';
                 self::$instance = new \PDO('mysql:host=' . $db['host'] . ';dbname=' . $db['dbname'] . '', $db['username'], $db['password']);
-            } catch (Exception $exc) {
-                self::$instance = $exc->getMessage();
-            }
         }
 
         return self::$instance;
