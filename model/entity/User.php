@@ -56,7 +56,7 @@ class User
     }
     public function verifTicket()
     {
-        if (isset($_COOKIE['ticket']) and ($this->ticket == $_COOKIE['ticket'])) {
+        if (isset($_COOKIE['ticket']) && ($this->ticket == $_COOKIE['ticket'])) {
             $this->_setTicket();
             return 'ok';
         } elseif (!isset($_COOKIE['ticket'])) {

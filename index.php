@@ -30,7 +30,7 @@ class Router
         case 'blog':
             switch ($_GET['d']) {
             case 'post':
-                if (!isset($_GET['id']) or $_GET['id'] == '0') {
+                if (!isset($_GET['id']) || $_GET['id'] == '0') {
                     $Controller->acceuil();
                 }
                 $id = intval($_GET['id']);

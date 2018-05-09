@@ -39,7 +39,7 @@ class Generic
 
         $decode = json_decode(file_get_contents($api_url), true);
 
-        if ($decode['success'] == true) {
+        if ($decode['success'] === true) {
             $to = 'mathieu.dolhen@gmail.com';
             $subject = 'Contact';
             $message = 'De: ' . $datas['last_name'] . ' ' . $datas['first_name'] . "\r\n" . $datas['message'];

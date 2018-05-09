@@ -34,7 +34,8 @@ class UsersManager
         $db = DBfactory::getInstance();
         $req = $db->prepare('SELECT nickname,userlvl,userid FROM users WHERE email = ?');
         $req->execute(array($email));
-        return $result = $req->fetch(\PDO::FETCH_ASSOC);
+        $result = $req->fetch(\PDO::FETCH_ASSOC);
+        return $result
     }
 
     public function getCountIp($ip) 

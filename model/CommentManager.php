@@ -14,9 +14,9 @@ class CommentManager
         $this->db = DBfactory::getInstance();
     }
 
-    public function addComment(array $comment) 
+    public function addComment() 
     {
-        if (empty($_POST['comment']) or empty($_POST['email']) or empty($_POST['first_name']) or empty($_POST['last_name']) or empty($_POST['postid'])) {
+        if (empty($_POST['comment']) || empty($_POST['email']) || empty($_POST['first_name']) || empty($_POST['last_name']) || empty($_POST['postid'])) {
             return false;
         }
         $req = $this->db->prepare('INSERT INTO comments(postid, last_name, first_name, email, last_mod, comment) VALUES(:postid, :last_name, :first_name, :email, :last_mod, :comment)');
