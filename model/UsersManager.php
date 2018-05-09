@@ -35,7 +35,7 @@ class UsersManager
         $req = $db->prepare('SELECT nickname,userlvl,userid FROM users WHERE email = ?');
         $req->execute(array($email));
         $result = $req->fetch(\PDO::FETCH_ASSOC);
-        return $result
+        return $result;
     }
 
     public function getCountIp($ip) 

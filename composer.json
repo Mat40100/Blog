@@ -1,6 +1,7 @@
 {
     "name": "vendor/blog",
     "description": "Description of project Blog.",
+    "license": "Mat",
     "authors": [
         {
             "name": "Mathieu",
