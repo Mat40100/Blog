@@ -1,7 +1,7 @@
 {
     "name": "vendor/blog",
     "description": "Description of project Blog.",
-    "license": "Mat",
+    "license": "0BSD",
     "authors": [
         {
             "name": "Mathieu",
