@@ -20,17 +20,17 @@ class Post
         $this->Pman = new\model\PostsManager();
         $infos = $this->Pman->getPost($postid);
 
-        $this->_setPostid($infos['postid']);
-        $this->_setAuthorid($infos['authorid']);
-        $this->_setTitle($infos['title']);
-        $this->_setLastMod($infos['last_mod']);
-        $this->_setChapo($infos['chapo']);
-        $this->_setAuthorname($infos['authorname']);
+        $this->setPostid($infos['postid']);
+        $this->setAuthorid($infos['authorid']);
+        $this->setTitle($infos['title']);
+        $this->setLastMod($infos['last_mod']);
+        $this->setChapo($infos['chapo']);
+        $this->setAuthorname($infos['authorname']);
 
         if ($form == "form") {
-            $this->_setContent(\model\Formatcontent::format($infos['content']));
+            $this->setContent(\model\Formatcontent::format($infos['content']));
         } elseif ($form == "no_form") {
-            $this->_setContent($infos['content']);
+            $this->setContent($infos['content']);
         }
     }
 
@@ -69,37 +69,37 @@ class Post
         return $this->last_mod;
     }
 
-    private function _setAuthorname($authorname) 
+    private function setAuthorname($authorname) 
     {
         $this->authorname = $authorname;
     }
 
-    private function _setPostid($postid) 
+    private function setPostid($postid) 
     {
         $this->postid = $postid;
     }
 
-    private function _setAuthorid($authorid) 
+    private function setAuthorid($authorid) 
     {
         $this->authorid = $authorid;
     }
 
-    private function _setTitle($title) 
+    private function setTitle($title) 
     {
         $this->title = $title;
     }
 
-    private function _setChapo($chapo) 
+    private function setChapo($chapo) 
     {
         $this->chapo = $chapo;
     }
 
-    private function _setContent($content) 
+    private function setContent($content) 
     {
         $this->content = $content;
     }
 
-    private function _setLastMod($last_mod) 
+    private function setLastMod($last_mod) 
     {
         $this->last_mod = $last_mod;
     }

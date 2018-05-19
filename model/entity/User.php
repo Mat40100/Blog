@@ -13,7 +13,7 @@ class User
     public function __construct() 
     {
         $this->Uman= new \model\UsersManager();
-        $this->_setUserlvl("4");
+        $this->setUserlvl("4");
     }
     public function getNickname() 
     {
@@ -27,19 +27,19 @@ class User
     {
         return $this->userid;
     }
-    private function _setUserid($userid)
+    private function setUserid($userid)
     {
         $this->userid = $userid;
     }
-    private function _setUserlvl($userlvl) 
+    private function setUserlvl($userlvl) 
     {
         $this->userlvl = $userlvl;
     }
-    private function _setNickname($nickname) 
+    private function setNickname($nickname) 
     { 
         $this->nickname = $nickname;
     }
-    private function _setTicket() 
+    private function setTicket() 
     {
         $this->ticket = hash('sha512', session_id().microtime().rand(0, 9999999999));
         setcookie('ticket', $this->ticket, time()+(60*20));
@@ -57,7 +57,7 @@ class User
     public function verifTicket()
     {
         if (isset($_COOKIE['ticket']) && ($this->ticket == $_COOKIE['ticket'])) {
-            $this->_setTicket();
+            $this->setTicket();
             return 'ok';
         } elseif (!isset($_COOKIE['ticket'])) {
             return 'timed_out';
@@ -71,10 +71,10 @@ class User
         if ($this->testIp()) {
             if ($this->Uman->testPwd($email, $pwd)) {
                 $infos = $this->Uman->getInfos($email);
-                $this->_setNickname($infos['nickname']);
-                $this->_setUserlvl($infos['userlvl']);
-                $this->_setUserid($infos['userid']);
-                $this->_setTicket();
+                $this->setNickname($infos['nickname']);
+                $this->setUserlvl($infos['userlvl']);
+                $this->setUserid($infos['userid']);
+                $this->setTicket();
                 return 'ok';                
             } else {
                 session_destroy();
