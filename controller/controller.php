@@ -94,9 +94,9 @@ class Controller
     public function addComment() 
     {
         if ($this->Cman->addComment($_POST)) {
-            header('location: index.php?p=blog&$d=post&id=' . $_POST['postid']);
+            header('location: ?p=alert&alert=Vous remplir completement les formulaires afin que le commentaire soit envoyé');
         } else {
-            //Probleme
+            header('location: ?p=alert&alert=Vous devez être modérateur pour effectuer cette action');
         }
     }
 
