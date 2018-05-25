@@ -6,7 +6,6 @@ session_start();
 
 class Controller
 {
-
     protected $Uman;
     protected $Pman;
     protected $Cman;
@@ -93,8 +92,8 @@ class Controller
 
     public function addComment() 
     {
-        if ($this->Cman->addComment($_POST)) {
-            header('location: ?p=alert&alert=Vous remplir completement les formulaires afin que le commentaire soit envoyé');
+        if ($this->Cman->addComment(new \model\entity\Comment($_POST))) {
+            header('location: ?p=blog&d=post&id='.$_POST['postid']);
         } else {
             header('location: ?p=alert&alert=Vous devez être modérateur pour effectuer cette action');
         }
