@@ -7,22 +7,25 @@ class Router
 
     public static function redirect() 
     {
-        $Controller = new controller\Controller();
+        $lpController = new controller\LpController();
+        $AdminController = new \controller\AdminController();
+        $BlogController = new \controller\BlogController();
+
         switch ($_GET['p']) {
         case 'home':
             switch ($_GET['d']) {
             case '':
-                $Controller->generic();
+                $lpController->generic();
                 break;
 
             case 'connect':
-                $Controller->log();
+                $lpController->log();
                 break;
             case 'disconnect':
-                $Controller->disconnect();
+                $lpController->disconnect();
                 break;
             default :
-                $Controller->generic();
+                $lpController->generic();
                 break;
             }
             break;
@@ -31,18 +34,22 @@ class Router
             switch ($_GET['d']) {
             case 'post':
                 if (!isset($_GET['id']) || $_GET['id'] == '0') {
-                    $Controller->acceuil();
+                    $BlogController->acceuil();
                 }
                 $id = intval($_GET['id']);
-                $Controller->post($id);
+                $BlogController->post($id);
                 break;
 
             case 'list':
-                $Controller->liste();
+                $BlogController->liste();
+                break;
+
+            case 'add_comment':
+                $BlogController->addComment();
                 break;
 
             default :
-                $Controller->liste();
+                $BlogController->liste();
                 break;
             }
             break;
@@ -50,41 +57,38 @@ class Router
         case 'admin':
             switch ($_GET['d']) {
             case 'valid_comment':
-                $Controller->validComments();
+                $AdminController->validComments();
                 break;
             case 'add_post':
-                $Controller->addPost();
+                $AdminController->addPost();
                 break;
             case 'modifier':
-                $Controller->modPost();
+                $AdminController->modPost();
                 break;
             case 'supprimer':
-                $Controller->delPost();
+                $AdminController->delPost();
                 break;
             case 'valid_mod':
-                $Controller->validMod();
+                $AdminController->validMod();
                 break;
             default:
-                $Controller->admin();
+                $AdminController->admin();
                 break;
             }
 
             break;
 
-        case 'add_comment':
-            $Controller->addComment();
-            break;
         case 'alert':
-            $Controller->alert();
+            $lpController->alert();
             break;
         case 'mail':
-            $Controller->mail();
+            $lpController->mail();
             break;
         case 'dl':
-            $Controller->dl();
+            $lpController->dl();
             break;
         default :
-            $Controller->generic();
+            $lpController->generic();
             break;
         }
     }
