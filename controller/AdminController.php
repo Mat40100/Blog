@@ -2,6 +2,8 @@
 
 namespace controller;
 
+use model\entity\Post;
+
 session_start();
 
 class AdminController extends ControllerMain {
@@ -56,10 +58,16 @@ class AdminController extends ControllerMain {
     public function addPost() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
-                $this->pman->postPost($_POST);
-                header('location: ?p=admin');
+                $_POST['authorid']=$_SESSION['user']->getUserid();
+                $post = new Post($_POST,"no_form");
+                if($post->getError()===0){
+                    $this->pman->postPost($post);
+                    header('location: ?p=admin');
+                }else{
+                    header('location: ?p=alert&alert=Le formulaire n\'a pas été rempli correctement');
+                }
             } else {
-                header('location: ?p=alert&alert=Vous devez être modérateur pour effectuer cette action');
+                header('location: ?p=alert&alert=Vous devez être administrateur pour effectuer cette action');
             }
         } else {
             header('location: ?p=alert&alert=Vous devez être connecté pour effectuer cette action');
@@ -70,7 +78,7 @@ class AdminController extends ControllerMain {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
                 $list = $this->uman->getNameList();
-                $post = new \model\entity\Post($_GET['id'], "no_form");
+                $post = $this->pman->getPost($_GET['id']);
                 try {
                     echo $this->twig->render(
                         'modif_post.twig', [
@@ -103,8 +111,13 @@ class AdminController extends ControllerMain {
     public function validMod() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
-                $this->pman->modPost($_POST);
-                header('location: ?p=blog&d=post&id=' . $_POST['postid']);
+                $post = new Post($_POST,"no_form");
+               if($post->getError()===0){
+                   $this->pman->modPost($post);
+                   header('location: ?p=blog&d=post&id=' . $_POST['postid']);
+               }else{
+                   header('location: ?p=alert&alert=Vous n\'avez pas rempli le formulaire de modification correctement');
+               }
             } else {
                 header('location: ?p=alert&alert=Vous devez être administrateur pour effectuer cette action');
             }
@@ -116,8 +129,14 @@ class AdminController extends ControllerMain {
     public function delPost() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
-                $this->pman->deletePost($_GET['id']);
-                header('location: ?p=admin');
+                $post = $this->pman->getPost($_GET['id']);
+                if($post->getError()===0){
+                    $this->pman->deletePost($post);
+                    header('location: ?p=admin');
+                }else{
+                    header('location: ?p=alert&alert=Ce post n\'existe pas');
+                }
+
             } else {
                 header('location: ?p=alert&alert=Vous devez être administrateur pour effectuer cette action');
             }

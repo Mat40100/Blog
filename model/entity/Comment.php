@@ -34,6 +34,9 @@ class Comment {
                 $this->setError();
             }
         }
+        if(!array_key_exists("comment",$array) || !array_key_exists("first_name",$array) || !array_key_exists("last_name",$array) || !array_key_exists("email",$array) ){
+            $this->setError();
+        }
         if($this->getError()=== 0){
             $this->setPostid($array['postid']);
             $this->setComment($array['comment']);

@@ -16,7 +16,7 @@ class Post
     public $lastMod;
     public $error;
 
-    public function __construct($array, $form)
+    public function __construct( $array, $form)
     {
         $this->usersManager=new UsersManager();
         $this->error = 0;
@@ -25,12 +25,21 @@ class Post
                 $this->setError();
             }
         }
+        if(!array_key_exists("title",$array) || !array_key_exists("chapo",$array) || !array_key_exists("content",$array) ){
+            $this->setError();
+        }
         if($this->getError()=== 0){
-            $this->setPostId($array['postid']);
+            if(isset($array['postid'])) {
+                $this->setPostId($array['postid']);
+            }
+
             $this->setAuthorId($array['authorid']);
             $this->setTitle($array['title']);
-            $this->setLastMod($array['last_mod']);
             $this->setChapo($array['chapo']);
+
+            if(isset($array['last_mod'])){
+                $this->setLastMod($array['last_mod']);
+            }
             if ($form == "form") {
                 $this->setContent(\model\Formatcontent::format($array['content']));
             } elseif ($form == "no_form") {
@@ -105,7 +114,7 @@ class Post
         }
     }
 
-    private function setTitle($title) 
+    private function setTitle($title)
     {
         $this->title = $title;
     }
