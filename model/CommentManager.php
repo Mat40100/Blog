@@ -2,18 +2,19 @@
 
 namespace model;
 
+use model\entity\Comment;
+
 class CommentManager {
 
-    protected $Pman;
+    protected $pman;
     protected $db;
 
     public function __construct() {
-        $this->Pman = new \model\PostsManager;
+        $this->pman = new \model\PostsManager;
         $this->db = DBfactory::getInstance();
     }
 
-    public function addComment(\model\entity\Comment $comment) {
-        if ($comment->getError() === 0) {
+    public function addComment(Comment $comment) {
             $req = $this->db->prepare('INSERT INTO comments(postid, last_name, first_name, email, last_mod, comment) VALUES(:postid, :last_name, :first_name, :email, :last_mod, :comment)');
             $req->execute(
                     array(
@@ -26,9 +27,6 @@ class CommentManager {
                     )
             );
             return true;
-        } else {
-            return false;
-        }
     }
 
     public function getComments($postid) {
@@ -38,23 +36,28 @@ class CommentManager {
                     'postid' => $postid
                 )
         );
-        while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)) {
-            $result[] = $donnees;
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+            $comment = new Comment($data);
+            if($comment->getError()===0){
+                $comments[]=$comment;
+            }
         }
-        return $result;
+        return $comments;
     }
 
     public function getUnvalidComments() {
         $req = $this->db->prepare('SELECT * FROM comments WHERE valid=0');
         $req->execute();
-        $i = 0;
+        
         while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-            $post = $this->Pman->GetPost($data['postid']);
-            $result[] = $data;
-            $result[$i][title] = $post['title'];
-            $i++;
+            $comment = new Comment($data);
+            $post = $this->pman->getPost($comment->getPostid());
+            if($comment->getError()=== 0){
+                $comment->setTitle($post->getTitle());
+                $comments[] = $comment;
+            }
         }
-        return $result;
+        return $comments;
     }
 
     public function validComment(array $comments) {

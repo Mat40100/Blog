@@ -18,7 +18,7 @@
                     <div class="row border-bottom my-1">
                         <a href="?p=blog&d=post&id={{post.postid}}" class="col-12 col-md text-center my-auto">{{post.title}}</a>
                         <div class="col-12 col-md text-center my-auto">{{post.authorname}}</div>
-                        <div class="col-12 col-md text-center my-auto">{{post.last_mod}}</div>
+                        <div class="col-12 col-md text-center my-auto">{{post.lastMod}}</div>
                         {% if session.Userlvl == 1 %}
                             <div class="col-12 col-md row text-center mx-auto">
                                 <a class="col-12" href="?p=admin&d=modifier&id={{post.postid}}">Modifier</a>
@@ -37,8 +37,8 @@
                 <form class="row d-flex flex-column" method="post" action="?p=admin&d=valid_comment">
                     {% for unvalid_comment in unvalid_comments %}
                         <div class="row border border-gray my-3 d-flex flex-md-row flex-column">
-                            <div class="col-12 col-md-3 my-auto"><strong>Le : </strong>{{unvalid_comment.last_mod}}</div>
-                            <div class="col-12 col-md-3 my-auto"><strong>De : </strong>{{unvalid_comment.last_name}} {{unvalid_comment.first_name}}</div>
+                            <div class="col-12 col-md-3 my-auto"><strong>Le : </strong>{{unvalid_comment.lastMod}}</div>
+                            <div class="col-12 col-md-3 my-auto"><strong>De : </strong>{{unvalid_comment.lastName}} {{unvalid_comment.firstName}}</div>
                             <div class="col-12 col-md-3 my-auto"><strong>Article : </strong>{{unvalid_comment.title}}</div>
                             <div class="col-12 col-md-3 row">
                                 <div class="col-12 col-md-6 mx-auto my-2 d-flex flex-row flex-md-column align-items-center">

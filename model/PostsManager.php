@@ -26,12 +26,7 @@ class PostsManager
         );
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         $post = new Post($data,"form");
-        if($post->getError()===0){
-            return $post;
-        }
-        else{
-            return false;
-        }
+        return $post;
     }
 
     public function getPosts() 

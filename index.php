@@ -45,7 +45,7 @@ class Router
                 break;
 
             default :
-                $BlogController->liste();
+                $BlogController->postList();
                 break;
             }
             break;

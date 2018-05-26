@@ -16,6 +16,7 @@ namespace model\entity;
 class Comment {
 
     public $postid;
+    public $title;
     public $email;
     public $firstName;
     public $lastName;
@@ -26,7 +27,9 @@ class Comment {
     public function __construct($array) {
         $this->error = 0;
         foreach($array as $key => $value){
-            if(empty($value)){
+
+            if(!isset($value)){
+                echo $key;
                 $this->setError();
             }
         }
@@ -38,6 +41,11 @@ class Comment {
             $this->setEmail($array['email']);
             $this->setLastMod();
         }
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     public function getError() {
@@ -79,6 +87,11 @@ class Comment {
         } else {
             $this->setError();
         }
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 
     protected function setFirstName($firstName) {

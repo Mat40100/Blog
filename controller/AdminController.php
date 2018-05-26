@@ -43,8 +43,9 @@ class AdminController extends ControllerMain {
     public function validComments() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() <= 2) {
-                $this->cman->validComment($_POST);
-                header('location: ?p=admin');
+                print_r($_POST);
+                //$this->cman->validComment($_POST);
+                //header('location: ?p=admin');
             } else {
                 header('location: ?p=alert&alert=Vous devez être modérateur pour effectuer cette action');
             }

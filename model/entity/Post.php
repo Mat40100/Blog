@@ -21,7 +21,7 @@ class Post
         $this->usersManager=new UsersManager();
         $this->error = 0;
         foreach($array as $key => $value) {
-            if (empty($value)) {
+            if (!isset($value)) {
                 $this->setError();
             }
         }
