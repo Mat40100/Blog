@@ -2,19 +2,21 @@
 
 namespace model;
 
+use model\entity\Post;
+
 class PostsManager
 {
 
-    protected $Uman;
+    protected $uman;
     protected $db;
 
-    public function __construct() 
+    public function __construct()
     {
-        $this->Uman = new UsersManager();
+        $this->uman = new UsersManager();
         $this->db = DBfactory::getInstance();
     }
 
-    public function getPost(int $postid) 
+    public function getPost($postid)
     {
         $req = $this->db->prepare('SELECT * FROM posts WHERE postid = :postid');
         $req->execute(
@@ -23,22 +25,23 @@ class PostsManager
             )
         );
         $data = $req->fetch(\PDO::FETCH_ASSOC);
-        $data['authorname'] = $this->Uman->getNickname($data['authorid']);
-        return $data;
+        $post = new Post($data,"form");
+        return $post;
     }
 
     public function getPosts() 
     {
         $req = $this->db->query('SELECT * from posts');
         while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-            $posts[] = new entity\Post(
-                $data['postid'], "form"
-            );
+            $post= new Post($data,"form");
+            if($post->getError()===0){
+                $posts[]=$post;
+            }
         }
         return $posts;
     }
 
-    public function postPost(array $post) 
+    public function postPost(array $post)
     {
         $req = $this->db->prepare('INSERT INTO posts(authorid, title, last_mod, chapo, content) VALUES(:authorid, :title, :last_mod, :chapo, :content)');
         $req->execute(
@@ -72,5 +75,4 @@ class PostsManager
             )
         );
     }
-
 }

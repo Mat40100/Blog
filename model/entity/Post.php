@@ -2,51 +2,61 @@
 
 namespace model\entity;
 
+use model\UsersManager;
+
 class Post
 {
-
-    protected $Pman;
-    public $postid;
-    public $authorid;
-    public $authorname;
+    protected $usersManager;
+    public $postId;
+    public $authorId;
+    public $authorName;
     public $title;
     public $chapo;
     public $content;
-    public $last_mod;
+    public $lastMod;
+    public $error;
 
-    public function __construct($postid, $form) 
+    public function __construct($array, $form)
     {
-
-        $this->Pman = new\model\PostsManager();
-        $infos = $this->Pman->getPost($postid);
-
-        $this->setPostid($infos['postid']);
-        $this->setAuthorid($infos['authorid']);
-        $this->setTitle($infos['title']);
-        $this->setLastMod($infos['last_mod']);
-        $this->setChapo($infos['chapo']);
-        $this->setAuthorname($infos['authorname']);
-
-        if ($form == "form") {
-            $this->setContent(\model\Formatcontent::format($infos['content']));
-        } elseif ($form == "no_form") {
-            $this->setContent($infos['content']);
+        $this->usersManager=new UsersManager();
+        $this->error = 0;
+        foreach($array as $key => $value) {
+            if (!isset($value)) {
+                $this->setError();
+            }
+        }
+        if($this->getError()=== 0){
+            $this->setPostId($array['postid']);
+            $this->setAuthorId($array['authorid']);
+            $this->setTitle($array['title']);
+            $this->setLastMod($array['last_mod']);
+            $this->setChapo($array['chapo']);
+            if ($form == "form") {
+                $this->setContent(\model\Formatcontent::format($array['content']));
+            } elseif ($form == "no_form") {
+                $this->setContent($array['content']);
+            }
         }
     }
 
-    public function getAuthorname() 
+    public function getError()
     {
-        return $this->authorname;
+        return $this->error;
     }
 
-    public function getPostid() 
+    public function getAuthorName()
     {
-        return $this->postid;
+        return $this->authorName;
     }
 
-    public function getAuthorid() 
+    public function getPostId()
     {
-        return $this->authorid;
+        return $this->postId;
+    }
+
+    public function getAuthorId()
+    {
+        return $this->authorId;
     }
 
     public function getTitle() 
@@ -66,22 +76,33 @@ class Post
 
     public function getLastMod() 
     {
-        return $this->last_mod;
+        return $this->lastMod;
     }
 
-    private function setAuthorname($authorname) 
+    private function setError()
     {
-        $this->authorname = $authorname;
+        $this->error = ++$this->error;
     }
 
-    private function setPostid($postid) 
+    private function setPostId($postid)
     {
-        $this->postid = $postid;
+        intval($postid);
+        if($postid>0){
+            $this->postId = $postid;
+        }else{
+            $this->setError();
+        }
     }
 
-    private function setAuthorid($authorid) 
+    private function setAuthorId($authorid)
     {
-        $this->authorid = $authorid;
+        intval($authorid);
+        if($authorid>0){
+            $this->authorId = $authorid;
+            $this->authorName = $this->usersManager->getNickname($authorid);
+        }else{
+            $this->setError();
+        }
     }
 
     private function setTitle($title) 
@@ -101,7 +122,7 @@ class Post
 
     private function setLastMod($last_mod) 
     {
-        $this->last_mod = $last_mod;
+        $this->lastMod = $last_mod;
     }
 
 }

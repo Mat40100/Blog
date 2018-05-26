@@ -18,7 +18,7 @@
                     <div class="row border-bottom my-1">
                         <a href="?p=blog&d=post&id={{post.postid}}" class="col-12 col-md text-center my-auto">{{post.title}}</a>
                         <div class="col-12 col-md text-center my-auto">{{post.authorname}}</div>
-                        <div class="col-12 col-md text-center my-auto">{{post.last_mod}}</div>
+                        <div class="col-12 col-md text-center my-auto">{{post.lastMod}}</div>
                         {% if session.Userlvl == 1 %}
                             <div class="col-12 col-md row text-center mx-auto">
                                 <a class="col-12" href="?p=admin&d=modifier&id={{post.postid}}">Modifier</a>
@@ -35,25 +35,25 @@
             <div class="container col-12">
                 <h2 class="mb-5">Commentaires non validés</h2>
                 <form class="row d-flex flex-column" method="post" action="?p=admin&d=valid_comment">
-                    {% for unvalid_comment in unvalid_comments %}
+                    {% for unvalidcomment in unvalidcomments %}
                         <div class="row border border-gray my-3 d-flex flex-md-row flex-column">
-                            <div class="col-12 col-md-3 my-auto"><strong>Le : </strong>{{unvalid_comment.last_mod}}</div>
-                            <div class="col-12 col-md-3 my-auto"><strong>De : </strong>{{unvalid_comment.last_name}} {{unvalid_comment.first_name}}</div>
-                            <div class="col-12 col-md-3 my-auto"><strong>Article : </strong>{{unvalid_comment.title}}</div>
+                            <div class="col-12 col-md-3 my-auto"><strong>Le : </strong>{{unvalidcomment.lastMod}}</div>
+                            <div class="col-12 col-md-3 my-auto"><strong>De : </strong>{{unvalidcomment.lastName}} {{unvalidcomment.firstName}}</div>
+                            <div class="col-12 col-md-3 my-auto"><strong>Article : </strong>{{unvalidcomment.title}}</div>
                             <div class="col-12 col-md-3 row">
                                 <div class="col-12 col-md-6 mx-auto my-2 d-flex flex-row flex-md-column align-items-center">
                                     <p class="mb-0" >Valider</p>
-                                    <input class="mx-auto" type="radio" value="Valider" name="{{unvalid_comment.comment_id}}">
+                                    <input class="mx-auto" type="radio" value="Valider" name="{{unvalidcomment.commentId}}">
                                 </div>
                                 <div class="col-12 col-md-6 mx-auto my-2 d-flex flex-row flex-md-column align-items-center">
                                     <p class="mb-0" >Supprimer</p>
-                                    <input class="mx-auto" type="radio" value="Supprimer" name="{{unvalid_comment.comment_id}}">
+                                    <input class="mx-auto" type="radio" value="Supprimer" name="{{unvalidcomment.commentId}}">
                                 </div>
                             </div>
                             <div class="col-12 border text-center py-3">{{unvalid_comment.comment}}</div>
                         </div>
                     {%endfor%}
-                    {% if unvalid_comments is not null %}
+                    {% if unvalidcomments is not null %}
                         <input class="btn btn-primary mx-auto" type="submit" value="valider">
                     {% else %}
                         <div class="row ">

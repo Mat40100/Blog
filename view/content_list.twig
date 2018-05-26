@@ -8,12 +8,12 @@
             {% for post in posts %}
                 <div class="resume-item border-bottom d-flex flex-column flex-md-row mb-5">
                         <div class="resume-content mr-auto">
-                            <h3  class="mb-0">{{ post.title }}<small class="font-weight-light font-italic"> by {{post.authorname}}</small></h3>
+                            <h3  class="mb-0">{{ post.title }}<small class="font-weight-light font-italic"> by {{post.authorName}}</small></h3>
                             <div class="text-capitalized mb-3">{{post.chapo}}</div>
-                            <a onclick="changement();" href="./?p=blog&d=post&id={{post.postid}}" >Lire l'article </a>
+                            <a onclick="changement();" href="./?p=blog&d=post&id={{post.postId}}" >Lire l'article </a>
                         </div>
                         <div class="resume-date text-md-right">
-                            <span class="text-primary">{{post.last_mod}}</span>
+                            <span class="text-primary">{{post.lastMod}}</span>
                         </div>
                 </div>
             {% endfor %}

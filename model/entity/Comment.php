@@ -16,19 +16,22 @@ namespace model\entity;
 class Comment {
 
     public $postid;
+    public $commentId;
+    public $title;
     public $email;
     public $firstName;
     public $lastName;
     public $lastMod;
     public $comment;
-    public $error = 0;
+    public $error;
 
     public function __construct($array) {
+        $this->error = 0;
         foreach($array as $key => $value){
-            if(isset($value)){
 
-            }else{
-                $this->setError(1);
+            if(!isset($value)){
+                echo $key;
+                $this->setError();
             }
         }
         if($this->getError()=== 0){
@@ -38,7 +41,15 @@ class Comment {
             $this->setLastName($array['last_name']);
             $this->setEmail($array['email']);
             $this->setLastMod();
+            if(isset($array['comment_id'])){
+                $this->setCommentId($array['comment_id']);
+            }
         }
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     public function getError() {
@@ -47,6 +58,14 @@ class Comment {
 
     public function getPostid() {
         return $this->postid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCommentId()
+    {
+        return $this->commentId;
     }
 
     public function getEmail() {
@@ -69,8 +88,8 @@ class Comment {
         return $this->comment;
     }
 
-    protected function setError($error) {
-        $this->error = $error;
+    protected function setError() {
+        $this->error = ++$this->error;
     }
 
     protected function setPostid($postid) {
@@ -78,8 +97,23 @@ class Comment {
         if ($postid > 0) {
             $this->postid = $postid;
         } else {
-            $this->error = 1;
+            $this->setError();
         }
+    }
+
+    private function setCommentId($commentId)
+    {
+        intval($commentId);
+        if($commentId>0) {
+            $this->commentId = $commentId;
+        }else{
+            $this->setError();
+        }
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 
     protected function setFirstName($firstName) {
