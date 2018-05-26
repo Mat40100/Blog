@@ -18,10 +18,10 @@ class CommentManager {
             $req->execute(
                     array(
                         'comment' => $comment->getComment(),
-                        'last_mod' => $comment->getLast_mod(),
+                        'last_mod' => $comment->getLastMod(),
                         'email' => $comment->getEmail(),
-                        'first_name' => $comment->getFirst_name(),
-                        'last_name' => $comment->getLast_name(),
+                        'first_name' => $comment->getFirstName(),
+                        'last_name' => $comment->getLastName(),
                         'postid' => $comment->getPostid()
                     )
             );

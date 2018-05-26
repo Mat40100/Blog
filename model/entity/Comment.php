@@ -17,19 +17,28 @@ class Comment {
 
     public $postid;
     public $email;
-    public $first_name;
-    public $last_name;
-    public $last_mod;
+    public $firstName;
+    public $lastName;
+    public $lastMod;
     public $comment;
     public $error = 0;
 
     public function __construct($array) {
-        $this->setPostid($array['postid']);
-        $this->setComment($array['comment']);
-        $this->setFirst_name($array['first_name']);
-        $this->setLast_name($array['last_name']);
-        $this->setEmail($array['email']);
-        $this->setLast_mod();
+        foreach($array as $key => $value){
+            if(isset($value)){
+
+            }else{
+                $this->setError(1);
+            }
+        }
+        if($this->getError()=== 0){
+            $this->setPostid($array['postid']);
+            $this->setComment($array['comment']);
+            $this->setFirstName($array['first_name']);
+            $this->setLastName($array['last_name']);
+            $this->setEmail($array['email']);
+            $this->setLastMod();
+        }
     }
 
     public function getError() {
@@ -44,16 +53,16 @@ class Comment {
         return $this->email;
     }
 
-    public function getFirst_name() {
-        return $this->first_name;
+    public function getFirstName() {
+        return $this->firstName;
     }
 
-    public function getLast_name() {
-        return $this->last_name;
+    public function getLastName() {
+        return $this->lastName;
     }
 
-    public function getLast_mod() {
-        return $this->last_mod;
+    public function getLastMod() {
+        return $this->lastMod;
     }
 
     public function getComment() {
@@ -73,16 +82,16 @@ class Comment {
         }
     }
 
-    protected function setFirst_name($first_name) {
-        $this->first_name = $first_name;
+    protected function setFirstName($firstName) {
+        $this->firstName = $firstName;
     }
 
-    protected function setLast_name($last_name) {
-        $this->last_name = $last_name;
+    protected function setLastName($lastName) {
+        $this->lastName = $lastName;
     }
 
-    protected function setLast_mod() {
-        $this->last_mod = date("Y-m-d H:i:s");
+    protected function setLastMod() {
+        $this->lastMod = date("Y-m-d H:i:s");
     }
 
     protected function setComment($comment) {
