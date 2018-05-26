@@ -16,6 +16,7 @@ namespace model\entity;
 class Comment {
 
     public $postid;
+    public $commentId;
     public $title;
     public $email;
     public $firstName;
@@ -40,6 +41,9 @@ class Comment {
             $this->setLastName($array['last_name']);
             $this->setEmail($array['email']);
             $this->setLastMod();
+            if(isset($array['comment_id'])){
+                $this->setCommentId($array['comment_id']);
+            }
         }
     }
 
@@ -54,6 +58,14 @@ class Comment {
 
     public function getPostid() {
         return $this->postid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCommentId()
+    {
+        return $this->commentId;
     }
 
     public function getEmail() {
@@ -85,6 +97,16 @@ class Comment {
         if ($postid > 0) {
             $this->postid = $postid;
         } else {
+            $this->setError();
+        }
+    }
+
+    private function setCommentId($commentId)
+    {
+        intval($commentId);
+        if($commentId>0) {
+            $this->commentId = $commentId;
+        }else{
             $this->setError();
         }
     }

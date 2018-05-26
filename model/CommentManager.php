@@ -28,7 +28,17 @@ class CommentManager {
             );
             return true;
     }
-
+    public function getComment($commentId){
+        $req = $this->db->prepare('SELECT * FROM comments WHERE comment_id=:commentId');
+        $req->execute(
+            array(
+                'commentId' => $commentId
+            )
+        );
+        $data = $req->fetch(\PDO::FETCH_ASSOC);
+        $comment = new Comment($data);
+        return $comment;
+    }
     public function getComments($postid) {
         $req = $this->db->prepare('SELECT * FROM comments WHERE postid=:postid AND valid=1');
         $req->execute(
@@ -60,16 +70,28 @@ class CommentManager {
         return $comments;
     }
 
-    public function validComment(array $comments) {
-        foreach ($comments as $key => $value) {
-            if ($value == "Valider") {
-                $req = $this->db->prepare('UPDATE comments SET valid=1 WHERE comment_id= ?');
-                $req->execute(array($key));
-            } elseif ($value == "Supprimer") {
-                $req = $this->db->prepare('DELETE FROM comments WHERE comment_id= ?');
-                $req->execute(array($key));
+    public function commentValidation(array $array)
+    {
+        foreach ($array as $id => $value) {
+            $comment = $this->getComment($id);
+            if ($comment->getError() === 0) {
+                if ($value == "Valider") {
+                    $this->validComment($comment->getCommentId());
+                } else {
+                    $this->deleteComment($comment->getCommentId());
+                }
             }
         }
+    }
+
+    private function validComment($id)
+    {
+        $req = $this->db->prepare('UPDATE comments SET valid=1 WHERE comment_id= ?');
+        $req->execute(array($id));
+    }
+    private function deleteComment($id){
+        $req = $this->db->prepare('DELETE FROM comments WHERE comment_id= ?');
+        $req->execute(array($id));
     }
 
 }

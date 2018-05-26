@@ -84,11 +84,6 @@ class Post
         $this->error = ++$this->error;
     }
 
-    private function setAuthorName($authorname)
-    {
-        $this->authorName = $authorname;
-    }
-
     private function setPostId($postid)
     {
         intval($postid);

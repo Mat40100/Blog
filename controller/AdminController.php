@@ -25,7 +25,7 @@ class AdminController extends ControllerMain {
                     echo $this->twig->render(
                         'content_admin.twig', [
                             'liste' => $posts,
-                            'unvalid_comments' => $unvalidComments
+                            'unvalidcomments' => $unvalidComments
                         ]
                     );
                 } catch (\Twig_Error_Loader $e) {
@@ -43,9 +43,8 @@ class AdminController extends ControllerMain {
     public function validComments() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() <= 2) {
-                print_r($_POST);
-                //$this->cman->validComment($_POST);
-                //header('location: ?p=admin');
+                $this->cman->commentValidation($_POST);
+                header('location: ?p=admin');
             } else {
                 header('location: ?p=alert&alert=Vous devez être modérateur pour effectuer cette action');
             }
