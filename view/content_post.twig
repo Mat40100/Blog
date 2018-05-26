@@ -6,7 +6,7 @@
         <section class="resume-section container-fluid d-flex flex-column">
             <div class="row d-flex flex-auto">
                 <h2 class="col-lg-5 text-center text-lg-right">{{ post.title}}</h2>
-                <p class="col-lg-5 text-center text-lg-left my-auto">by {{post.authorname}} le {{ post.last_mod }} </p>
+                <p class="col-lg-5 text-center text-lg-left my-auto">by {{post.authorName}} le {{ post.lastMod }} </p>
                 <div class="w-100"></div>
                 <p class="col lead text-center font-italic border-top border-bottom">{{ post.chapo }}</p>
             </div>
@@ -25,14 +25,14 @@
                     <div class="col-lg-8 mx-auto">
                         {% for comment in comments %}
                             <div class="d-flex flex-column border-bottom align-content-center py-2">
-                                <div class="mx-auto border-bottom">{{ comment.first_name }} {{comment.last_name}} <small>le {{comment.last_mod}}</small></div>
+                                <div class="mx-auto border-bottom">{{ comment.firstName }} {{comment.lastName}} <small>le {{comment.lastMod}}</small></div>
                                 <div class="mx-auto">{{comment.comment}}</div>
                             </div>
                         {% endfor %}
                     </div>
                     <div class="col-lg-4 mx-auto col-sm-4">
                         {% block input_comment  %}
-                            <form class="needs-validation d-flex flex-column" method="post" action="index.php?p=Blog&d=add_comment" novalidate>
+                            <form class="needs-validation d-flex flex-column" method="post" action="?p=blog&d=add_comment" novalidate>
                                 <input type="hidden" name="postid" value="{{post.postid}}">
                                 <div class="form-col">
                                     <div class="">

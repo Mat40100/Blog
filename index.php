@@ -33,15 +33,11 @@ class Router
         case 'blog':
             switch ($_GET['d']) {
             case 'post':
-                if (!isset($_GET['id']) || $_GET['id'] == '0') {
-                    $BlogController->acceuil();
-                }
-                $id = intval($_GET['id']);
-                $BlogController->post($id);
+                $BlogController->post();
                 break;
 
             case 'list':
-                $BlogController->liste();
+                $BlogController->postList();
                 break;
 
             case 'add_comment':

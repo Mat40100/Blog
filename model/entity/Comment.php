@@ -21,14 +21,13 @@ class Comment {
     public $lastName;
     public $lastMod;
     public $comment;
-    public $error = 0;
+    public $error;
 
     public function __construct($array) {
+        $this->error = 0;
         foreach($array as $key => $value){
-            if(isset($value)){
-
-            }else{
-                $this->setError(1);
+            if(empty($value)){
+                $this->setError();
             }
         }
         if($this->getError()=== 0){
@@ -69,8 +68,8 @@ class Comment {
         return $this->comment;
     }
 
-    protected function setError($error) {
-        $this->error = $error;
+    protected function setError() {
+        $this->error = ++$this->error;
     }
 
     protected function setPostid($postid) {
@@ -78,7 +77,7 @@ class Comment {
         if ($postid > 0) {
             $this->postid = $postid;
         } else {
-            $this->error = 1;
+            $this->setError();
         }
     }
 

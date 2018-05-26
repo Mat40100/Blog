@@ -6,7 +6,7 @@ session_start();
 
 class BlogController extends ControllerMain {
 
-    public function liste() {
+    public function postList() {
         $posts = $this->pman->getPosts();
         try {
             echo $this->twig->render(
@@ -26,24 +26,28 @@ class BlogController extends ControllerMain {
         }
     }
 
-    public function post($id) {
-        $post = new \model\entity\Post($id, "form");
-        $comments = $this->cman->getComments($id);
-        try {
-            echo $this->twig->render(
-                'content_post.twig', [
-                    'post' => $post,
-                    'comments' => $comments]
-            );
-        } catch (\Twig_Error_Loader $e) {
-        } catch (\Twig_Error_Runtime $e) {
-        } catch (\Twig_Error_Syntax $e) {
-        }
-        try {
-            echo $this->twig->render('navbar_blog.twig');
-        } catch (\Twig_Error_Loader $e) {
-        } catch (\Twig_Error_Runtime $e) {
-        } catch (\Twig_Error_Syntax $e) {
+    public function post() {
+        $post = $this->pman->getPost($_GET['id']);
+        if($post === false){
+            header('location: ?p=alert&alert=Ce post n\'éxiste pas');
+        }else{
+            $comments = $this->cman->getComments($_GET['id']);
+            try {
+                echo $this->twig->render(
+                    'content_post.twig', [
+                        'post' => $post,
+                        'comments' => $comments]
+                );
+            } catch (\Twig_Error_Loader $e) {
+            } catch (\Twig_Error_Runtime $e) {
+            } catch (\Twig_Error_Syntax $e) {
+            }
+            try {
+                echo $this->twig->render('navbar_blog.twig');
+            } catch (\Twig_Error_Loader $e) {
+            } catch (\Twig_Error_Runtime $e) {
+            } catch (\Twig_Error_Syntax $e) {
+            }
         }
     }
 
@@ -54,4 +58,9 @@ class BlogController extends ControllerMain {
             header('location: ?p=alert&alert=Le formulaire de commentaire n\'a pas été rempli correctement');
         }
     }
+
+    public function postIdIsValid(){
+
+    }
+
 }
