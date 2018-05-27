@@ -6,7 +6,7 @@ use model\Formatcontent;
 
 class User
 {
-    protected $Uman;
+    protected $usersManager;
     protected $ticket;
     public $userlvl;
     public $nickname;
@@ -14,7 +14,7 @@ class User
 
     public function __construct() 
     {
-        $this->Uman= new \model\UsersManager();
+        $this->usersManager= new \model\UsersManager();
         $this->setUserlvl("4");
     }
     public function getNickname() 
@@ -49,7 +49,7 @@ class User
     protected function testIp() 
     {
         $ip = $_SERVER['REMOTE_ADDR'];
-        $count = $this->Uman->getCountIp($ip);
+        $count = $this->usersManager->getCountIp($ip);
         if ($count>10) {
             return false;
         } else {
@@ -71,8 +71,8 @@ class User
     public function connect($email,$pwd)
     {
         if ($this->testIp()) {
-            if ($this->Uman->testPwd(Formatcontent::formatBdd($email), Formatcontent::formatBdd($pwd))) {
-                $infos = $this->Uman->getInfos($email);
+            if ($this->usersManager->testPwd(Formatcontent::formatBdd($email), Formatcontent::formatBdd($pwd))) {
+                $infos = $this->usersManager->getInfos($email);
                 $this->setNickname($infos['nickname']);
                 $this->setUserlvl($infos['userlvl']);
                 $this->setUserid($infos['userid']);
@@ -80,7 +80,7 @@ class User
                 return 'ok';                
             } else {
                 session_destroy();
-                $this->Uman->wrongPass($_SERVER['REMOTE_ADDR'], $email);
+                $this->usersManager->wrongPass($_SERVER['REMOTE_ADDR'], $email);
                 return 'false_mdp';
             }
         } else {

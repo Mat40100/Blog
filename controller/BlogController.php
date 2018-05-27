@@ -9,7 +9,7 @@ session_start();
 class BlogController extends ControllerMain {
 
     public function postList() {
-        $posts = $this->pman->getPosts();
+        $posts = $this->postsManager->getPosts();
         try {
             echo $this->twig->render(
                 'content_list.twig', [
@@ -29,9 +29,9 @@ class BlogController extends ControllerMain {
     }
 
     public function post() {
-        $post = $this->pman->getPost($_GET['id'],"form");
+        $post = $this->postsManager->getPost($_GET['id'],"form");
         if($post->getError() === 0){
-            $comments = $this->cman->getComments($_GET['id']);
+            $comments = $this->commentManager->getComments($_GET['id']);
             try {
                 echo $this->twig->render(
                     'content_post.twig', [
@@ -56,7 +56,7 @@ class BlogController extends ControllerMain {
     public function addComment() {
         $comment = new Comment($_POST);
         if($comment->getError()===0){
-            $this->cman->addComment($comment);
+            $this->commentManager->addComment($comment);
             header('location: ?p=blog&d=post&id=' . $_POST['postid']);
         }else{
             header('location: ?p=alert&alert=Le formulaire de commentaire n\'a pas été rempli correctement');

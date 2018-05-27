@@ -6,11 +6,11 @@ use model\entity\Comment;
 
 class CommentManager {
 
-    protected $pman;
+    protected $postsManager;
     protected $db;
 
     public function __construct() {
-        $this->pman = new \model\PostsManager;
+        $this->postsManager = new \model\PostsManager;
         $this->db = DBfactory::getInstance();
     }
 
@@ -28,17 +28,7 @@ class CommentManager {
             );
             return true;
     }
-    public function getComment($commentId){
-        $req = $this->db->prepare('SELECT * FROM comments WHERE comment_id=:commentId');
-        $req->execute(
-            array(
-                'commentId' => $commentId
-            )
-        );
-        $data = $req->fetch(\PDO::FETCH_ASSOC);
-        $comment = new Comment($data);
-        return $comment;
-    }
+
     public function getComments($postid) {
         $req = $this->db->prepare('SELECT * FROM comments WHERE postid=:postid AND valid=1');
         $req->execute(
@@ -58,10 +48,10 @@ class CommentManager {
     public function getUnvalidComments() {
         $req = $this->db->prepare('SELECT * FROM comments WHERE valid=0');
         $req->execute();
-        
+
         while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
             $comment = new Comment($data);
-            $post = $this->pman->getPost($comment->getPostid(),"form");
+            $post = $this->postsManager->getPost($comment->getPostid(),"form");
             if($comment->getError()=== 0){
                 $comment->setTitle($post->getTitle());
                 $comments[] = $comment;
@@ -84,11 +74,24 @@ class CommentManager {
         }
     }
 
+    public function getComment($commentId){
+        $req = $this->db->prepare('SELECT * FROM comments WHERE comment_id=:commentId');
+        $req->execute(
+            array(
+                'commentId' => $commentId
+            )
+        );
+        $data = $req->fetch(\PDO::FETCH_ASSOC);
+        $comment = new Comment($data);
+        return $comment;
+    }
+
     private function validComment($id)
     {
         $req = $this->db->prepare('UPDATE comments SET valid=1 WHERE comment_id= ?');
         $req->execute(array($id));
     }
+
     private function deleteComment($id){
         $req = $this->db->prepare('DELETE FROM comments WHERE comment_id= ?');
         $req->execute(array($id));

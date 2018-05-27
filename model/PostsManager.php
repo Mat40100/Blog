@@ -7,12 +7,12 @@ use model\entity\Post;
 class PostsManager
 {
 
-    protected $uman;
+    protected $usersManager;
     protected $db;
 
     public function __construct()
     {
-        $this->uman = new UsersManager();
+        $this->usersManager = new UsersManager();
         $this->db = DBfactory::getInstance();
     }
 

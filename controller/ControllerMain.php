@@ -6,9 +6,9 @@ session_start();
 
 class ControllerMain {
 
-    protected $uman;
-    protected $pman;
-    protected $cman;
+    protected $usersManager;
+    protected $postsManager;
+    protected $commentManager;
     protected $gen;
     protected $twig;
     protected $db;
@@ -17,9 +17,9 @@ class ControllerMain {
         $this->twig = \model\DBfactory::twig();
         $this->twig->addGlobal("session", $_SESSION['user']);
 
-        $this->uman = new \model\UsersManager();
-        $this->pman = new \model\PostsManager();
-        $this->cman = new \model\CommentManager();
+        $this->usersManager = new \model\UsersManager();
+        $this->postsManager = new \model\PostsManager();
+        $this->commentManager = new \model\CommentManager();
         $this->gen = new \model\Generic();
         $this->db = \model\DBfactory::Getinstance();
     }

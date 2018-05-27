@@ -11,8 +11,8 @@ class AdminController extends ControllerMain {
     public function admin() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() <= 2) {
-                $unvalidComments = $this->cman->getUnvalidComments();
-                $posts = $this->pman->getPosts();
+                $unvalidComments = $this->commentManager->getUnvalidComments();
+                $posts = $this->postsManager->getPosts();
                 try {
                     echo $this->twig->render(
                         'navbar_admin.twig', [
@@ -45,7 +45,7 @@ class AdminController extends ControllerMain {
     public function validComments() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() <= 2) {
-                $this->cman->commentValidation($_POST);
+                $this->commentManager->commentValidation($_POST);
                 header('location: ?p=admin');
             } else {
                 header('location: ?p=alert&alert=Vous devez être modérateur pour effectuer cette action');
@@ -61,7 +61,7 @@ class AdminController extends ControllerMain {
                 $_POST['authorid']=$_SESSION['user']->getUserid();
                 $post = new Post($_POST,"no_form");
                 if($post->getError()===0){
-                    $this->pman->postPost($post);
+                    $this->postsManager->postPost($post);
                     header('location: ?p=admin');
                 }else{
                     header('location: ?p=alert&alert=Le formulaire n\'a pas été rempli correctement');
@@ -77,8 +77,8 @@ class AdminController extends ControllerMain {
     public function modPost() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
-                $list = $this->uman->getNameList();
-                $post = $this->pman->getPost($_GET['id'],"no_form");
+                $list = $this->usersManager->getNameList();
+                $post = $this->postsManager->getPost($_GET['id'],"no_form");
                 try {
                     echo $this->twig->render(
                         'modif_post.twig', [
@@ -113,7 +113,7 @@ class AdminController extends ControllerMain {
             if ($_SESSION['user']->getUserlvl() == 1) {
                 $post = new Post($_POST,"no_form");
                if($post->getError()===0){
-                   $this->pman->modPost($post);
+                   $this->postsManager->modPost($post);
                    header('location: ?p=blog&d=post&id=' . $_POST['postid']);
                }else{
                    header('location: ?p=alert&alert=Vous n\'avez pas rempli le formulaire de modification correctement');
@@ -129,9 +129,9 @@ class AdminController extends ControllerMain {
     public function delPost() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
-                $post = $this->pman->getPost($_GET['id'],"no_form");
+                $post = $this->postsManager->getPost($_GET['id'],"no_form");
                 if($post->getError()===0){
-                    $this->pman->deletePost($post);
+                    $this->postsManager->deletePost($post);
                     header('location: ?p=admin');
                 }else{
                     header('location: ?p=alert&alert=Ce post n\'existe pas');
