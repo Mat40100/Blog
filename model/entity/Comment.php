@@ -28,9 +28,7 @@ class Comment {
     public function __construct($array) {
         $this->error = 0;
         foreach($array as $key => $value){
-
             if(!isset($value)){
-                echo $key;
                 $this->setError();
             }
         }

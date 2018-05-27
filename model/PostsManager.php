@@ -26,6 +26,7 @@ class PostsManager
         );
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         $post = new Post($data,$form);
+        $post->setAuthorName($this->usersManager->getUser($post->getAuthorId())->getNickname());
         return $post;
     }
 
@@ -34,6 +35,7 @@ class PostsManager
         $req = $this->db->query('SELECT * from posts');
         while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
             $post= new Post($data,"form");
+            $post->setAuthorName($this->usersManager->getUser($post->getAuthorId())->getNickname());
             if($post->getError()===0){
                 $posts[]=$post;
             }

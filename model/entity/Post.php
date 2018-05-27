@@ -6,7 +6,6 @@ use model\UsersManager;
 
 class Post
 {
-    protected $usersManager;
     public $postId;
     public $authorId;
     public $authorName;
@@ -18,7 +17,6 @@ class Post
 
     public function __construct( $array, $form)
     {
-        $this->usersManager=new UsersManager();
         $this->error = 0;
         foreach($array as $key => $value) {
             if (!isset($value)) {
@@ -110,8 +108,6 @@ class Post
         intval($authorid);
         if($authorid>0){
             $this->authorId = $authorid;
-            $user = $this->usersManager->getUser($authorid);
-            $this->authorName = $user->getNickName();
         }else{
             $this->setError();
         }
@@ -130,6 +126,11 @@ class Post
     private function setContent($content) 
     {
         $this->content = $content;
+    }
+
+    public function setAuthorName($authorName)
+    {
+        $this->authorName = $authorName;
     }
 
     private function setLastMod($last_mod) 
