@@ -16,7 +16,7 @@ class PostsManager
         $this->db = DBfactory::getInstance();
     }
 
-    public function getPost($postid)
+    public function getPost($postid,$form)
     {
         $req = $this->db->prepare('SELECT * FROM posts WHERE postid = :postid');
         $req->execute(
@@ -25,7 +25,7 @@ class PostsManager
             )
         );
         $data = $req->fetch(\PDO::FETCH_ASSOC);
-        $post = new Post($data,"form");
+        $post = new Post($data,$form);
         return $post;
     }
 

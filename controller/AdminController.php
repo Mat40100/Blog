@@ -78,7 +78,7 @@ class AdminController extends ControllerMain {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
                 $list = $this->uman->getNameList();
-                $post = $this->pman->getPost($_GET['id']);
+                $post = $this->pman->getPost($_GET['id'],"no_form");
                 try {
                     echo $this->twig->render(
                         'modif_post.twig', [
@@ -129,7 +129,7 @@ class AdminController extends ControllerMain {
     public function delPost() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
-                $post = $this->pman->getPost($_GET['id']);
+                $post = $this->pman->getPost($_GET['id'],"no_form");
                 if($post->getError()===0){
                     $this->pman->deletePost($post);
                     header('location: ?p=admin');

@@ -26,4 +26,11 @@ class Formatcontent
         
         return $content;  
     }
+    static public function formatBdd($content){
+
+        $content = preg_replace('`\>(.+)\<`isU', '', $content);
+        $content = preg_replace('`\<(.+)\>`isU', '#Balise', $content);
+
+        return $content;
+    }
 }

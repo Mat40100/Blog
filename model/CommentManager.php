@@ -61,7 +61,7 @@ class CommentManager {
         
         while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
             $comment = new Comment($data);
-            $post = $this->pman->getPost($comment->getPostid());
+            $post = $this->pman->getPost($comment->getPostid(),"form");
             if($comment->getError()=== 0){
                 $comment->setTitle($post->getTitle());
                 $comments[] = $comment;

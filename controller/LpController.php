@@ -75,7 +75,7 @@ class LpController extends ControllerMain {
                 }
                 break;
             case 'false_mdp':
-                header('location: ?p=alert&alert=Mauvais Nom utilisateur ou mot de passe');
+                header('location: ?p=alert&alert=Mauvais Nom utilisateur ou mot de passe#login');
                 break;
             case 'false_ip':
                 header('location: ?p=alert&alert=Trop de tentatives, retentez plus tard.');

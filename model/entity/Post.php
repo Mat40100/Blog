@@ -34,17 +34,19 @@ class Post
             }
 
             $this->setAuthorId($array['authorid']);
-            $this->setTitle($array['title']);
-            $this->setChapo($array['chapo']);
+            $this->setTitle(\model\Formatcontent::formatBdd($array['title']));
+            $this->setChapo(\model\Formatcontent::formatBdd($array['chapo']));
 
             if(isset($array['last_mod'])){
                 $this->setLastMod($array['last_mod']);
             }
+            $this->setContent(\model\Formatcontent::formatBdd($array['content']));
             if ($form == "form") {
-                $this->setContent(\model\Formatcontent::format($array['content']));
+                $this->setContent(\model\Formatcontent::format($this->getContent()));
             } elseif ($form == "no_form") {
-                $this->setContent($array['content']);
+                $this->setContent($this->getContent());
             }
+
         }
     }
 
@@ -108,7 +110,7 @@ class Post
         intval($authorid);
         if($authorid>0){
             $this->authorId = $authorid;
-            $this->authorName = $this->usersManager->getNickname($authorid);
+            $this->authorName = \model\Formatcontent::formatBdd($this->usersManager->getNickname($authorid));
         }else{
             $this->setError();
         }

@@ -39,10 +39,10 @@ class Comment {
         }
         if($this->getError()=== 0){
             $this->setPostid($array['postid']);
-            $this->setComment($array['comment']);
-            $this->setFirstName($array['first_name']);
-            $this->setLastName($array['last_name']);
-            $this->setEmail($array['email']);
+            $this->setComment(\model\Formatcontent::formatBdd($array['comment']));
+            $this->setFirstName(\model\Formatcontent::formatBdd($array['first_name']));
+            $this->setLastName(\model\Formatcontent::formatBdd($array['last_name']));
+            $this->setEmail(\model\Formatcontent::formatBdd($array['email']));
             $this->setLastMod();
             if(isset($array['comment_id'])){
                 $this->setCommentId($array['comment_id']);
@@ -63,9 +63,6 @@ class Comment {
         return $this->postid;
     }
 
-    /**
-     * @return mixed
-     */
     public function getCommentId()
     {
         return $this->commentId;

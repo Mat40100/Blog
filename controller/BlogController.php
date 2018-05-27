@@ -29,7 +29,7 @@ class BlogController extends ControllerMain {
     }
 
     public function post() {
-        $post = $this->pman->getPost($_GET['id']);
+        $post = $this->pman->getPost($_GET['id'],"form");
         if($post->getError() === 0){
             $comments = $this->cman->getComments($_GET['id']);
             try {
