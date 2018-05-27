@@ -71,7 +71,7 @@ class User
     public function connect($email,$pwd)
     {
         if ($this->testIp()) {
-            if ($this->Uman->testPwd(Formatcontent::formatBdd($email), Formatcontent::formatBdd($pwd)) {
+            if ($this->Uman->testPwd(Formatcontent::formatBdd($email), Formatcontent::formatBdd($pwd))) {
                 $infos = $this->Uman->getInfos($email);
                 $this->setNickname($infos['nickname']);
                 $this->setUserlvl($infos['userlvl']);
