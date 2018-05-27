@@ -16,12 +16,12 @@ class PostsManager
         $this->db = DBfactory::getInstance();
     }
 
-    public function getPost($postid,$form)
+    public function getPost($postId, $form)
     {
         $req = $this->db->prepare('SELECT * FROM posts WHERE postid = :postid');
         $req->execute(
             array(
-            'postid' => $postid
+            'postid' => $postId
             )
         );
         $data = $req->fetch(\PDO::FETCH_ASSOC);

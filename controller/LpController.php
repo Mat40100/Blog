@@ -2,6 +2,8 @@
 
 namespace controller;
 
+use model\Formatcontent;
+
 session_start();
 
 class LpController extends ControllerMain {
@@ -65,12 +67,11 @@ class LpController extends ControllerMain {
     }
 
     public function log() {
-        $_SESSION['user'] = new \model\entity\User();
-        switch ($_SESSION['user']->connect($_POST['email'], $_POST['pwd'])) {
+        switch ($this->usersManager->connect(Formatcontent::formatBdd($_POST['email']), Formatcontent::formatBdd($_POST['pwd']))) {
             case 'ok':
-                if ($_SESSION['user']->getUserlvl() > 2) {
+                if ($_SESSION['user']->getUserLvl() > 2) {
                     header('location: ?p=home');
-                } elseif ($_SESSION['user']->getUserlvl() <= 2) {
+                } elseif ($_SESSION['user']->getUserLvl() <= 2) {
                     header('location: ?p=admin');
                 }
                 break;
@@ -87,7 +88,7 @@ class LpController extends ControllerMain {
 
     public function disconnect() {
         $_SESSION = array();
-        session_destroy;
+        session_destroy();
         header('location: ?p=home#about');
     }
 

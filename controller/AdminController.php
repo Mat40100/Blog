@@ -77,7 +77,7 @@ class AdminController extends ControllerMain {
     public function modPost() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
-                $list = $this->usersManager->getNameList();
+                $list = $this->usersManager->getUsers();
                 $post = $this->postsManager->getPost($_GET['id'],"no_form");
                 try {
                     echo $this->twig->render(

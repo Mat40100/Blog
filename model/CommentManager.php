@@ -10,7 +10,7 @@ class CommentManager {
     protected $db;
 
     public function __construct() {
-        $this->postsManager = new \model\PostsManager;
+        $this->postsManager = new PostsManager;
         $this->db = DBfactory::getInstance();
     }
 
@@ -23,17 +23,17 @@ class CommentManager {
                         'email' => $comment->getEmail(),
                         'first_name' => $comment->getFirstName(),
                         'last_name' => $comment->getLastName(),
-                        'postid' => $comment->getPostid()
+                        'postid' => $comment->getPostId()
                     )
             );
             return true;
     }
 
-    public function getComments($postid) {
-        $req = $this->db->prepare('SELECT * FROM comments WHERE postid=:postid AND valid=1');
+    public function getComments($postId) {
+        $req = $this->db->prepare('SELECT * FROM comments WHERE postid=:postId AND valid=1');
         $req->execute(
                 array(
-                    'postid' => $postid
+                    'postId' => $postId
                 )
         );
         while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
@@ -51,7 +51,7 @@ class CommentManager {
 
         while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
             $comment = new Comment($data);
-            $post = $this->postsManager->getPost($comment->getPostid(),"form");
+            $post = $this->postsManager->getPost($comment->getPostId(),"form");
             if($comment->getError()=== 0){
                 $comment->setTitle($post->getTitle());
                 $comments[] = $comment;
@@ -66,9 +66,9 @@ class CommentManager {
             $comment = $this->getComment($id);
             if ($comment->getError() === 0) {
                 if ($value == "Valider") {
-                    $this->validComment($comment->getCommentId());
+                    $this->validComment($comment);
                 } else {
-                    $this->deleteComment($comment->getCommentId());
+                    $this->deleteComment($comment);
                 }
             }
         }
@@ -86,15 +86,15 @@ class CommentManager {
         return $comment;
     }
 
-    private function validComment($id)
+    private function validComment(Comment $comment)
     {
         $req = $this->db->prepare('UPDATE comments SET valid=1 WHERE comment_id= ?');
-        $req->execute(array($id));
+        $req->execute(array($comment->getCommentId()));
     }
 
-    private function deleteComment($id){
+    private function deleteComment(Comment $comment){
         $req = $this->db->prepare('DELETE FROM comments WHERE comment_id= ?');
-        $req->execute(array($id));
+        $req->execute(array($comment->getCommentId()));
     }
 
 }

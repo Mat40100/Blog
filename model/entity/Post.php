@@ -110,7 +110,8 @@ class Post
         intval($authorid);
         if($authorid>0){
             $this->authorId = $authorid;
-            $this->authorName = \model\Formatcontent::formatBdd($this->usersManager->getNickname($authorid));
+            $user = $this->usersManager->getUser($authorid);
+            $this->authorName = $user->getNickName();
         }else{
             $this->setError();
         }

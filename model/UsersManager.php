@@ -2,6 +2,8 @@
 
 namespace model;
 
+use model\entity\User;
+
 class UsersManager
 {
 
@@ -10,34 +12,24 @@ class UsersManager
         ;
     }
 
-    public function getNameList() 
+
+    public function getUser($userid)
     {
         $db = DBfactory::getInstance();
-        $req = $db->query('SELECT userid, nickname FROM users');
-        while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)) {
-            $result[] = $donnees;
+        $req = $db->prepare('SELECT nickname,userlvl,userid FROM users WHERE userid = ?');
+        $req->execute(array($userid));
+        $result = $req->fetch(\PDO::FETCH_ASSOC);
+        $user = new User($result);
+        return $user;
+    }
+    public function getUsers(){
+        $db = DBfactory::getInstance();
+        $req = $db->query('SELECT userid, userlvl, nickname FROM users');
+        while($data=$req->fetch(\PDO::FETCH_ASSOC)){
+            $users[] = new User($data);
         }
-        return $result;
+        return $users;
     }
-
-    public function getNickname($id) 
-    {
-        $db = DBfactory::getInstance();
-        $req = $db->prepare('SELECT nickname FROM users WHERE userid = ?');
-        $req->execute(array(strtolower($id)));
-        $result = $req->fetch(\PDO::FETCH_ASSOC);
-        return $result['nickname'];
-    }
-
-    public function getInfos($email) 
-    {
-        $db = DBfactory::getInstance();
-        $req = $db->prepare('SELECT nickname,userlvl,userid FROM users WHERE email = ?');
-        $req->execute(array($email));
-        $result = $req->fetch(\PDO::FETCH_ASSOC);
-        return $result;
-    }
-
     public function getCountIp($ip) 
     {
         $db = DBfactory::getInstance();
@@ -47,16 +39,25 @@ class UsersManager
         return $data;
     }
 
-    public function testPwd($email, $pwd) 
+    public function connect($email, $pwd)
     {
-        $db = DBfactory::getInstance();
-        $req = $db->prepare('SELECT pwd FROM users WHERE email = ?');
-        $req->execute(array(strtolower($email)));
-        $result = $req->fetch(\PDO::FETCH_ASSOC);
-        if (password_verify($pwd, $result['pwd'])) {
-            return true;
-        } else {
-            return false;
+        if($this->getCountIp($_SERVER['REMOTE_ADDR'])>= 10){
+            session_destroy();
+            return "false_ip";
+        }else {
+            $db = DBfactory::getInstance();
+            $req = $db->prepare('SELECT pwd,userid FROM users WHERE email = ?');
+            $req->execute(array(strtolower($email)));
+            $result = $req->fetch(\PDO::FETCH_ASSOC);
+            if (password_verify($pwd, $result['pwd'])) {
+                $_SESSION['user'] = $this->getUser($result['userid']);
+                $_SESSION['user']->setTicket();
+                return "ok";
+            } else {
+                session_destroy();
+                $this->wrongPass($_SERVER['REMOTE_ADDR'], $email);
+                return "false_mdp";
+            }
         }
     }
 

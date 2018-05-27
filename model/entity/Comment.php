@@ -15,7 +15,7 @@ namespace model\entity;
  */
 class Comment {
 
-    public $postid;
+    public $postId;
     public $commentId;
     public $title;
     public $email;
@@ -38,7 +38,7 @@ class Comment {
             $this->setError();
         }
         if($this->getError()=== 0){
-            $this->setPostid($array['postid']);
+            $this->setPostId($array['postid']);
             $this->setComment(\model\Formatcontent::formatBdd($array['comment']));
             $this->setFirstName(\model\Formatcontent::formatBdd($array['first_name']));
             $this->setLastName(\model\Formatcontent::formatBdd($array['last_name']));
@@ -59,8 +59,8 @@ class Comment {
         return $this->error;
     }
 
-    public function getPostid() {
-        return $this->postid;
+    public function getPostId() {
+        return $this->postId;
     }
 
     public function getCommentId()
@@ -92,10 +92,10 @@ class Comment {
         $this->error = ++$this->error;
     }
 
-    protected function setPostid($postid) {
-        intval($postid);
-        if ($postid > 0) {
-            $this->postid = $postid;
+    protected function setPostId($postId) {
+        intval($postId);
+        if ($postId > 0) {
+            $this->postId = $postId;
         } else {
             $this->setError();
         }

@@ -8,54 +8,46 @@ class User
 {
     protected $usersManager;
     protected $ticket;
-    public $userlvl;
+    public $userLvl;
     public $nickname;
-    public $userid;
+    public $userId;
 
-    public function __construct() 
+    public function __construct($user)
     {
-        $this->usersManager= new \model\UsersManager();
-        $this->setUserlvl("4");
+        $this->setNickname($user['nickname']);
+        $this->setUserLvl($user['userlvl']);
+        $this->setUserId($user['userid']);
     }
     public function getNickname() 
     {
         return $this->nickname;
     }
-    public function getUserlvl() 
+    public function getUserLvl()
     {
-        return $this->userlvl;
+        return $this->userLvl;
     }
-    public function getUserid() 
+    public function getUserId()
     {
-        return $this->userid;
+        return $this->userId;
     }
-    private function setUserid($userid)
+    private function setUserId($userId)
     {
-        $this->userid = $userid;
+        $this->userId = $userId;
     }
-    private function setUserlvl($userlvl) 
+    private function setUserLvl($userlvl)
     {
-        $this->userlvl = $userlvl;
+        $this->userLvl = $userlvl;
     }
     private function setNickname($nickname) 
     { 
         $this->nickname = $nickname;
     }
-    private function setTicket() 
+    public function setTicket()
     {
         $this->ticket = hash('sha512', session_id().microtime().rand(0, 9999999999));
         setcookie('ticket', $this->ticket, time()+(60*20));
     }
-    protected function testIp() 
-    {
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $count = $this->usersManager->getCountIp($ip);
-        if ($count>10) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+
     public function verifTicket()
     {
         if (isset($_COOKIE['ticket']) && ($this->ticket == $_COOKIE['ticket'])) {
@@ -68,26 +60,7 @@ class User
             return 'wrong_ticket';
         }
     }
-    public function connect($email,$pwd)
-    {
-        if ($this->testIp()) {
-            if ($this->usersManager->testPwd(Formatcontent::formatBdd($email), Formatcontent::formatBdd($pwd))) {
-                $infos = $this->usersManager->getInfos($email);
-                $this->setNickname($infos['nickname']);
-                $this->setUserlvl($infos['userlvl']);
-                $this->setUserid($infos['userid']);
-                $this->setTicket();
-                return 'ok';                
-            } else {
-                session_destroy();
-                $this->usersManager->wrongPass($_SERVER['REMOTE_ADDR'], $email);
-                return 'false_mdp';
-            }
-        } else {
-            session_destroy();
-            return 'false_ip';
-        }
-    }
+
     public function disconnect()
     {
         session_destroy();
