@@ -2,12 +2,23 @@
 
 namespace model;
 
+/**
+ * Class Formatcontent
+ * @package model
+ */
 class Formatcontent
 {
-    private function __construct() 
+    /**
+     * Formatcontent constructor.
+     */
+    private function __construct()
     {
     }
-    
+
+    /**
+     * @param $content
+     * @return null|string|string[]
+     */
     static public function format($content)
     {
         
@@ -26,6 +37,11 @@ class Formatcontent
         
         return $content;  
     }
+
+    /**
+     * @param $content
+     * @return null|string|string[]
+     */
     static public function formatBdd($content){
 
         $content = preg_replace('`\>(.+)\<`isU', '', $content);

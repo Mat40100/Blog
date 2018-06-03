@@ -4,15 +4,26 @@ namespace model;
 
 use model\entity\User;
 
+/**
+ * Class UsersManager
+ * @package model
+ */
 class UsersManager
 {
 
-    public function __construct() 
+    /**
+     * UsersManager constructor.
+     */
+    public function __construct()
     {
         ;
     }
 
 
+    /**
+     * @param $userid
+     * @return User
+     */
     public function getUser($userid)
     {
         $db = DBfactory::getInstance();
@@ -22,6 +33,10 @@ class UsersManager
         $user = new User($result);
         return $user;
     }
+
+    /**
+     * @return array
+     */
     public function getUsers(){
         $db = DBfactory::getInstance();
         $req = $db->query('SELECT userid, userlvl, nickname FROM users');
@@ -30,7 +45,12 @@ class UsersManager
         }
         return $users;
     }
-    public function getCountIp($ip) 
+
+    /**
+     * @param $ip
+     * @return int
+     */
+    public function getCountIp($ip)
     {
         $db = DBfactory::getInstance();
         $req = $db->prepare('SELECT ip FROM connexion_failed WHERE ip = ?');
@@ -39,6 +59,11 @@ class UsersManager
         return $data;
     }
 
+    /**
+     * @param $email
+     * @param $pwd
+     * @return string
+     */
     public function connect($email, $pwd)
     {
         if($this->getCountIp($_SERVER['REMOTE_ADDR'])>= 10){
@@ -61,7 +86,11 @@ class UsersManager
         }
     }
 
-    public function wrongPass($ip, $email) 
+    /**
+     * @param $ip
+     * @param $email
+     */
+    public function wrongPass($ip, $email)
     {
         $db = DBfactory::getInstance();
         $req = $db->prepare('INSERT INTO connexion_failed(ip,email,time) VALUES(:ip, :email, :time)');

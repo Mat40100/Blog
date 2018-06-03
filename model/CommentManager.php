@@ -4,16 +4,33 @@ namespace model;
 
 use model\entity\Comment;
 
+/**
+ * Class CommentManager
+ * @package model
+ */
 class CommentManager {
 
+    /**
+     * @var PostsManager
+     */
     protected $postsManager;
+    /**
+     * @var \PDO
+     */
     protected $db;
 
+    /**
+     * CommentManager constructor.
+     */
     public function __construct() {
         $this->postsManager = new PostsManager;
         $this->db = DBfactory::getInstance();
     }
 
+    /**
+     * @param Comment $comment
+     * @return bool
+     */
     public function addComment(Comment $comment) {
             $req = $this->db->prepare('INSERT INTO comments(postid, last_name, first_name, email, last_mod, comment) VALUES(:postid, :last_name, :first_name, :email, :last_mod, :comment)');
             $req->execute(
@@ -29,6 +46,10 @@ class CommentManager {
             return true;
     }
 
+    /**
+     * @param $postId
+     * @return array
+     */
     public function getComments($postId) {
         $req = $this->db->prepare('SELECT * FROM comments WHERE postid=:postId AND valid=1');
         $req->execute(
@@ -45,6 +66,9 @@ class CommentManager {
         return $comments;
     }
 
+    /**
+     * @return array
+     */
     public function getUnvalidComments() {
         $req = $this->db->prepare('SELECT * FROM comments WHERE valid=0');
         $req->execute();
@@ -60,6 +84,9 @@ class CommentManager {
         return $comments;
     }
 
+    /**
+     * @param array $array
+     */
     public function commentValidation(array $array)
     {
         foreach ($array as $id => $value) {
@@ -74,6 +101,10 @@ class CommentManager {
         }
     }
 
+    /**
+     * @param $commentId
+     * @return Comment
+     */
     public function getComment($commentId){
         $req = $this->db->prepare('SELECT * FROM comments WHERE comment_id=:commentId');
         $req->execute(
@@ -86,13 +117,19 @@ class CommentManager {
         return $comment;
     }
 
-    private function validComment(Comment $comment)
+    /**
+     * @param Comment $comment
+     */
+    public function validComment(Comment $comment)
     {
         $req = $this->db->prepare('UPDATE comments SET valid=1 WHERE comment_id= ?');
         $req->execute(array($comment->getCommentId()));
     }
 
-    private function deleteComment(Comment $comment){
+    /**
+     * @param Comment $comment
+     */
+    public function deleteComment(Comment $comment){
         $req = $this->db->prepare('DELETE FROM comments WHERE comment_id= ?');
         $req->execute(array($comment->getCommentId()));
     }

@@ -6,28 +6,30 @@ use model\Formatcontent;
 
 session_start();
 
-class LpController extends ControllerMain {
+/**
+ * Class LpController
+ * @package controller
+ */
+class LpAbstractController extends AbstractController {
 
+    /**
+     *
+     */
     public function generic() {
         $home = $this->gen->getInfos();
-        try {
-            echo $this->twig->render(
-                'content_home.twig', [
-                    'infos' => $home
-                ]
-            );
-        } catch (\Twig_Error_Loader $e) {
-        } catch (\Twig_Error_Runtime $e) {
-        } catch (\Twig_Error_Syntax $e) {
-        }
-        try {
-            echo $this->twig->render('navbar_main.twig');
-        } catch (\Twig_Error_Loader $e) {
-        } catch (\Twig_Error_Runtime $e) {
-        } catch (\Twig_Error_Syntax $e) {
-        }
+
+        echo $this->twig->render(
+            'content_home.twig', [
+                'infos' => $home
+            ]
+        );
+
+        echo $this->twig->render('navbar_main.twig');
     }
 
+    /**
+     *
+     */
     public function mail() {
         if ($this->gen->mailContact($_POST)) {
             header('location: ?p=alert&alert=Email envoyé!');
@@ -36,27 +38,27 @@ class LpController extends ControllerMain {
         }
     }
 
+    /**
+     *
+     */
     public function alert() {
         $home = $this->gen->getInfos();
-        try {
-            echo $this->twig->render('navbar_main.twig');
-        } catch (\Twig_Error_Loader $e) {
-        } catch (\Twig_Error_Runtime $e) {
-        } catch (\Twig_Error_Syntax $e) {
-        }
-        try {
-            echo $this->twig->render(
-                'alert.twig', [
-                    'infos' => $home,
-                    'alert' => $_GET['alert']
-                ]
-            );
-        } catch (\Twig_Error_Loader $e) {
-        } catch (\Twig_Error_Runtime $e) {
-        } catch (\Twig_Error_Syntax $e) {
-        }
+
+        echo $this->twig->render('navbar_main.twig');
+
+
+        echo $this->twig->render(
+            'alert.twig', [
+                'infos' => $home,
+                'alert' => $_GET['alert']
+            ]
+        );
+
     }
 
+    /**
+     *
+     */
     public function dl() {
         if (isset($_GET['pdf'])) {
             $pdf = $_GET['pdf'];
@@ -66,6 +68,9 @@ class LpController extends ControllerMain {
         }
     }
 
+    /**
+     *
+     */
     public function log() {
         switch ($this->usersManager->connect(Formatcontent::formatBdd($_POST['email']), Formatcontent::formatBdd($_POST['pwd']))) {
             case 'ok':
@@ -86,6 +91,9 @@ class LpController extends ControllerMain {
         }
     }
 
+    /**
+     *
+     */
     public function disconnect() {
         $_SESSION = array();
         session_destroy();

@@ -2,14 +2,20 @@
 
 require "vendor/autoload.php";
 
+/**
+ * Class Router
+ */
 class Router
 {
 
-    public static function redirect() 
+    /**
+     *
+     */
+    public static function redirect()
     {
-        $lpController = new controller\LpController();
-        $AdminController = new \controller\AdminController();
-        $BlogController = new \controller\BlogController();
+        $lpController = new \controller\LpAbstractController();
+        $adminController = new \controller\AdminAbstractController();
+        $blogController = new \controller\BlogAbstractController();
 
         switch ($_GET['p']) {
         case 'home':
@@ -33,19 +39,19 @@ class Router
         case 'blog':
             switch ($_GET['d']) {
             case 'post':
-                $BlogController->post();
+                $blogController->post();
                 break;
 
             case 'list':
-                $BlogController->postList();
+                $blogController->postList();
                 break;
 
             case 'add_comment':
-                $BlogController->addComment();
+                $blogController->addComment();
                 break;
 
             default :
-                $BlogController->postList();
+                $blogController->postList();
                 break;
             }
             break;
@@ -53,22 +59,22 @@ class Router
         case 'admin':
             switch ($_GET['d']) {
             case 'valid_comment':
-                $AdminController->validComments();
+                $adminController->validComments();
                 break;
             case 'add_post':
-                $AdminController->addPost();
+                $adminController->addPost();
                 break;
             case 'modifier':
-                $AdminController->modPost();
+                $adminController->modPost();
                 break;
             case 'supprimer':
-                $AdminController->delPost();
+                $adminController->delPost();
                 break;
             case 'valid_mod':
-                $AdminController->validMod();
+                $adminController->validMod();
                 break;
             default:
-                $AdminController->admin();
+                $adminController->admin();
                 break;
             }
 

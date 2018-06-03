@@ -3,18 +3,34 @@
 namespace model;
 
 
+/**
+ * Class DBfactory
+ * @package model
+ */
 class DBfactory
 {
 
+    /**
+     * @var
+     */
     protected static $instance;
+    /**
+     * @var
+     */
     protected static $twig;
 
-    private function __construct() 
+    /**
+     * DBfactory constructor.
+     */
+    private function __construct()
     {
         
     }
 
-    public static function twig() 
+    /**
+     * @return \Twig\Environment
+     */
+    public static function twig()
     {
         $loader = new \Twig\Loader\FilesystemLoader('./view');
         self::$twig = new \Twig\Environment(
@@ -27,7 +43,10 @@ class DBfactory
         return self::$twig;
     }
 
-    public static function getInstance() 
+    /**
+     * @return \PDO
+     */
+    public static function getInstance()
     {
         if (is_null(self::$instance)) {
                 $db = include 'dbconfig.php';

@@ -6,25 +6,25 @@ use model\UsersManager;
 
 class Post
 {
-    public $postId;
-    public $authorId;
-    public $authorName;
-    public $title;
-    public $chapo;
-    public $content;
-    public $lastMod;
-    public $error;
+    private $postId;
+    private $authorId;
+    private $authorName;
+    private $title;
+    private $chapo;
+    private $content;
+    private $lastMod;
+    private $error;
 
     public function __construct( $array, $form)
     {
         $this->error = 0;
         foreach($array as $key => $value) {
             if (!isset($value)) {
-                $this->setError();
+                $this->addError();
             }
         }
         if(!array_key_exists("title",$array) || !array_key_exists("chapo",$array) || !array_key_exists("content",$array) ){
-            $this->setError();
+            $this->addError();
         }
         if($this->getError()=== 0){
             if(isset($array['postid'])) {
@@ -88,9 +88,14 @@ class Post
         return $this->lastMod;
     }
 
-    private function setError()
+    public function addError()
     {
-        $this->error = ++$this->error;
+        $this->error= ++$this->error;
+    }
+
+    private function setError($error)
+    {
+        $this->error = $error;
     }
 
     private function setPostId($postid)

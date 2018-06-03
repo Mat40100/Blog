@@ -2,18 +2,34 @@
 
 namespace model;
 
+/**
+ * Class Generic
+ * @package model
+ */
 class Generic
 {
 
+    /**
+     * @var
+     */
     protected $infos;
+    /**
+     * @var \PDO
+     */
     protected $db;
 
-    public function __construct() 
+    /**
+     * Generic constructor.
+     */
+    public function __construct()
     {
         $this->db = \model\DBfactory::getInstance();
     }
 
-    public function getInfos() 
+    /**
+     * @return mixed
+     */
+    public function getInfos()
     {
 
         $req = $this->db->query('SELECT last_name,first_name,chapo,email,adress,github,linkedin,pdf FROM users WHERE userlvl="1" ');
@@ -22,7 +38,11 @@ class Generic
         return $result;
     }
 
-    public function mailContact($datas) 
+    /**
+     * @param $datas
+     * @return bool
+     */
+    public function mailContact($datas)
     {
 
         // Ma clé privée

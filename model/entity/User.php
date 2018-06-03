@@ -6,11 +6,10 @@ use model\Formatcontent;
 
 class User
 {
-    protected $usersManager;
-    protected $ticket;
-    public $userLvl;
-    public $nickname;
-    public $userId;
+    private $ticket;
+    private $userLvl;
+    private $nickname;
+    private $userId;
 
     public function __construct($user)
     {

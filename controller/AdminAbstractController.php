@@ -6,42 +6,46 @@ use model\entity\Post;
 
 session_start();
 
-class AdminController extends ControllerMain {
+/**
+ * Class AdminAbstractController
+ * @package controller
+ */
+class AdminAbstractController extends AbstractController
+{
 
-    public function admin() {
-        if (isset($_SESSION['user'])) {
-            if ($_SESSION['user']->getUserlvl() <= 2) {
-                $unvalidComments = $this->commentManager->getUnvalidComments();
-                $posts = $this->postsManager->getPosts();
-                try {
-                    echo $this->twig->render(
-                        'navbar_admin.twig', [
-                            'hide_admin' => true
-                        ]
-                    );
-                } catch (\Twig_Error_Loader $e) {
-                } catch (\Twig_Error_Runtime $e) {
-                } catch (\Twig_Error_Syntax $e) {
-                }
-                try {
-                    echo $this->twig->render(
-                        'content_admin.twig', [
-                            'liste' => $posts,
-                            'unvalidcomments' => $unvalidComments
-                        ]
-                    );
-                } catch (\Twig_Error_Loader $e) {
-                } catch (\Twig_Error_Runtime $e) {
-                } catch (\Twig_Error_Syntax $e) {
-                }
-            } else {
-                header('location: ?p=alert&alert=Vous devez être modérateur pour effectuer cette action');
-            }
-        } else {
+    /**
+     *
+     */
+    public function admin()
+    {
+        if (!isset($_SESSION['user'])){
             header('location: ?p=alert&alert=Vous devez être connecté pour effectuer cette action');
         }
+
+        if ($_SESSION['user']->getUserlvl() > 2) {
+            header('location: ?p=alert&alert=Vous devez être modérateur pour effectuer cette action');
+        }
+
+        $unvalidComments = $this->commentManager->getUnvalidComments();
+        $posts = $this->postsManager->getPosts();
+
+        echo $this->twig->render(
+            'navbar_admin.twig', [
+                'hide_admin' => true
+            ]
+        );
+
+        echo $this->twig->render(
+            'content_admin.twig', [
+                'liste' => $posts,
+                'unvalidcomments' => $unvalidComments
+            ]
+        );
     }
 
+    /**
+     *
+     */
     public function validComments() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() <= 2) {
@@ -55,6 +59,9 @@ class AdminController extends ControllerMain {
         }
     }
 
+    /**
+     *
+     */
     public function addPost() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
@@ -74,6 +81,9 @@ class AdminController extends ControllerMain {
         }
     }
 
+    /**
+     *
+     */
     public function modPost() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
@@ -108,6 +118,9 @@ class AdminController extends ControllerMain {
         }
     }
 
+    /**
+     *
+     */
     public function validMod() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {
@@ -126,6 +139,9 @@ class AdminController extends ControllerMain {
         }
     }
 
+    /**
+     *
+     */
     public function delPost() {
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getUserlvl() == 1) {

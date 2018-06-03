@@ -15,16 +15,20 @@ namespace model\entity;
  */
 class Comment {
 
-    public $postId;
-    public $commentId;
-    public $title;
-    public $email;
-    public $firstName;
-    public $lastName;
-    public $lastMod;
-    public $comment;
-    public $error;
+    private $postId;
+    private $commentId;
+    private $title;
+    private $email;
+    private $firstName;
+    private $lastName;
+    private $lastMod;
+    private $comment;
+    private $error;
 
+    /**
+     * Comment constructor.
+     * @param $array
+     */
     public function __construct($array) {
         $this->error = 0;
         foreach($array as $key => $value){
@@ -86,11 +90,11 @@ class Comment {
         return $this->comment;
     }
 
-    protected function setError() {
+    public function setError() {
         $this->error = ++$this->error;
     }
 
-    protected function setPostId($postId) {
+    public function setPostId($postId) {
         intval($postId);
         if ($postId > 0) {
             $this->postId = $postId;
@@ -99,7 +103,7 @@ class Comment {
         }
     }
 
-    private function setCommentId($commentId)
+    public function setCommentId($commentId)
     {
         intval($commentId);
         if($commentId>0) {
@@ -114,23 +118,23 @@ class Comment {
         $this->title = $title;
     }
 
-    protected function setFirstName($firstName) {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
     }
 
-    protected function setLastName($lastName) {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
     }
 
-    protected function setLastMod() {
+    public function setLastMod() {
         $this->lastMod = date("Y-m-d H:i:s");
     }
 
-    protected function setComment($comment) {
+    public function setComment($comment) {
         $this->comment = $comment;
     }
 
-    protected function setEmail($email) {
+    public function setEmail($email) {
         $this->email = $email;
     }
 
