@@ -66,24 +66,25 @@ class UsersManager
      */
     public function connect($email, $pwd)
     {
+        $db = DBfactory::getInstance();
+        $req = $db->prepare('SELECT pwd,userid FROM users WHERE email = ?');
+        $req->execute(array(strtolower($email)));
+        $result = $req->fetch(\PDO::FETCH_ASSOC);
+        
         if($this->getCountIp($_SERVER['REMOTE_ADDR'])>= 10){
             session_destroy();
             return "false_ip";
-        }else {
-            $db = DBfactory::getInstance();
-            $req = $db->prepare('SELECT pwd,userid FROM users WHERE email = ?');
-            $req->execute(array(strtolower($email)));
-            $result = $req->fetch(\PDO::FETCH_ASSOC);
-            if (password_verify($pwd, $result['pwd'])) {
-                $_SESSION['user'] = $this->getUser($result['userid']);
-                $_SESSION['user']->setTicket();
-                return "ok";
-            } else {
-                session_destroy();
-                $this->wrongPass($_SERVER['REMOTE_ADDR'], $email);
-                return "false_mdp";
-            }
         }
+
+        if (!password_verify($pwd, $result['pwd'])) {
+            session_destroy();
+            $this->wrongPass($_SERVER['REMOTE_ADDR'], $email);
+            return "false_mdp";
+        }
+
+        $_SESSION['user'] = $this->getUser($result['userid']);
+        $_SESSION['user']->setTicket();
+        return "ok";
     }
 
     /**

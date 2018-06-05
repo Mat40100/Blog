@@ -59,19 +59,21 @@ class Generic
 
         $decode = json_decode(file_get_contents($api_url), true);
 
-        if ($decode['success'] === true) {
-            $to = 'mathieu.dolhen@gmail.com';
-            $subject = 'Contact';
-            $message = 'De: ' . $datas['last_name'] . ' ' . $datas['first_name'] . "\r\n" . $datas['message'];
-            $headers = 'FROM: mathieu.dolhen@klaynetv-online.fr' . "\r\n" .
-                    'Reply-To: ' . $datas['email'] . "\r\n" .
-                    'X-Mailer: PHP/' . phpversion();
+        if ($decode['success'] === false) {
 
-            mail($to, $subject, $message, $headers);
-            return true;
-        } else {
             return false;
         }
+
+        $to = 'mathieu.dolhen@gmail.com';
+        $subject = 'Contact';
+        $message = 'De: ' . $datas['last_name'] . ' ' . $datas['first_name'] . "\r\n" . Formatcontent::formatBdd($datas['message']);
+        $headers = 'FROM: mathieu.dolhen@klaynetv-online.fr' . "\r\n" .
+                'Reply-To: ' . $datas['email'] . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+
+        mail($to, $subject, $message, $headers);
+
+        return true;
     }
 
 }

@@ -31,11 +31,13 @@ class LpAbstractController extends AbstractController {
      *
      */
     public function mail() {
-        if ($this->gen->mailContact($_POST)) {
-            header('location: ?p=alert&alert=Email envoyé!');
-        } else {
+
+        if(!$this->gen->mailContact($_POST)){
             header('location: ?p=alert&alert=Problème avec l\'envoie, réessayez');
         }
+
+        header('location: ?p=alert&alert=Email envoyé!');
+
     }
 
     /**
@@ -60,12 +62,15 @@ class LpAbstractController extends AbstractController {
      *
      */
     public function dl() {
-        if (isset($_GET['pdf'])) {
-            $pdf = $_GET['pdf'];
-            header("Content-type: application/pdf");
-            header("Content-Disposition: attachment; filename=$pdf");
-            readfile($pdf);
+
+        if(!isset($_GET['pdf'])){
+            header('location: ?p=alert&alert=Problème avec l\'url');
         }
+
+        $pdf = $_GET['pdf'];
+        header("Content-type: application/pdf");
+        header("Content-Disposition: attachment; filename=$pdf");
+        readfile($pdf);
     }
 
     /**
@@ -87,6 +92,7 @@ class LpAbstractController extends AbstractController {
                 header('location: ?p=alert&alert=Trop de tentatives, retentez plus tard.');
                 break;
             default:
+                header('location: ?p=alert&alert=Erreur système');
                 break;
         }
     }

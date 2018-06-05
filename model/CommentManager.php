@@ -43,6 +43,7 @@ class CommentManager {
                         'postid' => $comment->getPostId()
                     )
             );
+
             return true;
     }
 
@@ -63,6 +64,7 @@ class CommentManager {
                 $comments[]=$comment;
             }
         }
+
         return $comments;
     }
 
@@ -91,12 +93,17 @@ class CommentManager {
     {
         foreach ($array as $id => $value) {
             $comment = $this->getComment($id);
-            if ($comment->getError() === 0) {
-                if ($value == "Valider") {
-                    $this->validComment($comment);
-                } else {
-                    $this->deleteComment($comment);
-                }
+
+            if ($comment->getError() != 0) {
+                header('location: ?p=alert&alert=Erreur systeme');
+            }
+
+            if ($value == "Valider") {
+                $this->validComment($comment);
+            }
+
+            if ($value == "Supprimer") {
+                $this->deleteComment($comment);
             }
         }
     }

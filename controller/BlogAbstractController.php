@@ -33,19 +33,19 @@ class BlogAbstractController extends AbstractController {
      */
     public function post() {
         $post = $this->postsManager->getPost($_GET['id'],"form");
-        if($post->getError() === 0){
+        $comments = $this->commentManager->getComments($post->getPostId());
 
-            echo $this->twig->render(
-                'content_post.twig', [
-                    'post' => $post,
-                    'comments' => $comments]
-            );
-
-            echo $this->twig->render('navbar_blog.twig');
-
-        }else{
+        if($post->getError() != 0){
             header('location: ?p=alert&alert=Ce post n\'éxiste pas');
         }
+
+        echo $this->twig->render(
+            'content_post.twig', [
+                'post' => $post,
+                'comments' => $comments]
+        );
+
+        echo $this->twig->render('navbar_blog.twig');
     }
 
     /**
@@ -53,12 +53,12 @@ class BlogAbstractController extends AbstractController {
      */
     public function addComment() {
         $comment = new Comment($_POST);
-        if($comment->getError()===0){
-            $this->commentManager->addComment($comment);
-            header('location: ?p=blog&d=post&id=' . $_POST['postid']);
-        }else{
+
+        if($comment->getError() != 0){
             header('location: ?p=alert&alert=Le formulaire de commentaire n\'a pas été rempli correctement');
         }
 
+        $this->commentManager->addComment($comment);
+        header('location: ?p=blog&d=post&id=' . $_POST['postid']);
     }
 }
